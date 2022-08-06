@@ -20,7 +20,7 @@ class ConnectionActivity : AppCompatActivity() {
         btnConnect.setOnClickListener {
             val IP = etIPAddr.text.toString()
             val port = etPort.text.toString()
-            val intent = Intent(this, MainActivity::class.java)
+            val intent = Intent(this, ControllerActivity::class.java)
             intent.putExtra("IP_ADDR", IP)
             intent.putExtra("PORT", port)
             startActivity(intent)

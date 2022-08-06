@@ -2,6 +2,7 @@ package com.example.eldify
 
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
+import android.util.Log
 import android.widget.Button
 import android.widget.TextView
 import android.widget.Toast
@@ -9,6 +10,7 @@ import com.example.eldify.EchoWebSocketListener.Companion.NORMAL_CLOSURE_STATUS
 import okhttp3.OkHttpClient
 import okhttp3.Request
 import okhttp3.WebSocket
+import org.json.JSONObject
 
 class ControllerActivity : AppCompatActivity() {
     private lateinit var IP_ADDR: String
@@ -16,10 +18,13 @@ class ControllerActivity : AppCompatActivity() {
     private var PORT = "80"
 
 
+    private val commandtv: TextView by lazy { findViewById(R.id.command) }
+    private val on_button: Button by lazy {findViewById(R.id.onbutton)}
+
     private val client by lazy {
         OkHttpClient()
     }
-    var wsTEMP: WebSocket? = null
+    var wsCOM: WebSocket? = null
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_controller)
@@ -27,11 +32,8 @@ class ControllerActivity : AppCompatActivity() {
         PORT = intent.getStringExtra("PORT").toString()
         SOCKET_URL = "ws://$IP_ADDR:$PORT"
 
-        val command: TextView = findViewById(R.id.command)
-        val on_button: Button =findViewById(R.id.onbutton)
         on_button.setOnClickListener {
-            sendText("A")
-            command.setText("ON")
+            sendJSONOnCOM("A")
         }
     }
     override fun onResume() {
@@ -56,17 +58,17 @@ class ControllerActivity : AppCompatActivity() {
 
     private fun start() {
 
-        val requestMPU: Request = Request.Builder().url("$SOCKET_URL/COM").build()
-        val listenerMPU =
+        val requestCOM: Request = Request.Builder().url("$SOCKET_URL/COM").build()
+        val listenerCOM =
             EchoWebSocketListener(this::outputCOM, this::ping, this::setConnectionStatus) {
-                wsTEMP = null
+                wsCOM = null
             }
-        wsTEMP = client.newWebSocket(requestMPU, listenerMPU)
-
+        wsCOM = client.newWebSocket(requestCOM, listenerCOM)
+        Log.d("Debug","Start executed")
     }
 
     private fun stop() {
-        wsTEMP?.close(NORMAL_CLOSURE_STATUS, "Connection Closed!")
+        wsCOM?.close(NORMAL_CLOSURE_STATUS, "Connection Closed!")
     }
 
     private fun ping(s: String) {
@@ -75,10 +77,13 @@ class ControllerActivity : AppCompatActivity() {
         }
     }
 
-    private fun sendText(command: String) {
-        wsTEMP?.apply {
-            send(command.toString())
+    private fun sendJSONOnCOM(command: String) {
+        wsCOM?.apply {
+            var jsonObj = JSONObject()
+            jsonObj.put("COM", command)
+            send(jsonObj.toString())
 //            Log.d("DEBUG", jsonObj.toString())
+            commandtv.text = command
         } ?: ping("Error: Restart the App to reconnect")
     }
 
