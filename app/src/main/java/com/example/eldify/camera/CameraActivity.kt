@@ -17,7 +17,7 @@ class CameraActivity : AppCompatActivity() {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_camera)
 
-        webView.loadUrl("https://local_ip:port")
+        webView.loadUrl("http://192.168.199.189:5000")
 
        val webSettings : WebSettings = webView.settings
         webSettings.javaScriptEnabled = true
