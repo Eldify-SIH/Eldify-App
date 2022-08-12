@@ -17,10 +17,10 @@
         android:usesCleartextTraffic="true"
         tools:targetApi="31">
         <activity
-            android:name=".CameraActivity"
+            android:name=".camera.CameraActivity"
             android:exported="false" />
         <activity
-            android:name=".JitsiWebConfJoinActivity"
+            android:name=".webconf.JitsiWebConfJoinActivity"
             android:exported="false" />
         <activity
             android:name=".websocket.ConnectionActivity"
