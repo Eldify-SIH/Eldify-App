@@ -1,5 +1,4 @@
-package com.example.eldify
-
+package com.example.eldify.websocket
 
 import okhttp3.Response
 import okhttp3.WebSocket

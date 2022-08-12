@@ -1,4 +1,4 @@
-package com.example.eldify
+package com.example.eldify.websocket
 
 import android.annotation.SuppressLint
 import androidx.appcompat.app.AppCompatActivity
@@ -8,7 +8,8 @@ import android.view.MotionEvent
 import android.widget.Button
 import android.widget.TextView
 import android.widget.Toast
-import com.example.eldify.EchoWebSocketListener.Companion.NORMAL_CLOSURE_STATUS
+import com.example.eldify.R
+import com.example.eldify.websocket.EchoWebSocketListener.Companion.NORMAL_CLOSURE_STATUS
 import okhttp3.OkHttpClient
 import okhttp3.Request
 import okhttp3.WebSocket

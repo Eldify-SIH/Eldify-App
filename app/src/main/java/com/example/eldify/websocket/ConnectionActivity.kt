@@ -1,10 +1,11 @@
-package com.example.eldify
+package com.example.eldify.websocket
 
 import android.content.Intent
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import android.widget.Button
 import android.widget.EditText
+import com.example.eldify.R
 
 class ConnectionActivity : AppCompatActivity() {
 

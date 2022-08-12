@@ -3,6 +3,9 @@
   <component name="DesignSurface">
     <option name="filePathToZoomLevelMap">
       <map>
+        <entry key="..\:/Academics/SIH/Eldify-App/app/src/main/res/drawable/ic_baseline_video_call_24.xml" value="0.2585" />
+        <entry key="..\:/Academics/SIH/Eldify-App/app/src/main/res/layout/activity_camera.xml" value="0.1" />
+        <entry key="..\:/Academics/SIH/Eldify-App/app/src/main/res/layout/activity_jitsi_web_conf_join.xml" value="0.286231884057971" />
         <entry key="..\:/Users/Admin/AndroidStudioProjects/Eldify2/app/src/main/res/drawable/roundedbutton.xml" value="0.177" />
         <entry key="..\:/Users/Admin/AndroidStudioProjects/Eldify2/app/src/main/res/layout/activity_connection.xml" value="0.13903985507246377" />
         <entry key="..\:/Users/Admin/AndroidStudioProjects/Eldify2/app/src/main/res/layout/activity_controller.xml" value="0.13903985507246377" />
