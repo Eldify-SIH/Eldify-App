@@ -4,11 +4,15 @@
     <option name="filePathToZoomLevelMap">
       <map>
         <entry key="..\:/Academics/SIH/Eldify-App/app/src/main/res/drawable/ic_baseline_video_call_24.xml" value="0.2585" />
+        <entry key="..\:/Academics/SIH/Eldify-App/app/src/main/res/drawable/ic_menu_slideshow.xml" value="0.189" />
         <entry key="..\:/Academics/SIH/Eldify-App/app/src/main/res/layout/activity_camera.xml" value="0.1" />
         <entry key="..\:/Academics/SIH/Eldify-App/app/src/main/res/layout/activity_jitsi_web_conf_join.xml" value="0.286231884057971" />
         <entry key="..\:/Academics/SIH/Eldify-App/app/src/main/res/layout/activity_main.xml" value="0.18072916666666666" />
         <entry key="..\:/Academics/SIH/Eldify-App/app/src/main/res/layout/app_bar_main.xml" value="0.18072916666666666" />
         <entry key="..\:/Academics/SIH/Eldify-App/app/src/main/res/layout/content_main.xml" value="0.18072916666666666" />
+        <entry key="..\:/Academics/SIH/Eldify-App/app/src/main/res/layout/fragment_bot.xml" value="0.18072916666666666" />
+        <entry key="..\:/Academics/SIH/Eldify-App/app/src/main/res/layout/fragment_gallery.xml" value="0.18072916666666666" />
+        <entry key="..\:/Academics/SIH/Eldify-App/app/src/main/res/layout/fragment_video.xml" value="0.18072916666666666" />
         <entry key="..\:/Users/Admin/AndroidStudioProjects/Eldify2/app/src/main/res/drawable/roundedbutton.xml" value="0.177" />
         <entry key="..\:/Users/Admin/AndroidStudioProjects/Eldify2/app/src/main/res/layout/activity_connection.xml" value="0.13903985507246377" />
         <entry key="..\:/Users/Admin/AndroidStudioProjects/Eldify2/app/src/main/res/layout/activity_controller.xml" value="0.13903985507246377" />

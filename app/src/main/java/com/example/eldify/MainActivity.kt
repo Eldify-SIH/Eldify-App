@@ -44,9 +44,9 @@ class MainActivity : AppCompatActivity() {
         setupActionBarWithNavController(sideNavController, appBarConfiguration)
         sideNavView.setupWithNavController(sideNavController)
 
-       /* val botNavView: BottomNavigationView = binding.botNavView
+        val botNavView: BottomNavigationView = binding.appBarMain.contentMain.navView
 
-        val botNavController = findNavController(R.id.bot_nav_host_fragment_activity_main)
+        val botNavController = findNavController(R.id.nav_host_fragment_activity_main)
         // Passing each menu ID as a set of Ids because each
         // menu should be considered as top level destinations.
         val appBarConfiguration = AppBarConfiguration(
@@ -55,7 +55,7 @@ class MainActivity : AppCompatActivity() {
             )
         )
         setupActionBarWithNavController(botNavController, appBarConfiguration)
-        botNavView.setupWithNavController(botNavController)*/
+        botNavView.setupWithNavController(botNavController)
     }
 
     override fun onCreateOptionsMenu(menu: Menu): Boolean {
