@@ -1,4 +1,4 @@
-package com.example.eldify
+package com.sih.eldify
 
 import org.junit.Test
 

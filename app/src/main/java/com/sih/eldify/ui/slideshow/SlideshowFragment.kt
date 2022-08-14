@@ -1,18 +1,17 @@
-package com.example.eldify.ui.video
+package com.sih.eldify.ui.slideshow
 
-import androidx.lifecycle.ViewModelProvider
 import android.os.Bundle
-import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.widget.TextView
-import com.example.eldify.R
-import com.example.eldify.databinding.FragmentVideoBinding
+import androidx.fragment.app.Fragment
+import androidx.lifecycle.ViewModelProvider
+import com.sih.eldify.databinding.FragmentSlideshowBinding
 
-class VideoFragment : Fragment() {
+class SlideshowFragment : Fragment() {
 
-    private var _binding: FragmentVideoBinding? = null
+    private var _binding: FragmentSlideshowBinding? = null
 
     // This property is only valid between onCreateView and
     // onDestroyView.
@@ -23,14 +22,14 @@ class VideoFragment : Fragment() {
         container: ViewGroup?,
         savedInstanceState: Bundle?
     ): View {
-        val videoViewModel =
-            ViewModelProvider(this).get(VideoViewModel::class.java)
+        val slideshowViewModel =
+            ViewModelProvider(this).get(SlideshowViewModel::class.java)
 
-        _binding = FragmentVideoBinding.inflate(inflater, container, false)
+        _binding = FragmentSlideshowBinding.inflate(inflater, container, false)
         val root: View = binding.root
 
-        val textView: TextView = binding.textVideo
-        videoViewModel.text.observe(viewLifecycleOwner) {
+        val textView: TextView = binding.textSlideshow
+        slideshowViewModel.text.observe(viewLifecycleOwner) {
             textView.text = it
         }
         return root
@@ -40,5 +39,4 @@ class VideoFragment : Fragment() {
         super.onDestroyView()
         _binding = null
     }
-
 }

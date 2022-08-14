@@ -20,9 +20,7 @@
 
     </com.google.android.material.appbar.AppBarLayout>
 
-    <include
-        android:id="@+id/content_main"
-        layout="@layout/content_main" />
+    <include layout="@layout/content_main" />
 
     <com.google.android.material.floatingactionbutton.FloatingActionButton
         android:id="@+id/fab"
@@ -32,5 +30,16 @@
         android:layout_marginEnd="@dimen/fab_margin"
         android:layout_marginBottom="70dp"
         app:srcCompat="@android:drawable/ic_dialog_email" />
+
+    <com.google.android.material.bottomnavigation.BottomNavigationView
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:id="@+id/bottom_navigation_view"
+        android:layout_alignParentBottom="true"
+        app:menu="@menu/bottom_nav_view_menu"
+        app:layout_behavior="com.google.android.material.behavior.HideBottomViewOnScrollBehavior"
+        android:elevation="12dp"
+        android:layout_gravity="bottom"
+        android:background="?android:attr/windowBackground"/>
 
 </androidx.coordinatorlayout.widget.CoordinatorLayout>

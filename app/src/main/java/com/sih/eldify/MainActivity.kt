@@ -1,18 +1,14 @@
-package com.example.eldify
+package com.sih.eldify
 
 import android.os.Bundle
 import android.view.Menu
 import com.google.android.material.snackbar.Snackbar
 import com.google.android.material.navigation.NavigationView
 import androidx.navigation.findNavController
-import androidx.navigation.ui.AppBarConfiguration
-import androidx.navigation.ui.navigateUp
-import androidx.navigation.ui.setupActionBarWithNavController
-import androidx.navigation.ui.setupWithNavController
 import androidx.drawerlayout.widget.DrawerLayout
 import androidx.appcompat.app.AppCompatActivity
-import com.example.eldify.databinding.ActivityMainBinding
-import com.google.android.material.bottomnavigation.BottomNavigationView
+import androidx.navigation.ui.*
+import com.sih.eldify.databinding.ActivityMainBinding
 
 class MainActivity : AppCompatActivity() {
 
@@ -32,30 +28,18 @@ class MainActivity : AppCompatActivity() {
                 .setAction("Action", null).show()
         }
         val drawerLayout: DrawerLayout = binding.drawerLayout
-        val sideNavView: NavigationView = binding.sideNavView
-        val sideNavController = findNavController(R.id.side_nav_host_fragment_content_main)
+        val navView: NavigationView = binding.navView
+        val navController = findNavController(R.id.nav_host_fragment_content_main)
         // Passing each menu ID as a set of Ids because each
         // menu should be considered as top level destinations.
         appBarConfiguration = AppBarConfiguration(
             setOf(
-                R.id.nav_home, R.id.nav_gallery, R.id.nav_slideshow
+                R.id.nav_home, R.id.nav_gallery, R.id.nav_slideshow, R.id.botFragment, R.id.sosFragment, R.id.videoFragment
             ), drawerLayout
         )
-        setupActionBarWithNavController(sideNavController, appBarConfiguration)
-        sideNavView.setupWithNavController(sideNavController)
-
-        val botNavView: BottomNavigationView = binding.appBarMain.contentMain.navView
-
-        val botNavController = findNavController(R.id.nav_host_fragment_activity_main)
-        // Passing each menu ID as a set of Ids because each
-        // menu should be considered as top level destinations.
-        val appBarConfiguration = AppBarConfiguration(
-            setOf(
-                R.id.navigation_bot, R.id.navigation_sos, R.id.navigation_video
-            )
-        )
-        setupActionBarWithNavController(botNavController, appBarConfiguration)
-        botNavView.setupWithNavController(botNavController)
+        setupActionBarWithNavController(navController, appBarConfiguration)
+        navView.setupWithNavController(navController)
+        NavigationUI.setupWithNavController(binding.appBarMain.bottomNavigationView, navController)
     }
 
     override fun onCreateOptionsMenu(menu: Menu): Boolean {
@@ -65,7 +49,7 @@ class MainActivity : AppCompatActivity() {
     }
 
     override fun onSupportNavigateUp(): Boolean {
-        val navController = findNavController(R.id.side_nav_host_fragment_content_main)
+        val navController = findNavController(R.id.nav_host_fragment_content_main)
         return navController.navigateUp(appBarConfiguration) || super.onSupportNavigateUp()
     }
 }

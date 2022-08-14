@@ -1,13 +1,13 @@
-package com.example.eldify.ui.home
+package com.sih.eldify.ui.slideshow
 
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
 
-class HomeViewModel : ViewModel() {
+class SlideshowViewModel : ViewModel() {
 
     private val _text = MutableLiveData<String>().apply {
-        value = "This is home Fragment"
+        value = "This is slideshow Fragment"
     }
     val text: LiveData<String> = _text
 }

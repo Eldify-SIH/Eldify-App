@@ -1,11 +1,11 @@
-package com.example.eldify.ui.sos
+package com.sih.eldify.ui.home
 
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
 
-class SOSViewModel : ViewModel() {
-    // TODO: Implement the ViewModel
+class HomeViewModel : ViewModel() {
+
     private val _text = MutableLiveData<String>().apply {
         value = "This is home Fragment"
     }

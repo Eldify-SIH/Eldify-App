@@ -7,37 +7,34 @@
 
     <fragment
         android:id="@+id/nav_home"
-        android:name="com.example.eldify.ui.home.HomeFragment"
+        android:name="com.sih.eldify.ui.home.HomeFragment"
         android:label="@string/menu_home"
         tools:layout="@layout/fragment_home" />
 
     <fragment
         android:id="@+id/nav_gallery"
-        android:name="com.example.eldify.ui.gallery.GalleryFragment"
+        android:name="com.sih.eldify.ui.gallery.GalleryFragment"
         android:label="@string/menu_gallery"
         tools:layout="@layout/fragment_gallery" />
 
     <fragment
         android:id="@+id/nav_slideshow"
-        android:name="com.example.eldify.ui.slideshow.SlideshowFragment"
+        android:name="com.sih.eldify.ui.slideshow.SlideshowFragment"
         android:label="@string/menu_slideshow"
         tools:layout="@layout/fragment_slideshow" />
-
     <fragment
-        android:id="@+id/navigation_bot"
-        android:name="com.example.eldify.ui.bot.BotFragment"
-        android:label="Bot"
+        android:id="@+id/botFragment"
+        android:name="com.sih.eldify.ui.bot.BotFragment"
+        android:label="fragment_bot"
         tools:layout="@layout/fragment_bot" />
-
     <fragment
-        android:id="@+id/navigation_sos"
-        android:name="com.example.eldify.ui.sos.SOSFragment"
-        android:label="Sos"
-        tools:layout="@layout/fragment_s_o" />
-
+        android:id="@+id/sosFragment"
+        android:name="com.sih.eldify.ui.sos.SosFragment"
+        android:label="fragment_sos"
+        tools:layout="@layout/fragment_sos" />
     <fragment
-        android:id="@+id/navigation_notifications"
-        android:name="com.example.eldify.ui.video.VideoFragment"
-        android:label="Video"
+        android:id="@+id/videoFragment"
+        android:name="com.sih.eldify.ui.video.VideoFragment"
+        android:label="fragment_video"
         tools:layout="@layout/fragment_video" />
 </navigation>
