@@ -2,16 +2,16 @@
 <menu xmlns:android="http://schemas.android.com/apk/res/android">
     <item
         android:title="Bot"
-        android:icon="@drawable/ic_menu_camera"
+        android:icon="@drawable/ic_bot_24"
         android:id="@+id/botFragment"/>
 
     <item
         android:title="Sos"
-        android:icon="@drawable/ic_menu_camera"
+        android:icon="@drawable/ic_sos_24"
         android:id="@+id/sosFragment"/>
 
     <item
         android:title="Video"
-        android:icon="@drawable/ic_menu_camera"
+        android:icon="@drawable/ic_video_24"
         android:id="@+id/videoFragment"/>
 </menu>
