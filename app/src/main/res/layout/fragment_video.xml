@@ -1,13 +1,35 @@
 <?xml version="1.0" encoding="utf-8"?>
-<FrameLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
+    android:orientation="vertical"
     tools:context=".ui.video.VideoFragment">
 
-    <TextView
-        android:layout_width="match_parent"
-        android:layout_height="match_parent"
-        android:text="Video Fragment" />
+        <ImageView
+            android:layout_marginTop="20dp"
+            android:layout_gravity="center"
+            android:layout_width="200dp"
+            android:layout_height="100dp"
+            android:src="@drawable/ic_video_24" />
 
-</FrameLayout>
+        <EditText
+            android:gravity="center"
+            android:id="@+id/conferenceName"
+            android:layout_width="match_parent"
+            android:layout_height="52dp"
+            android:layout_margin="12dp"
+            android:hint="Enter room name" />
+
+        <Button
+            android:id="@+id/join_btn"
+            android:gravity="center"
+            android:layout_gravity="center"
+            android:layout_width="match_parent"
+            android:layout_height="52dp"
+            android:layout_margin="12dp"
+            android:background="#F44336"
+            android:text="Join"
+            android:textColor="#FFFFFF" />
+
+</LinearLayout>

@@ -7,6 +7,10 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import com.sih.eldify.R
+import kotlinx.android.synthetic.main.fragment_video.join_btn
+import kotlinx.android.synthetic.main.fragment_video.conferenceName
+import org.jitsi.meet.sdk.JitsiMeetActivity
+import org.jitsi.meet.sdk.JitsiMeetConferenceOptions
 
 class VideoFragment : Fragment() {
 
@@ -27,6 +31,15 @@ class VideoFragment : Fragment() {
         super.onActivityCreated(savedInstanceState)
         viewModel = ViewModelProvider(this).get(VideoViewModel::class.java)
         // TODO: Use the ViewModel
-    }
 
+        join_btn.setOnClickListener {
+            val text = conferenceName.text.toString()
+            if (text.isNotEmpty()) {
+                val options = JitsiMeetConferenceOptions.Builder()
+                    .setRoom(text)
+                    .build()
+                JitsiMeetActivity.launch(requireView().context, options)
+            }
+        }
+    }
 }
