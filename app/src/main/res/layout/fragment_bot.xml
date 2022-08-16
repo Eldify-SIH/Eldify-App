@@ -5,9 +5,10 @@
     android:layout_height="match_parent"
     tools:context=".ui.bot.BotFragment">
 
-    <TextView
+    <WebView
+        android:id="@+id/webView"
         android:layout_width="match_parent"
-        android:layout_height="match_parent"
-        android:text="Bot Fragment" />
+        android:layout_height="wrap_content"
+        android:background="@drawable/customborder"/>
 
 </FrameLayout>
