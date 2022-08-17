@@ -1,4 +1,4 @@
-package com.example.eldify.websocket
+package com.sih.eldify.ui.bot
 
 import okhttp3.Response
 import okhttp3.WebSocket
