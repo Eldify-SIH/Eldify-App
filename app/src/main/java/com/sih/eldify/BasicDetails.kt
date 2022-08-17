@@ -1,6 +1,7 @@
 package com.sih.eldify
 
 import android.content.Context
+import android.content.Intent
 import android.os.Bundle
 import androidx.appcompat.app.AppCompatActivity
 import kotlinx.android.synthetic.main.activity_basic_details.*
@@ -14,6 +15,8 @@ class BasicDetails : AppCompatActivity() {
 
         user_basic_details_submit.setOnClickListener {
             saveData()
+            val intent = Intent(this, MainActivity::class.java)
+            startActivity(intent)
         }
     }
 
