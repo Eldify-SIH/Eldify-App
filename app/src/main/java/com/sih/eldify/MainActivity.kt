@@ -50,8 +50,6 @@ class MainActivity : AppCompatActivity() {
         val user_name = sharedPreferences.getString("USER_NAME", null)
         val user_email = sharedPreferences.getString("USER_EMAIL", null)
 
-        Log.d("shp", user_name + user_email)
-
         val navHeaderView = navView.getHeaderView(0)
 
         if(user_name != null && user_email != null){

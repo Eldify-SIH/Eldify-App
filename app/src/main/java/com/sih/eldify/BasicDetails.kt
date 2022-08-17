@@ -24,8 +24,9 @@ class BasicDetails : AppCompatActivity() {
         }
 
         user_basic_details_submit.setOnClickListener {
-            Toast.makeText(this, "Here", Toast.LENGTH_SHORT).show()
             saveData()
+            val intent = Intent(this, MainActivity::class.java)
+            startActivity(intent)
         }
     }
 
