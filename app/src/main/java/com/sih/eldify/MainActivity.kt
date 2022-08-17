@@ -1,5 +1,6 @@
 package com.sih.eldify
 
+import android.content.Context
 import android.os.Bundle
 import android.view.Menu
 import com.google.android.material.snackbar.Snackbar
@@ -9,6 +10,7 @@ import androidx.drawerlayout.widget.DrawerLayout
 import androidx.appcompat.app.AppCompatActivity
 import androidx.navigation.ui.*
 import com.sih.eldify.databinding.ActivityMainBinding
+import kotlinx.android.synthetic.main.nav_header_main.view.*
 
 class MainActivity : AppCompatActivity() {
 
@@ -41,6 +43,13 @@ class MainActivity : AppCompatActivity() {
         setupActionBarWithNavController(navController, appBarConfiguration)
         navView.setupWithNavController(navController)
         NavigationUI.setupWithNavController(binding.appBarMain.bottomNavigationView, navController)
+
+        val sharedPreferences = getSharedPreferences("basic_details", Context.MODE_PRIVATE)
+        val user_name = sharedPreferences.getString("USER_NAME", null)
+        val user_email = sharedPreferences.getString("USER_EMAIL", null)
+
+        binding.navView.nav_user_name.setText(user_name)
+        binding.navView.nav_user_email.setText(user_email)
     }
 
     override fun onCreateOptionsMenu(menu: Menu): Boolean {
