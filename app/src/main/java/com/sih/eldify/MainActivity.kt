@@ -48,8 +48,10 @@ class MainActivity : AppCompatActivity() {
         val user_name = sharedPreferences.getString("USER_NAME", null)
         val user_email = sharedPreferences.getString("USER_EMAIL", null)
 
-        binding.navView.nav_user_name.setText(user_name)
-        binding.navView.nav_user_email.setText(user_email)
+        if(user_name != null && user_email != null){
+            binding.navView.nav_user_name.setText(user_name)
+            binding.navView.nav_user_email.setText(user_email)
+        }
     }
 
     override fun onCreateOptionsMenu(menu: Menu): Boolean {

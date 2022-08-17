@@ -1,7 +1,6 @@
 package com.sih.eldify.ui.bot
 
 import android.annotation.SuppressLint
-import android.content.Intent
 import androidx.lifecycle.ViewModelProvider
 import android.os.Bundle
 import android.util.Log
@@ -24,7 +23,7 @@ class BotFragment : Fragment() {
     }
 
     private lateinit var viewModel: BotViewModel
-    private lateinit var SOCKET_URL: String
+    private var SOCKET_URL: String? = null
     private var IP_ADDR: String? = null
     private var port: String? = null
 
@@ -35,12 +34,36 @@ class BotFragment : Fragment() {
 
     private var PORT = "80"
 
-
-    @SuppressLint("ClickableViewAccessibility")
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?
     ): View? {
+
+
+        return inflater.inflate(R.layout.fragment_bot, container, false)
+    }
+
+    @SuppressLint("ClickableViewAccessibility")
+    override fun onActivityCreated(savedInstanceState: Bundle?) {
+        super.onActivityCreated(savedInstanceState)
+        viewModel = ViewModelProvider(this).get(BotViewModel::class.java)
+        // TODO: Use the ViewModel
+        webView.loadUrl("http://192.168.199.189:5000")
+
+        val webSettings : WebSettings = webView.settings
+        webSettings.javaScriptEnabled = true
+        webView.webViewClient = WebViewClient()
+
+        webView.canGoBack()
+        webView.setOnKeyListener { v, keyCode, event ->
+            if(keyCode == KeyEvent.KEYCODE_BACK
+                && event.action == MotionEvent.ACTION_UP
+                && webView.canGoBack()){
+                webView.goBack()
+                return@setOnKeyListener true
+            }
+            false
+        }
 
         btn_connection_connect.setOnClickListener {
             IP_ADDR = et_connection_ip_addr.text.toString()
@@ -95,29 +118,6 @@ class BotFragment : Fragment() {
                 false
             }
         }
-        return inflater.inflate(R.layout.fragment_bot, container, false)
-    }
-
-    override fun onActivityCreated(savedInstanceState: Bundle?) {
-        super.onActivityCreated(savedInstanceState)
-        viewModel = ViewModelProvider(this).get(BotViewModel::class.java)
-        // TODO: Use the ViewModel
-        webView.loadUrl("http://192.168.199.189:5000")
-
-        val webSettings : WebSettings = webView.settings
-        webSettings.javaScriptEnabled = true
-        webView.webViewClient = WebViewClient()
-
-        webView.canGoBack()
-        webView.setOnKeyListener { v, keyCode, event ->
-            if(keyCode == KeyEvent.KEYCODE_BACK
-                && event.action == MotionEvent.ACTION_UP
-                && webView.canGoBack()){
-                webView.goBack()
-                return@setOnKeyListener true
-            }
-            false
-        }
     }
 
     override fun onResume() {
@@ -142,13 +142,15 @@ class BotFragment : Fragment() {
 
     private fun start() {
 
-        val requestCOM: Request = Request.Builder().url("$SOCKET_URL/COM").build()
-        val listenerCOM =
-            EchoWebSocketListener(this::outputCOM, this::ping, this::setConnectionStatus) {
-                wsCOM = null
-            }
-        wsCOM = client.newWebSocket(requestCOM, listenerCOM)
-        Log.d("Debug", "Start executed")
+        if(SOCKET_URL != null){
+            val requestCOM: Request = Request.Builder().url("$SOCKET_URL/COM").build()
+            val listenerCOM =
+                EchoWebSocketListener(this::outputCOM, this::ping, this::setConnectionStatus) {
+                    wsCOM = null
+                }
+            wsCOM = client.newWebSocket(requestCOM, listenerCOM)
+            Log.d("Debug", "Start executed")
+        }
     }
 
     private fun stop() {
