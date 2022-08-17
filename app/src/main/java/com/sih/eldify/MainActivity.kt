@@ -2,7 +2,9 @@ package com.sih.eldify
 
 import android.content.Context
 import android.os.Bundle
+import android.util.Log
 import android.view.Menu
+import android.view.View
 import com.google.android.material.snackbar.Snackbar
 import com.google.android.material.navigation.NavigationView
 import androidx.navigation.findNavController
@@ -44,13 +46,17 @@ class MainActivity : AppCompatActivity() {
         navView.setupWithNavController(navController)
         NavigationUI.setupWithNavController(binding.appBarMain.bottomNavigationView, navController)
 
-        val sharedPreferences = getSharedPreferences("basic_details", Context.MODE_PRIVATE)
+        val sharedPreferences = getSharedPreferences("BASIC_DETAILS", Context.MODE_PRIVATE)
         val user_name = sharedPreferences.getString("USER_NAME", null)
         val user_email = sharedPreferences.getString("USER_EMAIL", null)
 
+        Log.d("shp", user_name + user_email)
+
+        val navHeaderView = navView.getHeaderView(0)
+
         if(user_name != null && user_email != null){
-            binding.navView.nav_user_name.setText(user_name)
-            binding.navView.nav_user_email.setText(user_email)
+            navHeaderView.nav_user_name.text = user_name
+            navHeaderView.nav_user_email.text = user_email
         }
     }
 

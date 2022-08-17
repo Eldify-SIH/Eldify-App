@@ -38,8 +38,9 @@ class VideoFragment : Fragment() {
         viewModel = ViewModelProvider(this).get(VideoViewModel::class.java)
         // TODO: Use the ViewModel
 
-        val sharedPreferences = activity?.getSharedPreferences("basic_details", Context.MODE_PRIVATE)
+        val sharedPreferences = activity?.getSharedPreferences("BASIC_DETAILS", Context.MODE_PRIVATE)
         val uniqueString = sharedPreferences?.getString("USER_EMAIL", null) + sharedPreferences?.getString("EM_CONTACT_1", null)
+        conferenceName.setText(uniqueString)
         val hashString = md5(uniqueString)
 
             join_btn.setOnClickListener {
