@@ -24,8 +24,8 @@ class BotFragment : Fragment() {
 
     private lateinit var viewModel: BotViewModel
     private var SOCKET_URL: String? = null
-    private var IP_ADDR: String? = null
-    private var port: String? = null
+    private var IP_ADDR_1: String? = null
+    private var IP_ADDR_2: String? = null
 
     private val client by lazy {
         OkHttpClient()
@@ -66,13 +66,14 @@ class BotFragment : Fragment() {
         }
 
         btn_connection_connect.setOnClickListener {
-            IP_ADDR = et_connection_ip_addr.text.toString()
-            port = et_connection_port.text.toString()
+            IP_ADDR_1 = et_connection_ip_addr_1.text.toString()
+            IP_ADDR_2 = et_connection_ip_addr_2.text.toString()
         }
 
-        if(IP_ADDR != null && port != null){
+        if(IP_ADDR_1 != null && IP_ADDR_2 != null){
 
-            SOCKET_URL = "ws://$IP_ADDR:$PORT"
+            // 192.168. + IP_ADDR_1 + . + IP_ADDR_2 + : + Port
+            SOCKET_URL = "ws://192.168.$IP_ADDR_1.$IP_ADDR_2:$PORT"
 
             btn_controller_forward.setOnTouchListener { v, event ->
                 if (event.action == MotionEvent.ACTION_DOWN) {
