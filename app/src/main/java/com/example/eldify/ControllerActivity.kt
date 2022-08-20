@@ -32,6 +32,7 @@ class ControllerActivity : AppCompatActivity() {
         OkHttpClient()
     }
     var wsCOM: WebSocket? = null
+    var wsSOS: WebSocket? = null
 
     @SuppressLint("ClickableViewAccessibility")
     override fun onCreate(savedInstanceState: Bundle?) {
@@ -117,6 +118,28 @@ class ControllerActivity : AppCompatActivity() {
             }
         wsCOM = client.newWebSocket(requestCOM, listenerCOM)
         Log.d("Debug", "Start executed")
+
+
+        val requestSOS: Request = Request.Builder().url("$SOCKET_URL/SOS").build()
+        val listenerSOS =
+            EchoWebSocketListener(this::outputSOS, this::ping, this::setConnectionStatus) {
+                wsSOS = null
+            }
+        wsSOS = client.newWebSocket(requestSOS, listenerSOS)
+        Log.d("Debug", "Start executed")
+    }
+
+    private fun outputSOS(txt: String) {
+        runOnUiThread {
+            Log.d("SOS debug",txt)
+
+//            var data = JSONObject(txt)
+//            var isSOS = data.getJSONObject("SOS").toString()
+//            if (isSOS=="TRUE"){
+//                commandtv.text = "this is SOS"
+//            }
+
+        }
     }
 
     private fun stop() {
@@ -141,6 +164,7 @@ class ControllerActivity : AppCompatActivity() {
 
     private fun outputCOM(txt: String) {
         runOnUiThread {
+            Log.d("SOS debug com",txt)
 
         }
     }
