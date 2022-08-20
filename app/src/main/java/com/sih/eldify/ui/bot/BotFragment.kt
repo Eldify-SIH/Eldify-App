@@ -1,6 +1,7 @@
 package com.sih.eldify.ui.bot
 
 import android.annotation.SuppressLint
+import android.graphics.Color
 import androidx.lifecycle.ViewModelProvider
 import android.os.Bundle
 import android.util.Log
@@ -68,62 +69,67 @@ class BotFragment : Fragment() {
         btn_connection_connect.setOnClickListener {
             IP_ADDR_1 = et_connection_ip_addr_1.text.toString()
             IP_ADDR_2 = et_connection_ip_addr_2.text.toString()
-        }
+            Log.d("chk", IP_ADDR_1 + IP_ADDR_2)
 
-        if(IP_ADDR_1 != null && IP_ADDR_2 != null){
+            if(IP_ADDR_1 != null && IP_ADDR_2 != null){
 
-            // 192.168. + IP_ADDR_1 + . + IP_ADDR_2 + : + Port
-            SOCKET_URL = "ws://192.168.$IP_ADDR_1.$IP_ADDR_2:$PORT"
-
-            btn_controller_forward.setOnTouchListener { v, event ->
-                if (event.action == MotionEvent.ACTION_DOWN) {
-                    Log.d("Debug", "Forward")
-                    sendJSONOnCOM("F", "Forward")
-                } else if (event.action == MotionEvent.ACTION_UP) {
-                    Log.d("Debug", "Forward Released")
-                    sendJSONOnCOM("S", "S")
-                }
-                false
-            }
-
-            btn_controller_backward.setOnTouchListener { v, event ->
-                if (event.action == MotionEvent.ACTION_DOWN) {
-                    Log.d("Debug", "Backward")
-                    sendJSONOnCOM("B", "Backward")
-                } else if (event.action == MotionEvent.ACTION_UP) {
-                    Log.d("Debug", "Backward Released")
-                    sendJSONOnCOM("S", "S")
-                }
-                false
-            }
-
-            btn_controller_left.setOnTouchListener { v, event ->
-                if (event.action == MotionEvent.ACTION_DOWN) {
-                    Log.d("Debug", "Left")
-                    sendJSONOnCOM("L", "Left")
-                } else if (event.action == MotionEvent.ACTION_UP) {
-                    Log.d("Debug", "Left Released")
-                    sendJSONOnCOM("S", "S")
-                }
-                false
-            }
-
-            btn_controller_right.setOnTouchListener { v, event ->
-                if (event.action == MotionEvent.ACTION_DOWN) {
-                    Log.d("Debug", "Right")
-                    sendJSONOnCOM("R", "Right")
-                } else if (event.action == MotionEvent.ACTION_UP) {
-                    Log.d("Debug", "Right Released")
-                    sendJSONOnCOM("S", "S")
-                }
-                false
+                // 192.168. + IP_ADDR_1 + . + IP_ADDR_2 + : + Port
+                SOCKET_URL = "ws://192.168.$IP_ADDR_1.$IP_ADDR_2:$PORT"
+                Log.d("chk", SOCKET_URL!!)
+                start()
             }
         }
+
+        btn_controller_forward.setOnTouchListener { v, event ->
+            if (event.action == MotionEvent.ACTION_DOWN) {
+                Log.d("Debug", "Forward")
+                sendJSONOnCOM("F", "Forward")
+            } else if (event.action == MotionEvent.ACTION_UP) {
+                Log.d("Debug", "Forward Released")
+                sendJSONOnCOM("S", "S")
+            }
+            false
+        }
+
+        btn_controller_backward.setOnTouchListener { v, event ->
+            if (event.action == MotionEvent.ACTION_DOWN) {
+                Log.d("Debug", "Backward")
+                sendJSONOnCOM("B", "Backward")
+            } else if (event.action == MotionEvent.ACTION_UP) {
+                Log.d("Debug", "Backward Released")
+                sendJSONOnCOM("S", "S")
+            }
+            false
+        }
+
+        btn_controller_left.setOnTouchListener { v, event ->
+            if (event.action == MotionEvent.ACTION_DOWN) {
+                Log.d("Debug", "Left")
+                sendJSONOnCOM("L", "Left")
+            } else if (event.action == MotionEvent.ACTION_UP) {
+                Log.d("Debug", "Left Released")
+                sendJSONOnCOM("S", "S")
+            }
+            false
+        }
+
+        btn_controller_right.setOnTouchListener { v, event ->
+            if (event.action == MotionEvent.ACTION_DOWN) {
+                Log.d("Debug", "Right")
+                sendJSONOnCOM("R", "Right")
+            } else if (event.action == MotionEvent.ACTION_UP) {
+                Log.d("Debug", "Right Released")
+                sendJSONOnCOM("S", "S")
+            }
+            false
+        }
+
+
     }
 
     override fun onResume() {
         super.onResume()
-        start()
+//        start()
     }
 
     override fun onPause() {
@@ -182,6 +188,12 @@ class BotFragment : Fragment() {
 
     fun setConnectionStatus(txt: String) {
         activity?.runOnUiThread {
+            if (txt == "Disconnected!") {
+                status.setTextColor(Color.RED);
+            } else {
+                status.setTextColor(Color.GREEN);
+            }
+            status.text = txt
 
         }
     }
