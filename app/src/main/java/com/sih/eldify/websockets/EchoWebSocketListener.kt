@@ -1,5 +1,6 @@
 package com.sih.eldify.websockets
 
+import android.util.Log
 import okhttp3.Response
 import okhttp3.WebSocket
 import okhttp3.WebSocketListener
@@ -18,7 +19,7 @@ internal class EchoWebSocketListener(
 
     override fun onMessage(webSocket: WebSocket, text: String) {
         output(text)
-//        if SOS then pass Intent
+        Log.d("test","ECHO" + text)
     }
 
     override fun onMessage(webSocket: WebSocket, bytes: ByteString) {

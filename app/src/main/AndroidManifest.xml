@@ -1,5 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:dist="http://schemas.android.com/apk/distribution"
     xmlns:tools="http://schemas.android.com/tools"
     package="com.sih.eldify">
 
@@ -9,9 +10,13 @@
     <uses-permission android:name="android.permission.BLUETOOTH_SCAN" />
     <uses-permission android:name="android.permission.CALL_PHONE" />
     <uses-permission android:name="android.permission.SEND_SMS" />
+
+    <dist:module dist:instant="true" />
+
     <uses-permission android:name="android.permission.RECEIVE_SMS" />
     <uses-permission android:name="android.permission.READ_SMS" />
     <uses-permission android:name="android.permission.READ_EXTERNAL_STORAGE" />
+    <uses-permission android:name="android.permission.VIBRATE" />
     <uses-permission
         android:name="android.permission.WRITE_EXTERNAL_STORAGE"
         tools:ignore="ScopedStorage" />
@@ -50,9 +55,15 @@
         tools:replace="android:icon, android:roundIcon, android:theme"
         tools:targetApi="31">
         <activity
-            android:name=".Onboarding"
-            android:theme="@style/Theme.AppCompat.Light.NoActionBar"
+            android:name=".MedicineActivity"
             android:exported="false" />
+        <activity
+            android:name=".AddMedicinesActivity"
+            android:exported="false" />
+        <activity
+            android:name=".Onboarding"
+            android:exported="false"
+            android:theme="@style/Theme.AppCompat.Light.NoActionBar" />
         <activity
             android:name=".BasicDetails"
             android:exported="false" />

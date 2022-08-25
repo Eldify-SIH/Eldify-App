@@ -4,20 +4,16 @@ import android.Manifest
 import android.content.Context
 import android.content.Intent
 import android.content.pm.PackageManager
-import android.os.Build
 import android.os.Bundle
-import android.util.Log
 import android.view.Menu
-import android.view.View
 import android.widget.Toast
-import com.google.android.material.snackbar.Snackbar
-import com.google.android.material.navigation.NavigationView
-import androidx.navigation.findNavController
-import androidx.drawerlayout.widget.DrawerLayout
 import androidx.appcompat.app.AppCompatActivity
 import androidx.core.app.ActivityCompat
 import androidx.core.content.ContextCompat
+import androidx.drawerlayout.widget.DrawerLayout
+import androidx.navigation.findNavController
 import androidx.navigation.ui.*
+import com.google.android.material.navigation.NavigationView
 import com.sih.eldify.assistant.AssistantActivity
 import com.sih.eldify.databinding.ActivityMainBinding
 import kotlinx.android.synthetic.main.nav_header_main.view.*
@@ -28,7 +24,9 @@ class MainActivity : AppCompatActivity() {
     private lateinit var binding: ActivityMainBinding
 
     // permission code
-    val RecordAudioRequestCode : Int = 1
+    val RECORDAUDIO : Int = 1
+    private var REQUESTCALL = 2
+    private var SENDSMS = 3
 
 
     override fun onCreate(savedInstanceState: Bundle?) {
@@ -37,12 +35,17 @@ class MainActivity : AppCompatActivity() {
         binding = ActivityMainBinding.inflate(layoutInflater)
         setContentView(binding.root)
 
+
         setSupportActionBar(binding.appBarMain.toolbar)
 
         // getting permissions
-        if (ContextCompat.checkSelfPermission(this, Manifest.permission.RECORD_AUDIO) != PackageManager.PERMISSION_GRANTED) {
-            checkPermission()
+        if (ContextCompat.checkSelfPermission(this, Manifest.permission.RECORD_AUDIO) != PackageManager.PERMISSION_GRANTED ||
+            ContextCompat.checkSelfPermission(this, Manifest.permission.SEND_SMS) != PackageManager.PERMISSION_GRANTED ||
+            ContextCompat.checkSelfPermission(this, Manifest.permission.CALL_PHONE) != PackageManager.PERMISSION_GRANTED) {
+            checkPermissions()
         }
+
+
 
         binding.appBarMain.fab.setOnClickListener { view ->
             startActivity(Intent(this@MainActivity, AssistantActivity::class.java))
@@ -93,22 +96,33 @@ class MainActivity : AppCompatActivity() {
     ) {
         super.onRequestPermissionsResult(requestCode, permissions, grantResults)
         // for audio
-        if (requestCode == RecordAudioRequestCode && grantResults.size > 0) {
+        if (requestCode == 1 && grantResults.size > 0) {
             if (grantResults[0] == PackageManager.PERMISSION_GRANTED) Toast.makeText(
                 this,
-                "Permission Granted",
+                "Permissions Granted",
+                Toast.LENGTH_SHORT
+            ).show()
+            else Toast.makeText(
+                this,
+                "" +
+                        "Permissions Denied",
                 Toast.LENGTH_SHORT
             ).show()
         }
     }
 
-    private fun checkPermission() {
-        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.M) {
-            ActivityCompat.requestPermissions(
-                this,
-                arrayOf(Manifest.permission.RECORD_AUDIO),
-                RecordAudioRequestCode
-            )
-        }
+    private fun checkPermissions() {
+        ActivityCompat.requestPermissions(
+            this,
+            arrayOf(
+                Manifest.permission.CALL_PHONE,
+                Manifest.permission.SEND_SMS,
+                Manifest.permission.RECORD_AUDIO,
+                Manifest.permission.READ_EXTERNAL_STORAGE,
+                Manifest.permission.READ_CONTACTS,
+                Manifest.permission.CAMERA
+            ),
+            1
+        )
     }
 }

@@ -4,9 +4,12 @@ import android.annotation.SuppressLint
 import android.app.AlertDialog
 import android.content.Context
 import android.content.DialogInterface
+import android.content.Intent
 import android.content.SharedPreferences
 import android.graphics.Color
+import android.net.Uri
 import android.os.Bundle
+import android.telephony.SmsManager
 import android.util.Log
 import android.view.*
 import android.webkit.WebSettings
@@ -15,11 +18,12 @@ import android.widget.EditText
 import android.widget.Toast
 import androidx.fragment.app.Fragment
 import androidx.lifecycle.ViewModelProvider
+import com.google.gson.Gson
 import com.sih.eldify.R
+import com.sih.eldify.utils.SOS
 import com.sih.eldify.websockets.EchoWebSocketListener
 import kotlinx.android.synthetic.main.fragment_bot.*
 import kotlinx.android.synthetic.main.fragment_sos.*
-import kotlinx.android.synthetic.main.ip_connection_layout.*
 import okhttp3.OkHttpClient
 import okhttp3.Request
 import okhttp3.WebSocket
@@ -43,6 +47,7 @@ class BotFragment : Fragment() {
     }
 
     var wsCOM: WebSocket? = null
+    var wsSOS: WebSocket? = null
 
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
@@ -61,16 +66,10 @@ class BotFragment : Fragment() {
 
         val sharedPreferences = activity?.getSharedPreferences("IP_CONNECTION", Context.MODE_PRIVATE)
 
-        reconnect_bot.setOnClickListener {
+        setIPAddress(sharedPreferences)
 
-            if(sharedPreferences?.getString("IP_1", null) != null && sharedPreferences.getString("IP_2", null) != null)
-            {
-                IP_ADDR_1 = sharedPreferences.getString("IP_1", null)
-                IP_ADDR_2 = sharedPreferences.getString("IP_2", null)
-            }
-            else {
-                createIPSetBuilder(sharedPreferences)
-            }
+        reconnect_bot.setOnClickListener {
+            setIPAddress(sharedPreferences)
         }
 
         reconnect_bot.setOnLongClickListener {
@@ -82,31 +81,8 @@ class BotFragment : Fragment() {
 
         if(IP_ADDR_1 != null && IP_ADDR_2 != null){
 
-            // 192.168. + IP_ADDR_1 + . + IP_ADDR_2 + : + Port
-            SOCKET_URL_BOT = "ws://192.168.$IP_ADDR_1.$IP_ADDR_2:80"
-            URL_VIDEO = "ws://192.168.$IP_ADDR_1.$IP_ADDR_2:5000"
-            Log.d("chk", SOCKET_URL_BOT!!)
-            start()
-
-            webView.loadUrl(URL_VIDEO!!)
-
-            val webSettings : WebSettings = webView.settings
-            webSettings.javaScriptEnabled = true
-            webView.webViewClient = WebViewClient()
-
-            webView.canGoBack()
-            webView.setOnKeyListener { v, keyCode, event ->
-                if(keyCode == KeyEvent.KEYCODE_BACK
-                    && event.action == MotionEvent.ACTION_UP
-                    && webView.canGoBack()){
-                    webView.goBack()
-                    return@setOnKeyListener true
-                }
-                false
-            }
+            setURLBotNVid()
         }
-
-
 
         btn_controller_forward.setOnTouchListener { v, event ->
             if (event.action == MotionEvent.ACTION_DOWN) {
@@ -151,8 +127,69 @@ class BotFragment : Fragment() {
             }
             false
         }
+    }
 
+    private fun callNumber(phoneNumber: String?) {
+        val phone_intent = Intent(Intent.ACTION_CALL)
 
+        phone_intent.data = Uri.parse(
+            "tel:$phoneNumber"
+        )
+        startActivity(phone_intent)
+    }
+
+    private fun sendSMS(phoneNumber: String?, reason: String) {
+        try {
+
+            // on below line we are initializing sms manager.
+            val smsManager: SmsManager = SmsManager.getDefault()
+
+            // on below line we are sending text message.
+            smsManager.sendTextMessage(phoneNumber, null, reason, null, null)
+
+            // on below line we are displaying a toast message for message send,
+            Toast.makeText(context, "Message Sent", Toast.LENGTH_LONG).show()
+
+        } catch (e : Exception) {
+
+            // on catch block we are displaying toast message for error.
+            Toast.makeText(context, "Please enter all the data.."+e.message.toString(), Toast.LENGTH_LONG)
+                .show()
+        }
+    }
+
+    private fun setIPAddress(sharedPreferences: SharedPreferences?) {
+        if(sharedPreferences?.getString("IP_1", null) != null && sharedPreferences.getString("IP_2", null) != null) {
+            IP_ADDR_1 = sharedPreferences?.getString("IP_1", null)
+            IP_ADDR_2 = sharedPreferences?.getString("IP_2", null)
+        }else{
+            createIPSetBuilder(sharedPreferences)
+        }
+    }
+
+    private fun setURLBotNVid() {
+        // 192.168. + IP_ADDR_1 + . + IP_ADDR_2 + : + Port
+        SOCKET_URL_BOT = "ws://192.168.$IP_ADDR_1.$IP_ADDR_2:80"
+        URL_VIDEO = "ws://192.168.$IP_ADDR_1.$IP_ADDR_2:5000"
+        Log.d("chk", SOCKET_URL_BOT!!)
+        start()
+
+        webView.loadUrl(URL_VIDEO!!)
+
+        val webSettings : WebSettings = webView.settings
+        webSettings.javaScriptEnabled = true
+        webView.webViewClient = WebViewClient()
+
+        webView.canGoBack()
+        webView.setOnKeyListener { v, keyCode, event ->
+            if(keyCode == KeyEvent.KEYCODE_BACK
+                && event.action == MotionEvent.ACTION_UP
+                && webView.canGoBack()){
+                webView.goBack()
+                return@setOnKeyListener true
+            }
+            false
+        }
     }
 
     override fun onResume() {
@@ -208,9 +245,23 @@ class BotFragment : Fragment() {
         } ?: ping("Error: Restart the App to reconnect")
     }
 
-    private fun outputCOM(txt: String) {
+    private fun outputCOM(text: String) {
         activity?.runOnUiThread {
+            sos.setText(text)
+            if(text.contains("recieved")){
+                val gson = Gson()
+                val sos: SOS = gson.fromJson(text, SOS::class.java)
+                Log.d("tanvi","> From JSON String:\n" + sos)
 
+                val sharedPreferencesBS = activity?.getSharedPreferences("BASIC_DETAILS", Context.MODE_PRIVATE)
+                val number_1 = sharedPreferencesBS?.getString("EM_CONTACT_1", null)
+                val number_2 = sharedPreferencesBS?.getString("EM_CONTACT_2", null)
+
+                sendSMS(number_1, sos.reason)
+                sendSMS(number_2, sos.reason)
+
+                callNumber(number_1)
+            }
         }
     }
 
@@ -226,7 +277,7 @@ class BotFragment : Fragment() {
         }
     }
 
-    fun createIPSetBuilder(sharedPreferences : SharedPreferences?){
+    private fun createIPSetBuilder(sharedPreferences : SharedPreferences?){
         val builder: AlertDialog.Builder = AlertDialog.Builder(context)
         builder.setTitle("Ip Reconnect")
 
@@ -264,5 +315,7 @@ class BotFragment : Fragment() {
         val dialog: AlertDialog = builder.create()
         dialog.show()
     }
+
+
 
 }
