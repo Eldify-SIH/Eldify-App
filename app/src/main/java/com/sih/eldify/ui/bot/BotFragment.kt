@@ -1,21 +1,30 @@
 package com.sih.eldify.ui.bot
 
 import android.annotation.SuppressLint
+import android.app.AlertDialog
+import android.content.Context
+import android.content.DialogInterface
+import android.content.SharedPreferences
 import android.graphics.Color
-import androidx.lifecycle.ViewModelProvider
 import android.os.Bundle
 import android.util.Log
 import android.view.*
-import androidx.fragment.app.Fragment
 import android.webkit.WebSettings
 import android.webkit.WebViewClient
+import android.widget.EditText
 import android.widget.Toast
+import androidx.fragment.app.Fragment
+import androidx.lifecycle.ViewModelProvider
 import com.sih.eldify.R
+import com.sih.eldify.websockets.EchoWebSocketListener
 import kotlinx.android.synthetic.main.fragment_bot.*
+import kotlinx.android.synthetic.main.fragment_sos.*
+import kotlinx.android.synthetic.main.ip_connection_layout.*
 import okhttp3.OkHttpClient
 import okhttp3.Request
 import okhttp3.WebSocket
 import org.json.JSONObject
+
 
 class BotFragment : Fragment() {
 
@@ -24,16 +33,16 @@ class BotFragment : Fragment() {
     }
 
     private lateinit var viewModel: BotViewModel
-    private var SOCKET_URL: String? = null
+    private var SOCKET_URL_BOT: String? = null
+    private var URL_VIDEO: String? = null
     private var IP_ADDR_1: String? = null
     private var IP_ADDR_2: String? = null
 
     private val client by lazy {
         OkHttpClient()
     }
-    var wsCOM: WebSocket? = null
 
-    private var PORT = "80"
+    var wsCOM: WebSocket? = null
 
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
@@ -49,36 +58,55 @@ class BotFragment : Fragment() {
         super.onActivityCreated(savedInstanceState)
         viewModel = ViewModelProvider(this).get(BotViewModel::class.java)
         // TODO: Use the ViewModel
-        webView.loadUrl("http://192.168.199.189:5000")
 
-        val webSettings : WebSettings = webView.settings
-        webSettings.javaScriptEnabled = true
-        webView.webViewClient = WebViewClient()
+        val sharedPreferences = activity?.getSharedPreferences("IP_CONNECTION", Context.MODE_PRIVATE)
 
-        webView.canGoBack()
-        webView.setOnKeyListener { v, keyCode, event ->
-            if(keyCode == KeyEvent.KEYCODE_BACK
-                && event.action == MotionEvent.ACTION_UP
-                && webView.canGoBack()){
-                webView.goBack()
-                return@setOnKeyListener true
+        reconnect_bot.setOnClickListener {
+
+            if(sharedPreferences?.getString("IP_1", null) != null && sharedPreferences.getString("IP_2", null) != null)
+            {
+                IP_ADDR_1 = sharedPreferences.getString("IP_1", null)
+                IP_ADDR_2 = sharedPreferences.getString("IP_2", null)
             }
-            false
-        }
-
-        btn_connection_connect.setOnClickListener {
-            IP_ADDR_1 = et_connection_ip_addr_1.text.toString()
-            IP_ADDR_2 = et_connection_ip_addr_2.text.toString()
-            Log.d("chk", IP_ADDR_1 + IP_ADDR_2)
-
-            if(IP_ADDR_1 != null && IP_ADDR_2 != null){
-
-                // 192.168. + IP_ADDR_1 + . + IP_ADDR_2 + : + Port
-                SOCKET_URL = "ws://192.168.$IP_ADDR_1.$IP_ADDR_2:$PORT"
-                Log.d("chk", SOCKET_URL!!)
-                start()
+            else {
+                createIPSetBuilder(sharedPreferences)
             }
         }
+
+        reconnect_bot.setOnLongClickListener {
+
+            createIPSetBuilder(sharedPreferences)
+
+            true
+        }
+
+        if(IP_ADDR_1 != null && IP_ADDR_2 != null){
+
+            // 192.168. + IP_ADDR_1 + . + IP_ADDR_2 + : + Port
+            SOCKET_URL_BOT = "ws://192.168.$IP_ADDR_1.$IP_ADDR_2:80"
+            URL_VIDEO = "ws://192.168.$IP_ADDR_1.$IP_ADDR_2:5000"
+            Log.d("chk", SOCKET_URL_BOT!!)
+            start()
+
+            webView.loadUrl(URL_VIDEO!!)
+
+            val webSettings : WebSettings = webView.settings
+            webSettings.javaScriptEnabled = true
+            webView.webViewClient = WebViewClient()
+
+            webView.canGoBack()
+            webView.setOnKeyListener { v, keyCode, event ->
+                if(keyCode == KeyEvent.KEYCODE_BACK
+                    && event.action == MotionEvent.ACTION_UP
+                    && webView.canGoBack()){
+                    webView.goBack()
+                    return@setOnKeyListener true
+                }
+                false
+            }
+        }
+
+
 
         btn_controller_forward.setOnTouchListener { v, event ->
             if (event.action == MotionEvent.ACTION_DOWN) {
@@ -149,8 +177,8 @@ class BotFragment : Fragment() {
 
     private fun start() {
 
-        if(SOCKET_URL != null){
-            val requestCOM: Request = Request.Builder().url("$SOCKET_URL/COM").build()
+        if(SOCKET_URL_BOT != null){
+            val requestCOM: Request = Request.Builder().url("$SOCKET_URL_BOT/COM").build()
             val listenerCOM =
                 EchoWebSocketListener(this::outputCOM, this::ping, this::setConnectionStatus) {
                     wsCOM = null
@@ -189,13 +217,52 @@ class BotFragment : Fragment() {
     fun setConnectionStatus(txt: String) {
         activity?.runOnUiThread {
             if (txt == "Disconnected!") {
-                status.setTextColor(Color.RED);
+                status.setTextColor(Color.RED)
             } else {
-                status.setTextColor(Color.GREEN);
+                status.setTextColor(Color.GREEN)
             }
             status.text = txt
 
         }
+    }
+
+    fun createIPSetBuilder(sharedPreferences : SharedPreferences?){
+        val builder: AlertDialog.Builder = AlertDialog.Builder(context)
+        builder.setTitle("Ip Reconnect")
+
+        // set the custom layout
+
+        // set the custom layout
+        val ipLayout: View = layoutInflater
+            .inflate(
+                R.layout.ip_connection_layout,
+                null
+            )
+        builder.setView(ipLayout)
+
+        // add a button
+        builder
+            .setPositiveButton(
+                "Reconnect",
+                DialogInterface.OnClickListener { dialog, which -> // send data from the
+                    // AlertDialog to the Activity
+
+                    val ip_1: EditText = ipLayout.findViewById(R.id.et_connection_ip_addr_1)
+                    val ip_2: EditText = ipLayout.findViewById(R.id.et_connection_ip_addr_2)
+                    IP_ADDR_1 = ip_1.text.toString()
+                    IP_ADDR_2 = ip_2.text.toString()
+
+                    val editor : SharedPreferences.Editor = sharedPreferences!!.edit()
+                    editor.apply {
+                        putString("IP_1", IP_ADDR_1)
+                        putString("IP_2", IP_ADDR_2)
+                    }.apply()
+
+                    Log.d("chk", IP_ADDR_1 + IP_ADDR_2)
+                })
+
+        val dialog: AlertDialog = builder.create()
+        dialog.show()
     }
 
 }

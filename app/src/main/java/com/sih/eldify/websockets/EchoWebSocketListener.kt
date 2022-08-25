@@ -1,4 +1,4 @@
-package com.sih.eldify.ui.bot
+package com.sih.eldify.websockets
 
 import okhttp3.Response
 import okhttp3.WebSocket
@@ -18,7 +18,7 @@ internal class EchoWebSocketListener(
 
     override fun onMessage(webSocket: WebSocket, text: String) {
         output(text)
-//        Log.d("DEBUG:", text)
+//        if SOS then pass Intent
     }
 
     override fun onMessage(webSocket: WebSocket, bytes: ByteString) {
