@@ -1,13 +1,16 @@
 package com.sih.eldify.medicines.medicine
 
 import android.content.Context
+import com.sih.eldify.medicines.BasePresenter
+import com.sih.eldify.medicines.BaseView
+import com.sih.eldify.medicines.data.source.MedicineAlarm
 
 
 /**
  * Created by gautam on 13/07/17.
  */
 interface MedicineContract {
-    interface View : BaseView<com.sih.eldify.medicines.medicine.MedicineContract.Presenter?> {
+    interface View : BaseView<Presenter?> {
         fun showLoadingIndicator(active: Boolean)
         fun showMedicineList(medicineAlarmList: List<MedicineAlarm?>?)
         fun showAddMedicine()

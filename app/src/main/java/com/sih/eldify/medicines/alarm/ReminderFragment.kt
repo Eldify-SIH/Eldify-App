@@ -72,7 +72,7 @@ class ReminderFragment : Fragment(), ReminderContract.View {
         this.presenter = presenter
     }
 
-    override fun showMedicine(medicineAlarm: MedicineAlarm) {
+    override fun showMedicine(medicineAlarm: MedicineAlarm?) {
         this.medicineAlarm = medicineAlarm
         mVibrator = requireActivity().getSystemService(Context.VIBRATOR_SERVICE) as Vibrator
         val pattern = longArrayOf(0, 1000, 10000)
@@ -80,7 +80,7 @@ class ReminderFragment : Fragment(), ReminderContract.View {
         mMediaPlayer = MediaPlayer.create(context, R.raw.cuco_sound)
         mMediaPlayer!!.isLooping = true
         mMediaPlayer!!.start()
-        tvMedTime?.text = medicineAlarm.stringTime
+        tvMedTime?.text = medicineAlarm!!.stringTime
         tvMedicineName?.text = medicineAlarm.pillName
         tvDoseDetails?.text = medicineAlarm.formattedDose
     }

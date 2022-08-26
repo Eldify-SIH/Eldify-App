@@ -13,85 +13,85 @@ import java.net.URISyntaxException
 class MedicinesLocalDataSource private constructor(context: Context) :
     MedicineDataSource {
     private val mDbHelper: MedicineDBHelper
-    fun getMedicineHistory(loadHistoryCallbacks: LoadHistoryCallbacks) {
-        val historyList: List<History> = mDbHelper.getHistory()
-        loadHistoryCallbacks.onHistoryLoaded(historyList)
+    override fun getMedicineHistory(loadHistoryCallbacks: MedicineDataSource.LoadHistoryCallbacks?) {
+        val historyList: List<History> = mDbHelper.history as List<History>
+        loadHistoryCallbacks!!.onHistoryLoaded(historyList)
     }
 
-    fun getMedicineAlarmById(id: Long, callback: GetTaskCallback) {
+    override fun getMedicineAlarmById(id: Long, callback: MedicineDataSource.GetTaskCallback?) {
         try {
             val medicineAlarm: MedicineAlarm = getAlarmById(id)
             if (medicineAlarm != null) {
-                callback.onTaskLoaded(medicineAlarm)
+                callback!!.onTaskLoaded(medicineAlarm)
             } else {
-                callback.onDataNotAvailable()
+                callback!!.onDataNotAvailable()
             }
         } catch (e: URISyntaxException) {
             e.printStackTrace()
-            callback.onDataNotAvailable()
+            callback!!.onDataNotAvailable()
         }
     }
 
-    fun saveMedicine(medicineAlarm: MedicineAlarm?, pill: Pills) {
-        mDbHelper.createAlarm(medicineAlarm, pill.getPillId())
+    override fun saveMedicine(medicineAlarm: MedicineAlarm?, pill: Pills?) {
+        mDbHelper.createAlarm(medicineAlarm!!, pill!!.pillId)
     }
 
-    fun getMedicineListByDay(day: Int, callbacks: LoadMedicineCallbacks) {
+    override fun getMedicineListByDay(day: Int, callbacks: MedicineDataSource.LoadMedicineCallbacks?) {
         val medicineAlarmList: List<MedicineAlarm> = mDbHelper.getAlarmsByDay(day)
-        callbacks.onMedicineLoaded(medicineAlarmList)
+        callbacks!!.onMedicineLoaded(medicineAlarmList)
     }
 
-    fun medicineExits(pillName: String?): Boolean {
-        for (pill in pills) {
+    override fun medicineExits(pillName: String?): Boolean {
+        for (pill in Pills.getPillName()) {
             if (pill.getPillName().equals(pillName)) return true
         }
         return false
     }
 
-    fun tempIds(): List<Long>? {
+    override fun tempIds(): List<Long>? {
         return null
     }
 
-    fun deleteAlarm(alarmId: Long) {
+    override fun deleteAlarm(alarmId: Long) {
         deleteAlarmById(alarmId)
     }
 
-    fun getMedicineByPillName(pillName: String): List<MedicineAlarm>? {
+    override fun getMedicineByPillName(pillName: String?): List<MedicineAlarm>? {
         return try {
-            getMedicineByPill(pillName)
+            getMedicineByPill(pillName!!)
         } catch (e: URISyntaxException) {
             e.printStackTrace()
             null
         }
     }
 
-    fun getAllAlarms(pillName: String): List<MedicineAlarm>? {
+    override fun getAllAlarms(pillName: String?): List<MedicineAlarm>? {
         return try {
-            getAllAlarmsByName(pillName)
+            getAllAlarmsByName(pillName!!)
         } catch (e: URISyntaxException) {
             e.printStackTrace()
             null
         }
     }
 
-    fun getPillsByName(pillName: String): Pills {
-        return getPillByName(pillName)
+    override fun getPillsByName(pillName: String?): Pills {
+        return getPillByName(pillName!!)
     }
 
-    fun savePills(pills: Pills): Long {
-        return savePill(pills)
+    override fun savePills(pills: Pills?): Long {
+        return savePill(pills!!)
     }
 
-    fun saveToHistory(history: History?) {
-        mDbHelper.createHistory(history)
+    override fun saveToHistory(history: History?) {
+        mDbHelper.createHistory(history!!)
     }
 
     private val pills: List<Any>
-        private get() = mDbHelper.getAllPills()
+        private get() = mDbHelper.allPills
 
     private fun savePill(pill: Pills): Long {
         val pillId = mDbHelper.createPill(pill)
-        pill.setPillId(pillId)
+        pill.pillId = pillId
         return pillId
     }
 
@@ -119,11 +119,11 @@ class MedicinesLocalDataSource private constructor(context: Context) :
     }
 
     fun addToHistory(h: History?) {
-        mDbHelper.createHistory(h)
+        mDbHelper.createHistory(h!!)
     }
 
     val history: List<Any>
-        get() = mDbHelper.getHistory()
+        get() = mDbHelper.history
 
     @Throws(URISyntaxException::class)
     private fun getAlarmById(alarm_id: Long): MedicineAlarm {

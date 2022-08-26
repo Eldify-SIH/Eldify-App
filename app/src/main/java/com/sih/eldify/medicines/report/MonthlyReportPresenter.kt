@@ -26,16 +26,21 @@ class MonthlyReportPresenter(
         loadHistoryFromDb(showLoading)
     }
 
+    // Empty
+    override fun setFiltering(filterType: FilterType?) {
+        TODO("Not yet implemented")
+    }
+
     private fun loadHistoryFromDb(showLoading: Boolean) {
         if (showLoading) {
             mMonthlyReportView.setLoadingIndicator(true)
         }
-        mMedicineRepository.getMedicineHistory(object : MedicineDataSource.LoadHistoryCallbacks() {
-            fun onHistoryLoaded(historyList: List<History?>) {
+        mMedicineRepository.getMedicineHistory(object : MedicineDataSource.LoadHistoryCallbacks {
+            override fun onHistoryLoaded(historyList: List<History?>?) {
                 val historyShowList: MutableList<History?> = ArrayList<History?>()
 
                 //We will filter the History based on request type
-                for (history in historyList) {
+                for (history in historyList!!) {
                     when (filterType) {
                         FilterType.ALL_MEDICINES -> historyShowList.add(history)
                         FilterType.TAKEN_MEDICINES -> if (history!!.action === 1) {
@@ -55,11 +60,7 @@ class MonthlyReportPresenter(
                 }
             }
 
-            override fun onHistoryLoaded(historyList: List<History?>?) {
-
-            }
-
-            fun onDataNotAvailable() {
+            override fun onDataNotAvailable() {
                 if (!mMonthlyReportView.isActive) {
                     return
                 }

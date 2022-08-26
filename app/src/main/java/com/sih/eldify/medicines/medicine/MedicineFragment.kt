@@ -15,19 +15,13 @@ import butterknife.BindView
 import butterknife.ButterKnife
 import butterknife.OnClick
 import butterknife.Unbinder
-import com.sih.eldify.medicines.R
-import com.sih.eldify.medicines.addmedicine.AddMedicineActivity
 import com.sih.eldify.medicines.data.source.MedicineAlarm
 import com.sih.eldify.medicines.views.RobotoLightTextView
 import com.google.android.material.floatingactionbutton.FloatingActionButton
 import com.google.android.material.snackbar.Snackbar
+import com.sih.eldify.R
+import com.sih.eldify.medicines.addmedicine.AddMedicinesActivity
 import java.util.*
-
-package com.sih.eldify.medicines.medicine
-import com.sih.eldify.medicines.R
-import com.sih.eldify.medicines.addmedicine.AddMedicineActivity
-import com.sih.eldify.medicines.data.source.MedicineAlarm
-import com.sih.eldify.medicines.views.RobotoLightTextView
 
 /**
  * Created by gautam on 13/07/17.
@@ -73,7 +67,7 @@ class MedicineFragment : Fragment(), MedicineContract.View,
     override fun onActivityCreated(savedInstanceState: Bundle?) {
         super.onActivityCreated(savedInstanceState)
         val fab = Objects.requireNonNull(
-            activity
+            requireActivity()
         ).findViewById<FloatingActionButton>(R.id.fab_add_task)
         fab.setImageResource(R.drawable.ic_add)
         fab.setOnClickListener { v: View? -> presenter!!.addNewMedicine() }
@@ -93,7 +87,7 @@ class MedicineFragment : Fragment(), MedicineContract.View,
         presenter!!.onStart(day)
     }
 
-    fun setPresenter(presenter: MedicineContract.Presenter?) {
+    override fun setPresenter(presenter: MedicineContract.Presenter?) {
         this.presenter = presenter
     }
 
@@ -105,20 +99,20 @@ class MedicineFragment : Fragment(), MedicineContract.View,
     }
 
     override fun showMedicineList(medicineAlarmList: List<MedicineAlarm?>?) {
-        medicineAdapter!!.replaceData(medicineAlarmList)
+        medicineAdapter!!.replaceData(medicineAlarmList as List<MedicineAlarm>?)
         rvMedList!!.visibility = View.VISIBLE
         noMedView!!.visibility = View.GONE
     }
 
     override fun showAddMedicine() {
-        val intent = Intent(context, AddMedicineActivity::class.java)
-        startActivityForResult(intent, AddMedicineActivity.REQUEST_ADD_TASK)
+        val intent = Intent(context, AddMedicinesActivity::class.java)
+        startActivityForResult(intent, AddMedicinesActivity.REQUEST_ADD_TASK)
     }
 
     override fun showMedicineDetails(taskId: Long, medName: String?) {
-        val intent = Intent(context, AddMedicineActivity::class.java)
-        intent.putExtra(AddMedicineActivity.EXTRA_TASK_ID, taskId)
-        intent.putExtra(AddMedicineActivity.EXTRA_TASK_NAME, medName)
+        val intent = Intent(context, AddMedicinesActivity::class.java)
+        intent.putExtra(AddMedicinesActivity.EXTRA_TASK_ID, taskId)
+        intent.putExtra(AddMedicinesActivity.EXTRA_TASK_NAME, medName)
         startActivity(intent)
     }
 
@@ -144,7 +138,7 @@ class MedicineFragment : Fragment(), MedicineContract.View,
     }
 
     private fun showMessage(message: String) {
-        if (view != null) Snackbar.make(view!!, message, Snackbar.LENGTH_LONG).show()
+        if (view != null) Snackbar.make(requireView(), message, Snackbar.LENGTH_LONG).show()
     }
 
     override val isActive: Boolean
@@ -163,7 +157,7 @@ class MedicineFragment : Fragment(), MedicineContract.View,
     private fun showNoTasksViews(mainText: String) {
         rvMedList!!.visibility = View.GONE
         noMedView!!.visibility = View.VISIBLE
-        noMedText.setText(mainText)
+        noMedText!!.setText(mainText)
         noMedIcon!!.setImageDrawable(resources.getDrawable(R.drawable.icon_my_health))
         addMedNow!!.visibility = View.VISIBLE
     }

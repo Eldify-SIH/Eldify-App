@@ -51,8 +51,8 @@ class MedicineAlarm : Comparable<MedicineAlarm?> {
      * Overrides the compareTo() method so that alarms can be sorted by time of day from earliest to
      * latest.
      */
-    override operator fun compareTo(medicineAlarm: MedicineAlarm): Int {
-        return if (hour < medicineAlarm.hour) -1 else if (hour > medicineAlarm.hour) 1 else {
+    override operator fun compareTo(medicineAlarm: MedicineAlarm?): Int {
+        return if (hour < medicineAlarm!!.hour) -1 else if (hour > medicineAlarm.hour) 1 else {
             if (minute < medicineAlarm.minute) -1 else if (minute > medicineAlarm.minute) 1 else 0
         }
     }

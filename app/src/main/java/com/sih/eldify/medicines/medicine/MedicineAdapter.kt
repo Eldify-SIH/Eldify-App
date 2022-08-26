@@ -7,8 +7,8 @@ import android.widget.ImageView
 import androidx.recyclerview.widget.RecyclerView
 import butterknife.BindView
 import butterknife.ButterKnife
+import com.sih.eldify.R
 
-import com.sih.eldify.medicines.R
 import com.sih.eldify.medicines.data.source.MedicineAlarm
 import com.sih.eldify.medicines.views.RobotoBoldTextView
 import com.sih.eldify.medicines.views.RobotoRegularTextView
@@ -17,7 +17,7 @@ import com.sih.eldify.medicines.views.RobotoRegularTextView
  * Created by gautam on 13/07/17.
  */
 class MedicineAdapter(medicineAlarmList: List<MedicineAlarm>?) :
-    RecyclerView.Adapter<com.sih.eldify.medicines.medicine.MedicineAdapter.MedicineViewHolder>() {
+    RecyclerView.Adapter<MedicineAdapter.MedicineViewHolder>() {
     private var medicineAlarmList: List<MedicineAlarm>?
     private var onItemClickListener: OnItemClickListener? = null
     fun replaceData(medicineAlarmList: List<MedicineAlarm>?) {
@@ -32,22 +32,22 @@ class MedicineAdapter(medicineAlarmList: List<MedicineAlarm>?) :
     override fun onCreateViewHolder(
         parent: ViewGroup,
         viewType: Int
-    ): com.sih.eldify.medicines.medicine.MedicineAdapter.MedicineViewHolder {
+    ): MedicineViewHolder {
         val view: View =
             LayoutInflater.from(parent.context).inflate(R.layout.row_medicine, parent, false)
-        return com.sih.eldify.medicines.medicine.MedicineAdapter.MedicineViewHolder(view)
+        return MedicineViewHolder(view)
     }
 
     override fun onBindViewHolder(
-        holder: com.sih.eldify.medicines.medicine.MedicineAdapter.MedicineViewHolder,
+        holder: MedicineViewHolder,
         position: Int
     ) {
         val medicineAlarm: MedicineAlarm = medicineAlarmList!![position] ?: return
-        holder.tvMedTime.setText(medicineAlarm.getStringTime())
-        holder.tvMedicineName.setText(medicineAlarm.getPillName())
-        holder.tvDoseDetails.setText(medicineAlarm.getFormattedDose())
-        holder.ivAlarmDelete.setVisibility(View.VISIBLE)
-        holder.ivAlarmDelete.setOnClickListener(View.OnClickListener {
+        holder.tvMedTime!!.setText(medicineAlarm.stringTime)
+        holder.tvMedicineName!!.setText(medicineAlarm.pillName)
+        holder.tvDoseDetails!!.setText(medicineAlarm.formattedDose)
+        holder.ivAlarmDelete!!.setVisibility(View.VISIBLE)
+        holder.ivAlarmDelete!!.setOnClickListener(View.OnClickListener {
             if (onItemClickListener != null) {
                 onItemClickListener!!.onMedicineDeleteClicked(medicineAlarm)
             }
@@ -58,7 +58,7 @@ class MedicineAdapter(medicineAlarmList: List<MedicineAlarm>?) :
         return if (medicineAlarmList != null && !medicineAlarmList!!.isEmpty()) medicineAlarmList!!.size else 0
     }
 
-    internal class MedicineViewHolder(itemView: View?) :
+    class MedicineViewHolder(itemView: View?) :
         RecyclerView.ViewHolder(itemView!!) {
         @BindView(R.id.tv_med_time)
         var tvMedTime: RobotoBoldTextView? = null

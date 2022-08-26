@@ -3,29 +3,29 @@ package com.sih.eldify.medicines.data.source
 class MedicineRepository private constructor(private val localDataSource: MedicineDataSource) :
     MedicineDataSource {
 
-    override fun getMedicineHistory(loadHistoryCallbacks: LoadHistoryCallbacks) {
-        localDataSource.getMedicineHistory(object : LoadHistoryCallbacks() {
-            fun onHistoryLoaded(historyList: List<History?>?) {
-                loadHistoryCallbacks.onHistoryLoaded(historyList)
+    override fun getMedicineHistory(loadHistoryCallbacks: MedicineDataSource.LoadHistoryCallbacks?) {
+        localDataSource.getMedicineHistory(object : MedicineDataSource.LoadHistoryCallbacks {
+            override fun onHistoryLoaded(historyList: List<History?>?) {
+                loadHistoryCallbacks!!.onHistoryLoaded(historyList)
             }
 
-            fun onDataNotAvailable() {
-                loadHistoryCallbacks.onDataNotAvailable()
+            override fun onDataNotAvailable() {
+                loadHistoryCallbacks!!.onDataNotAvailable()
             }
         })
     }
 
-    override fun getMedicineAlarmById(id: Long, callback: GetTaskCallback) {
-        localDataSource.getMedicineAlarmById(id, object : GetTaskCallback() {
-            fun onTaskLoaded(medicineAlarm: MedicineAlarm?) {
+    override fun getMedicineAlarmById(id: Long, callback: MedicineDataSource.GetTaskCallback?) {
+        localDataSource.getMedicineAlarmById(id, object : MedicineDataSource.GetTaskCallback {
+            override fun onTaskLoaded(medicineAlarm: MedicineAlarm?) {
                 if (medicineAlarm == null) {
                     return
                 }
-                callback.onTaskLoaded(medicineAlarm)
+                callback!!.onTaskLoaded(medicineAlarm)
             }
 
-            fun onDataNotAvailable() {
-                callback.onDataNotAvailable()
+            override fun onDataNotAvailable() {
+                callback!!.onDataNotAvailable()
             }
         })
     }
@@ -34,14 +34,15 @@ class MedicineRepository private constructor(private val localDataSource: Medici
         localDataSource.saveMedicine(medicineAlarm, pills)
     }
 
-    override fun getMedicineListByDay(day: Int, callbacks: LoadMedicineCallbacks) {
-        localDataSource.getMedicineListByDay(day, object : LoadMedicineCallbacks() {
-            fun onMedicineLoaded(medicineAlarmList: List<MedicineAlarm?>?) {
-                callbacks.onMedicineLoaded(medicineAlarmList)
+    override fun getMedicineListByDay(day: Int, callbacks: MedicineDataSource.LoadMedicineCallbacks?) {
+        localDataSource.getMedicineListByDay(day, object :
+            MedicineDataSource.LoadMedicineCallbacks {
+            override fun onMedicineLoaded(medicineAlarmList: List<MedicineAlarm?>?) {
+                callbacks!!.onMedicineLoaded(medicineAlarmList)
             }
 
-            fun onDataNotAvailable() {
-                callbacks.onDataNotAvailable()
+            override fun onDataNotAvailable() {
+                callbacks!!.onDataNotAvailable()
             }
         })
     }

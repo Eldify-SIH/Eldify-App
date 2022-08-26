@@ -6,10 +6,11 @@ import android.app.PendingIntent
 import android.content.Context
 import android.content.Intent
 import android.util.Log
-import com.sih.eldify.medicines.addmedicine.AddMedicineActivity
+import com.sih.eldify.medicines.addmedicine.AddMedicinesActivity
 import com.sih.eldify.medicines.alarm.ReminderActivity
 import com.sih.eldify.medicines.alarm.ReminderFragment
 import com.sih.eldify.medicines.data.source.MedicineAlarm
+import com.sih.eldify.medicines.data.source.MedicineDataSource
 import com.sih.eldify.medicines.data.source.MedicineRepository
 import java.util.*
 
@@ -28,30 +29,31 @@ class MedicinePresenter internal constructor(
         loadListByDay(day, showIndicator)
     }
 
-    fun deleteMedicineAlarm(medicineAlarm: MedicineAlarm, context: Context) {
-        val alarms: List<MedicineAlarm> =
-            mMedicineRepository.getAllAlarms(medicineAlarm.getPillName())
-        for (alarm in alarms) {
-            mMedicineRepository.deleteAlarm(alarm.getId())
+    override fun deleteMedicineAlarm(medicineAlarm: MedicineAlarm?, context: Context?) {
+        val alarms: List<MedicineAlarm?>? =
+            mMedicineRepository.getAllAlarms(medicineAlarm!!.pillName)
+        for (alarm in alarms!!) {
+            mMedicineRepository.deleteAlarm(alarm!!.id)
             /** This intent invokes the activity ReminderActivity, which in turn opens the AlertAlarm window  */
             val intent = Intent(context, ReminderActivity::class.java)
-            intent.putExtra(ReminderFragment.EXTRA_ID, alarm.getAlarmId())
+            intent.putExtra(ReminderFragment.EXTRA_ID, alarm.alarmId)
             val operation = PendingIntent.getActivity(
                 context,
-                alarm.getAlarmId(),
+                alarm.alarmId,
                 intent,
                 PendingIntent.FLAG_UPDATE_CURRENT
             )
 
             /** Getting a reference to the System Service ALARM_SERVICE  */
             val alarmManager = Objects.requireNonNull(context)
-                .getSystemService(Context.ALARM_SERVICE) as AlarmManager
+                ?.getSystemService(Context.ALARM_SERVICE) as AlarmManager
             alarmManager?.cancel(operation)
         }
         mMedView.showMedicineDeletedSuccessfully()
     }
 
-    fun start() {}
+    override fun start() {}
+
     override fun onStart(day: Int) {
         Log.d("TAG", "onStart: $day")
         loadMedicinesByDay(day, true)
@@ -63,7 +65,7 @@ class MedicinePresenter internal constructor(
     }
 
     override fun result(requestCode: Int, resultCode: Int) {
-        if (AddMedicineActivity.REQUEST_ADD_TASK === requestCode && Activity.RESULT_OK == resultCode) {
+        if (AddMedicinesActivity.REQUEST_ADD_TASK === requestCode && Activity.RESULT_OK == resultCode) {
             mMedView.showSuccessfullySavedMessage()
         }
     }
@@ -74,11 +76,11 @@ class MedicinePresenter internal constructor(
 
     private fun loadListByDay(day: Int, showLoadingUi: Boolean) {
         if (showLoadingUi) mMedView.showLoadingIndicator(true)
-        mMedicineRepository.getMedicineListByDay(day, object : LoadMedicineCallbacks() {
-            fun onMedicineLoaded(medicineAlarmList: List<MedicineAlarm?>) {
-                processMedicineList(medicineAlarmList)
+        mMedicineRepository.getMedicineListByDay(day, object : MedicineDataSource.LoadMedicineCallbacks {
+            override fun onMedicineLoaded(medicineAlarmList: List<MedicineAlarm?>?) {
+                processMedicineList(medicineAlarmList!!)
                 // The view may not be able to handle UI updates anymore
-                if (!mMedView.isActive()) {
+                if (!mMedView.isActive) {
                     return
                 }
                 if (showLoadingUi) {
@@ -86,8 +88,8 @@ class MedicinePresenter internal constructor(
                 }
             }
 
-            fun onDataNotAvailable() {
-                if (!mMedView.isActive()) {
+            override fun onDataNotAvailable() {
+                if (!mMedView.isActive) {
                     return
                 }
                 if (showLoadingUi) {

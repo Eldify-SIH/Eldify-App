@@ -13,7 +13,7 @@ import androidx.recyclerview.widget.RecyclerView
 import butterknife.BindView
 import butterknife.ButterKnife
 import butterknife.Unbinder
-import com.sih.eldify.medicines.R
+import com.sih.eldify.R
 import com.sih.eldify.medicines.data.source.History
 import com.sih.eldify.medicines.views.RobotoLightTextView
 
@@ -70,10 +70,10 @@ class MonthlyReportFragment : Fragment(),
 
     override fun onResume() {
         super.onResume()
-        presenter.start()
+        presenter?.start()
     }
 
-    fun setPresenter(presenter: MonthlyReportContract.Presenter?) {
+    override fun setPresenter(presenter: MonthlyReportContract.Presenter?) {
         this.presenter = presenter
     }
 
@@ -85,7 +85,7 @@ class MonthlyReportFragment : Fragment(),
     }
 
     override fun showHistoryList(historyList: List<History?>?) {
-        mHistoryAdapter!!.replaceData(historyList!!)
+        mHistoryAdapter!!.replaceData(historyList!! as List<History>)
         tasksLL!!.visibility = View.VISIBLE
         noMedView!!.visibility = View.GONE
     }
@@ -99,15 +99,15 @@ class MonthlyReportFragment : Fragment(),
     }
 
     override fun showTakenFilterLabel() {
-        filteringLabel.setText(R.string.taken_label)
+        filteringLabel?.setText(R.string.taken_label)
     }
 
     override fun showIgnoredFilterLabel() {
-        filteringLabel.setText(R.string.ignore_label)
+        filteringLabel?.setText(R.string.ignore_label)
     }
 
     override fun showAllFilterLabel() {
-        filteringLabel.setText(R.string.all_label)
+        filteringLabel?.setText(R.string.all_label)
     }
 
     override fun showNoTakenHistory() {
@@ -128,7 +128,7 @@ class MonthlyReportFragment : Fragment(),
         get() = isAdded
 
     override fun showFilteringPopUpMenu() {
-        val popup = PopupMenu(context!!, activity!!.findViewById(R.id.menu_filter))
+        val popup = PopupMenu(requireContext(), requireActivity().findViewById(R.id.menu_filter))
         popup.menuInflater.inflate(R.menu.filter_history, popup.menu)
         popup.setOnMenuItemClickListener { item ->
             when (item.itemId) {
@@ -161,7 +161,7 @@ class MonthlyReportFragment : Fragment(),
     private fun showNoHistoryView(mainText: String, iconRes: Int) {
         tasksLL!!.visibility = View.GONE
         noMedView!!.visibility = View.VISIBLE
-        noMedText.setText(mainText)
+        noMedText?.setText(mainText)
         noMedIcon!!.setImageDrawable(resources.getDrawable(iconRes))
     }
 

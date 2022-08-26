@@ -16,7 +16,7 @@ import butterknife.BindView
 import butterknife.ButterKnife
 import butterknife.OnClick
 import com.sih.eldify.medicines.Injection
-import com.sih.eldify.medicines.R
+import com.sih.eldify.R
 import com.sih.eldify.medicines.report.MonthlyReportActivity
 import com.sih.eldify.medicines.utils.ActivityUtils
 import com.github.sundeepk.compactcalendarview.CompactCalendarView
@@ -83,7 +83,7 @@ class MedicineActivity : AppCompatActivity() {
                 }
                 isExpanded = !isExpanded
                 appBarLayout!!.setExpanded(isExpanded, true)
-                presenter.reload(day)
+                presenter!!.reload(day)
             }
 
             override fun onMonthScroll(firstDayOfNewMonth: Date) {
