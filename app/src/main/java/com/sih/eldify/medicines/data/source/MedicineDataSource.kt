@@ -5,7 +5,7 @@ package com.sih.eldify.medicines.data.source
  */
 interface MedicineDataSource {
     interface LoadMedicineCallbacks {
-        fun onMedicineLoaded(medicineAlarmList: List<MedicineAlarm?>?)
+        fun onMedicineLoaded(medicineAlarmList: List<MedicineAlarm>?)
         fun onDataNotAvailable()
     }
 

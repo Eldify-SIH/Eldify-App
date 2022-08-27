@@ -1,5 +1,7 @@
 package com.sih.eldify.medicines.data.source
 
+import android.util.Log
+
 class MedicineRepository private constructor(private val localDataSource: MedicineDataSource) :
     MedicineDataSource {
 
@@ -19,6 +21,7 @@ class MedicineRepository private constructor(private val localDataSource: Medici
         localDataSource.getMedicineAlarmById(id, object : MedicineDataSource.GetTaskCallback {
             override fun onTaskLoaded(medicineAlarm: MedicineAlarm?) {
                 if (medicineAlarm == null) {
+                    Log.d("med", "null")
                     return
                 }
                 callback!!.onTaskLoaded(medicineAlarm)
@@ -37,7 +40,7 @@ class MedicineRepository private constructor(private val localDataSource: Medici
     override fun getMedicineListByDay(day: Int, callbacks: MedicineDataSource.LoadMedicineCallbacks?) {
         localDataSource.getMedicineListByDay(day, object :
             MedicineDataSource.LoadMedicineCallbacks {
-            override fun onMedicineLoaded(medicineAlarmList: List<MedicineAlarm?>?) {
+            override fun onMedicineLoaded(medicineAlarmList: List<MedicineAlarm>?) {
                 callbacks!!.onMedicineLoaded(medicineAlarmList)
             }
 

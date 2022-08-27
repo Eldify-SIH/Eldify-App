@@ -2,26 +2,19 @@ package com.sih.eldify.medicines.medicine
 
 import android.content.Intent
 import android.os.Bundle
-import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
-import androidx.databinding.DataBindingUtil
 import androidx.fragment.app.Fragment
-import androidx.lifecycle.ViewModelProvider
 import androidx.recyclerview.widget.LinearLayoutManager
 import butterknife.ButterKnife
-import butterknife.OnClick
 import butterknife.Unbinder
 import com.google.android.material.floatingactionbutton.FloatingActionButton
 import com.google.android.material.snackbar.Snackbar
 import com.sih.eldify.R
 import com.sih.eldify.databinding.FragmentMedicineBinding
-import com.sih.eldify.databinding.FragmentMedsBinding
-import com.sih.eldify.databinding.FragmentSettingsBinding
 import com.sih.eldify.medicines.addmedicine.AddMedicinesActivity
 import com.sih.eldify.medicines.data.source.MedicineAlarm
-import com.sih.eldify.ui.settings.SettingsViewModel
 import kotlinx.android.synthetic.main.fragment_medicine.*
 import java.util.*
 
@@ -94,8 +87,8 @@ class MedicineFragment : Fragment(), MedicineContract.View,
         med_fm_progressLoader!!.visibility = if (active) View.VISIBLE else View.GONE
     }
 
-    override fun showMedicineList(medicineAlarmList: List<MedicineAlarm?>?) {
-        medicineAdapter!!.replaceData(medicineAlarmList as List<MedicineAlarm>?)
+    override fun showMedicineList(medicineAlarmList: List<MedicineAlarm>?) {
+        medicineAdapter!!.replaceData(medicineAlarmList)
         med_fm_noMedText!!.visibility = View.VISIBLE
         med_fm_no_med_view!!.visibility = View.GONE
     }

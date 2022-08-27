@@ -125,7 +125,7 @@ class AddMedicineFragment : Fragment(),
     }
 
     fun onCheckboxClicked(view: View) {
-        val checked = (view as CheckBox).isChecked
+        val checked = med_fam_every_day.isChecked
         when (view.getId()) {
             R.id.med_fam_dv_monday -> if (checked) {
                 dayOfWeekList[1] = true

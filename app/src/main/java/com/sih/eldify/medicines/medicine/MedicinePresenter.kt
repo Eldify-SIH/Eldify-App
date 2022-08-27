@@ -77,8 +77,11 @@ class MedicinePresenter internal constructor(
     private fun loadListByDay(day: Int, showLoadingUi: Boolean) {
         if (showLoadingUi) mMedView.showLoadingIndicator(true)
         mMedicineRepository.getMedicineListByDay(day, object : MedicineDataSource.LoadMedicineCallbacks {
-            override fun onMedicineLoaded(medicineAlarmList: List<MedicineAlarm?>?) {
-                processMedicineList(medicineAlarmList!!)
+            override fun onMedicineLoaded(medicineAlarmList: List<MedicineAlarm>?) {
+
+                Log.d("med", medicineAlarmList.toString())
+
+                processMedicineList(medicineAlarmList)
                 // The view may not be able to handle UI updates anymore
                 if (!mMedView.isActive) {
                     return
@@ -86,6 +89,7 @@ class MedicinePresenter internal constructor(
                 if (showLoadingUi) {
                     mMedView.showLoadingIndicator(false)
                 }
+
             }
 
             override fun onDataNotAvailable() {
@@ -95,13 +99,15 @@ class MedicinePresenter internal constructor(
                 if (showLoadingUi) {
                     mMedView.showLoadingIndicator(false)
                 }
+
                 mMedView.showNoMedicine()
             }
         })
     }
 
-    private fun processMedicineList(medicineAlarmList: List<MedicineAlarm?>) {
-        if (medicineAlarmList.isEmpty()) {
+    private fun processMedicineList(medicineAlarmList: List<MedicineAlarm>?) {
+        if (medicineAlarmList!!.isEmpty()) {
+            Log.d("med", "Med ALarm list empty")
             // Show a message indicating there are no tasks for that filter type.
             mMedView.showNoMedicine()
         } else {

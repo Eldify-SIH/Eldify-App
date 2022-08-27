@@ -2,21 +2,18 @@ package com.sih.eldify.medicines.report
 
 import android.os.Bundle
 import android.view.*
-import android.widget.ImageView
 import android.widget.LinearLayout
-import android.widget.ProgressBar
 import android.widget.TextView
 import androidx.appcompat.widget.PopupMenu
 import androidx.fragment.app.Fragment
 import androidx.recyclerview.widget.LinearLayoutManager
-import androidx.recyclerview.widget.RecyclerView
 import butterknife.BindView
 import butterknife.ButterKnife
 import butterknife.Unbinder
 import com.sih.eldify.R
 import com.sih.eldify.medicines.data.source.History
-import com.sih.eldify.medicines.views.RobotoLightTextView
 import kotlinx.android.synthetic.main.fragment_history.*
+import kotlinx.android.synthetic.main.fragment_history.view.*
 
 /**
  * Created by gautam on 13/07/17.
@@ -25,11 +22,7 @@ class MonthlyReportFragment : Fragment(),
     MonthlyReportContract.View {
     var unbinder: Unbinder? = null
 
-    @BindView(R.id.med_fh_filteringLabel)
-    var filteringLabel: TextView? = null
 
-    @BindView(R.id.med_fh_tasksLL)
-    var tasksLL: LinearLayout? = null
     private var mHistoryAdapter: HistoryAdapter? = null
     private var presenter: MonthlyReportContract.Presenter? = null
     override fun onCreate(savedInstanceState: Bundle?) {
@@ -38,10 +31,10 @@ class MonthlyReportFragment : Fragment(),
         setHasOptionsMenu(true)
     }
 
-    private fun setAdapter() {
-        med_fh_rv_history_list!!.adapter = mHistoryAdapter
-        med_fh_rv_history_list!!.layoutManager = LinearLayoutManager(context)
-        med_fh_rv_history_list!!.setHasFixedSize(true)
+    private fun setAdapter(view: View) {
+        view.med_fh_rv_history_list!!.adapter = mHistoryAdapter
+        view.med_fh_rv_history_list!!.layoutManager = LinearLayoutManager(context)
+        view.med_fh_rv_history_list!!.setHasFixedSize(true)
     }
 
     override fun onCreateView(
@@ -51,7 +44,8 @@ class MonthlyReportFragment : Fragment(),
     ): View? {
         val view: View = inflater.inflate(R.layout.fragment_history, container, false)
         unbinder = ButterKnife.bind(this, view)
-        setAdapter()
+        setAdapter(view)
+
         return view
     }
 
@@ -73,7 +67,7 @@ class MonthlyReportFragment : Fragment(),
 
     override fun showHistoryList(historyList: List<History?>?) {
         mHistoryAdapter!!.replaceData(historyList!! as List<History>)
-        tasksLL!!.visibility = View.VISIBLE
+        med_fh_tasksLL!!.visibility = View.VISIBLE
         med_fh_no_med_view!!.visibility = View.GONE
     }
 
@@ -86,15 +80,15 @@ class MonthlyReportFragment : Fragment(),
     }
 
     override fun showTakenFilterLabel() {
-        filteringLabel?.setText(R.string.taken_label)
+        med_fh_filteringLabel?.setText(R.string.taken_label)
     }
 
     override fun showIgnoredFilterLabel() {
-        filteringLabel?.setText(R.string.ignore_label)
+        med_fh_filteringLabel?.setText(R.string.ignore_label)
     }
 
     override fun showAllFilterLabel() {
-        filteringLabel?.setText(R.string.all_label)
+        med_fh_filteringLabel?.setText(R.string.all_label)
     }
 
     override fun showNoTakenHistory() {
@@ -146,10 +140,10 @@ class MonthlyReportFragment : Fragment(),
     }
 
     private fun showNoHistoryView(mainText: String, iconRes: Int) {
-        tasksLL!!.visibility = View.GONE
-        med_fh_no_med_view!!.visibility = View.VISIBLE
-        med_fh_noMedText?.setText(mainText)
-        med_fh_noMedIcon!!.setImageDrawable(resources.getDrawable(iconRes))
+        view?.med_fh_tasksLL!!.visibility = View.GONE
+        view?.med_fh_no_med_view!!.visibility = View.VISIBLE
+        view?.med_fh_noMedText?.setText(mainText)
+        view?.med_fh_noMedIcon!!.setImageDrawable(resources.getDrawable(iconRes))
     }
 
     companion object {

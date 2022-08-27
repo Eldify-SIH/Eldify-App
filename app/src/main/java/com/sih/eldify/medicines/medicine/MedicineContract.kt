@@ -12,7 +12,7 @@ import com.sih.eldify.medicines.data.source.MedicineAlarm
 interface MedicineContract {
     interface View : BaseView<Presenter?> {
         fun showLoadingIndicator(active: Boolean)
-        fun showMedicineList(medicineAlarmList: List<MedicineAlarm?>?)
+        fun showMedicineList(medicineAlarmList: List<MedicineAlarm>?)
         fun showAddMedicine()
         fun showMedicineDetails(medId: Long, medName: String?)
         fun showLoadingMedicineError()
