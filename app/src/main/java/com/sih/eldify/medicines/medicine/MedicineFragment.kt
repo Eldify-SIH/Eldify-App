@@ -2,81 +2,77 @@ package com.sih.eldify.medicines.medicine
 
 import android.content.Intent
 import android.os.Bundle
+import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
-import android.widget.ImageView
-import android.widget.ProgressBar
-import android.widget.TextView
+import androidx.databinding.DataBindingUtil
 import androidx.fragment.app.Fragment
+import androidx.lifecycle.ViewModelProvider
 import androidx.recyclerview.widget.LinearLayoutManager
-import androidx.recyclerview.widget.RecyclerView
-import butterknife.BindView
 import butterknife.ButterKnife
 import butterknife.OnClick
 import butterknife.Unbinder
-import com.sih.eldify.medicines.data.source.MedicineAlarm
-import com.sih.eldify.medicines.views.RobotoLightTextView
 import com.google.android.material.floatingactionbutton.FloatingActionButton
 import com.google.android.material.snackbar.Snackbar
 import com.sih.eldify.R
+import com.sih.eldify.databinding.FragmentMedicineBinding
+import com.sih.eldify.databinding.FragmentMedsBinding
+import com.sih.eldify.databinding.FragmentSettingsBinding
 import com.sih.eldify.medicines.addmedicine.AddMedicinesActivity
+import com.sih.eldify.medicines.data.source.MedicineAlarm
+import com.sih.eldify.ui.settings.SettingsViewModel
+import kotlinx.android.synthetic.main.fragment_medicine.*
 import java.util.*
 
-/**
- * Created by gautam on 13/07/17.
- */
+private var _binding: FragmentMedicineBinding? = null
+
+private val binding get() = _binding!!
+
 class MedicineFragment : Fragment(), MedicineContract.View,
     MedicineAdapter.OnItemClickListener {
-    @BindView(R.id.medicine_list)
-    var rvMedList: RecyclerView? = null
+
     var unbinder: Unbinder? = null
-
-    @BindView(R.id.noMedIcon)
-    var noMedIcon: ImageView? = null
-
-    @BindView(R.id.noMedText)
-    var noMedText: RobotoLightTextView? = null
-
-    @BindView(R.id.add_med_now)
-    var addMedNow: TextView? = null
-
-    @BindView(R.id.no_med_view)
-    var noMedView: View? = null
-
-    @BindView(R.id.progressLoader)
-    var progressLoader: ProgressBar? = null
     private var presenter: MedicineContract.Presenter? = null
     private var medicineAdapter: MedicineAdapter? = null
+
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
-        medicineAdapter = MedicineAdapter(ArrayList<E>(0))
+        medicineAdapter = MedicineAdapter(ArrayList<MedicineAlarm>())
+
     }
 
     override fun onCreateView(
         inflater: LayoutInflater,
         container: ViewGroup?,
         savedInstanceState: Bundle?
-    ): View? {
-        val view: View = inflater.inflate(R.layout.fragment_medicine, container, false)
-        unbinder = ButterKnife.bind(this, view)
+    ): View {
+
+        _binding = FragmentMedicineBinding.inflate(inflater, container, false)
+        val root: View = binding.root
+        unbinder = ButterKnife.bind(this, root)
         setAdapter()
-        return view
+        return root
     }
 
+    @Deprecated("Deprecated in Java")
     override fun onActivityCreated(savedInstanceState: Bundle?) {
         super.onActivityCreated(savedInstanceState)
+        medicineAdapter = MedicineAdapter(ArrayList<MedicineAlarm>())
         val fab = Objects.requireNonNull(
             requireActivity()
-        ).findViewById<FloatingActionButton>(R.id.fab_add_task)
+        ).findViewById<FloatingActionButton>(R.id.med_am_fab_add_task)
         fab.setImageResource(R.drawable.ic_add)
         fab.setOnClickListener { v: View? -> presenter!!.addNewMedicine() }
+        med_fm_add_med_now.setOnClickListener{
+            showAddMedicine()
+        }
     }
 
     private fun setAdapter() {
-        rvMedList!!.adapter = medicineAdapter
-        rvMedList!!.layoutManager = LinearLayoutManager(context)
-        rvMedList!!.setHasFixedSize(true)
+        _binding!!.medFmMedicineList.adapter = medicineAdapter
+        _binding!!.medFmMedicineList.layoutManager = LinearLayoutManager(context)
+        _binding!!.medFmMedicineList.setHasFixedSize(true)
         medicineAdapter!!.setOnItemClickListener(this)
     }
 
@@ -95,24 +91,24 @@ class MedicineFragment : Fragment(), MedicineContract.View,
         if (view == null) {
             return
         }
-        progressLoader!!.visibility = if (active) View.VISIBLE else View.GONE
+        med_fm_progressLoader!!.visibility = if (active) View.VISIBLE else View.GONE
     }
 
     override fun showMedicineList(medicineAlarmList: List<MedicineAlarm?>?) {
         medicineAdapter!!.replaceData(medicineAlarmList as List<MedicineAlarm>?)
-        rvMedList!!.visibility = View.VISIBLE
-        noMedView!!.visibility = View.GONE
+        med_fm_noMedText!!.visibility = View.VISIBLE
+        med_fm_no_med_view!!.visibility = View.GONE
     }
 
     override fun showAddMedicine() {
         val intent = Intent(context, AddMedicinesActivity::class.java)
-        startActivityForResult(intent, AddMedicinesActivity.REQUEST_ADD_TASK)
+        startActivityForResult(intent, AddMedicinesActivity.addMedsActObj.REQUEST_ADD_TASK)
     }
 
     override fun showMedicineDetails(taskId: Long, medName: String?) {
         val intent = Intent(context, AddMedicinesActivity::class.java)
-        intent.putExtra(AddMedicinesActivity.EXTRA_TASK_ID, taskId)
-        intent.putExtra(AddMedicinesActivity.EXTRA_TASK_NAME, medName)
+        intent.putExtra(AddMedicinesActivity.addMedsActObj.EXTRA_TASK_ID, taskId)
+        intent.putExtra(AddMedicinesActivity.addMedsActObj.EXTRA_TASK_NAME, medName)
         startActivity(intent)
     }
 
@@ -149,17 +145,12 @@ class MedicineFragment : Fragment(), MedicineContract.View,
         unbinder!!.unbind()
     }
 
-    @OnClick(R.id.add_med_now)
-    fun addMedicine() {
-        showAddMedicine()
-    }
-
     private fun showNoTasksViews(mainText: String) {
-        rvMedList!!.visibility = View.GONE
-        noMedView!!.visibility = View.VISIBLE
-        noMedText!!.setText(mainText)
-        noMedIcon!!.setImageDrawable(resources.getDrawable(R.drawable.icon_my_health))
-        addMedNow!!.visibility = View.VISIBLE
+        med_fm_medicine_list!!.visibility = View.GONE
+        med_fm_no_med_view!!.visibility = View.VISIBLE
+        med_fm_noMedText!!.setText(mainText)
+        med_fm_noMedIcon!!.setImageDrawable(resources.getDrawable(R.drawable.icon_my_health))
+        med_fm_add_med_now!!.visibility = View.VISIBLE
     }
 
     override fun onActivityResult(requestCode: Int, resultCode: Int, data: Intent?) {

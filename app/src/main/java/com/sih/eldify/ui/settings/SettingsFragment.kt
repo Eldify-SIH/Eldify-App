@@ -223,7 +223,7 @@ class SettingsFragment : Fragment() {
 
     private fun outputSOS(text: String) {
         activity?.runOnUiThread {
-            sos.setText(text)
+//            sos.setText(text)
             if(text.contains("recieved")){
                 val gson = Gson()
                 val sos: SOS = gson.fromJson(text, SOS::class.java)

@@ -22,6 +22,7 @@ import com.sih.eldify.medicines.data.source.MedicineAlarm
 import com.sih.eldify.medicines.medicine.MedicineActivity
 import com.sih.eldify.medicines.views.RobotoBoldTextView
 import com.sih.eldify.medicines.views.RobotoRegularTextView
+import kotlinx.android.synthetic.main.fragment_reminder.*
 import java.text.SimpleDateFormat
 import java.util.*
 
@@ -30,23 +31,7 @@ import java.util.*
  * Created by gautam on 13/07/17.
  */
 class ReminderFragment : Fragment(), ReminderContract.View {
-    @BindView(R.id.tv_med_time)
-    var tvMedTime: RobotoBoldTextView? = null
 
-    @BindView(R.id.tv_medicine_name)
-    var tvMedicineName: RobotoBoldTextView? = null
-
-    @BindView(R.id.tv_dose_details)
-    var tvDoseDetails: RobotoRegularTextView? = null
-
-    @BindView(R.id.iv_ignore_med)
-    var ivIgnoreMed: ImageView? = null
-
-    @BindView(R.id.iv_take_med)
-    var ivTakeMed: ImageView? = null
-
-    @BindView(R.id.linearLayout)
-    var linearLayout: LinearLayout? = null
     var unbinder: Unbinder? = null
     private var medicineAlarm: MedicineAlarm? = null
     private var id: Long = 0
@@ -80,9 +65,9 @@ class ReminderFragment : Fragment(), ReminderContract.View {
         mMediaPlayer = MediaPlayer.create(context, R.raw.cuco_sound)
         mMediaPlayer!!.isLooping = true
         mMediaPlayer!!.start()
-        tvMedTime?.text = medicineAlarm!!.stringTime
-        tvMedicineName?.text = medicineAlarm.pillName
-        tvDoseDetails?.text = medicineAlarm.formattedDose
+        med_fr_tv_med_time?.text = medicineAlarm!!.stringTime
+        med_fr_tv_medicine_name?.text = medicineAlarm.pillName
+        med_fr_tv_dose_details?.text = medicineAlarm.formattedDose
     }
 
     override fun showNoData() {
@@ -94,14 +79,14 @@ class ReminderFragment : Fragment(), ReminderContract.View {
         presenter!!.onStart(id)
     }
 
-    @OnClick(R.id.iv_take_med)
+    @OnClick(R.id.med_fr_iv_take_med)
     fun onMedTakeClick() {
         onMedicineTaken()
         stopMedialPlayer()
         stopVibrator()
     }
 
-    @OnClick(R.id.iv_ignore_med)
+    @OnClick(R.id.med_fr_iv_ignore_med)
     fun onMedIgnoreClick() {
         onMedicineIgnored()
         stopMedialPlayer()

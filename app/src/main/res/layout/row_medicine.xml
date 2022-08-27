@@ -24,7 +24,7 @@
             android:paddingTop="@dimen/sixteen_dp">
 
             <com.sih.eldify.medicines.views.RobotoBoldTextView
-                android:id="@+id/tv_med_time"
+                android:id="@+id/med_rm_tv_med_time"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 tools:text="23:20"
@@ -48,7 +48,7 @@
             android:paddingTop="@dimen/eight_dp">
 
             <ImageView
-                android:id="@+id/iv_icon"
+                android:id="@+id/med_rm_iv_icon"
                 android:layout_width="40dp"
                 android:layout_height="40dp"
                 android:layout_alignParentLeft="true"
@@ -61,29 +61,29 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_alignParentTop="true"
-                android:layout_toEndOf="@+id/iv_icon"
-                android:layout_toLeftOf="@+id/iv_medicine_action"
-                android:layout_toRightOf="@+id/iv_icon"
-                android:layout_toStartOf="@+id/iv_medicine_action"
+                android:layout_toEndOf="@+id/med_rm_iv_icon"
+                android:layout_toLeftOf="@+id/med_rm_iv_medicine_action"
+                android:layout_toRightOf="@+id/med_rm_iv_icon"
+                android:layout_toStartOf="@+id/med_rm_iv_medicine_action"
                 android:orientation="vertical"
                 android:padding="4dp">
 
                 <com.sih.eldify.medicines.views.RobotoBoldTextView
-                    android:id="@+id/tv_medicine_name"
+                    android:id="@+id/med_rm_tv_medicine_name"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:textColor="#4d4d4d"
                     tools:text="Paracetamol" />
 
                 <com.sih.eldify.medicines.views.RobotoRegularTextView
-                    android:id="@+id/tv_dose_details"
+                    android:id="@+id/med_rm_tv_dose_details"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     tools:text="1.0 adhesive(s)" />
             </LinearLayout>
 
             <ImageView
-                android:id="@+id/iv_medicine_action"
+                android:id="@+id/med_rm_iv_medicine_action"
                 android:layout_width="40dp"
                 android:layout_height="40dp"
                 android:layout_alignParentEnd="true"
@@ -94,7 +94,7 @@
                 android:src="@drawable/image_reminder_taken" />
 
             <ImageView
-                android:id="@+id/iv_alarm_delete"
+                android:id="@+id/med_rm_iv_alarm_delete"
                 android:layout_width="40dp"
                 android:layout_height="40dp"
                 android:layout_alignParentEnd="true"

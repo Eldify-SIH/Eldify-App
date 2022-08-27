@@ -16,32 +16,19 @@ import butterknife.Unbinder
 import com.sih.eldify.R
 import com.sih.eldify.medicines.data.source.History
 import com.sih.eldify.medicines.views.RobotoLightTextView
+import kotlinx.android.synthetic.main.fragment_history.*
 
 /**
  * Created by gautam on 13/07/17.
  */
 class MonthlyReportFragment : Fragment(),
     MonthlyReportContract.View {
-    @BindView(R.id.rv_history_list)
-    var rvHistoryList: RecyclerView? = null
-
-    @BindView(R.id.progressLoader)
-    var progressLoader: ProgressBar? = null
-
-    @BindView(R.id.noMedIcon)
-    var noMedIcon: ImageView? = null
-
-    @BindView(R.id.noMedText)
-    var noMedText: RobotoLightTextView? = null
-
-    @BindView(R.id.no_med_view)
-    var noMedView: View? = null
     var unbinder: Unbinder? = null
 
-    @BindView(R.id.filteringLabel)
+    @BindView(R.id.med_fh_filteringLabel)
     var filteringLabel: TextView? = null
 
-    @BindView(R.id.tasksLL)
+    @BindView(R.id.med_fh_tasksLL)
     var tasksLL: LinearLayout? = null
     private var mHistoryAdapter: HistoryAdapter? = null
     private var presenter: MonthlyReportContract.Presenter? = null
@@ -52,9 +39,9 @@ class MonthlyReportFragment : Fragment(),
     }
 
     private fun setAdapter() {
-        rvHistoryList!!.adapter = mHistoryAdapter
-        rvHistoryList!!.layoutManager = LinearLayoutManager(context)
-        rvHistoryList!!.setHasFixedSize(true)
+        med_fh_rv_history_list!!.adapter = mHistoryAdapter
+        med_fh_rv_history_list!!.layoutManager = LinearLayoutManager(context)
+        med_fh_rv_history_list!!.setHasFixedSize(true)
     }
 
     override fun onCreateView(
@@ -81,13 +68,13 @@ class MonthlyReportFragment : Fragment(),
         if (view == null) {
             return
         }
-        progressLoader!!.visibility = if (active) View.VISIBLE else View.GONE
+        med_fh_progressLoader!!.visibility = if (active) View.VISIBLE else View.GONE
     }
 
     override fun showHistoryList(historyList: List<History?>?) {
         mHistoryAdapter!!.replaceData(historyList!! as List<History>)
         tasksLL!!.visibility = View.VISIBLE
-        noMedView!!.visibility = View.GONE
+        med_fh_no_med_view!!.visibility = View.GONE
     }
 
     override fun showLoadingError() {}
@@ -128,13 +115,13 @@ class MonthlyReportFragment : Fragment(),
         get() = isAdded
 
     override fun showFilteringPopUpMenu() {
-        val popup = PopupMenu(requireContext(), requireActivity().findViewById(R.id.menu_filter))
+        val popup = PopupMenu(requireContext(), requireActivity().findViewById(R.id.med_menu_filter))
         popup.menuInflater.inflate(R.menu.filter_history, popup.menu)
         popup.setOnMenuItemClickListener { item ->
             when (item.itemId) {
-                R.id.all -> presenter!!.setFiltering(FilterType.ALL_MEDICINES)
-                R.id.taken -> presenter!!.setFiltering(FilterType.TAKEN_MEDICINES)
-                R.id.ignored -> presenter!!.setFiltering(FilterType.IGNORED_MEDICINES)
+                R.id.med_all -> presenter!!.setFiltering(FilterType.ALL_MEDICINES)
+                R.id.med_taken -> presenter!!.setFiltering(FilterType.TAKEN_MEDICINES)
+                R.id.med_ignored -> presenter!!.setFiltering(FilterType.IGNORED_MEDICINES)
             }
             presenter!!.loadHistory(true)
             true
@@ -153,16 +140,16 @@ class MonthlyReportFragment : Fragment(),
 
     override fun onOptionsItemSelected(item: MenuItem): Boolean {
         when (item.itemId) {
-            R.id.menu_filter -> showFilteringPopUpMenu()
+            R.id.med_menu_filter -> showFilteringPopUpMenu()
         }
         return true
     }
 
     private fun showNoHistoryView(mainText: String, iconRes: Int) {
         tasksLL!!.visibility = View.GONE
-        noMedView!!.visibility = View.VISIBLE
-        noMedText?.setText(mainText)
-        noMedIcon!!.setImageDrawable(resources.getDrawable(iconRes))
+        med_fh_no_med_view!!.visibility = View.VISIBLE
+        med_fh_noMedText?.setText(mainText)
+        med_fh_noMedIcon!!.setImageDrawable(resources.getDrawable(iconRes))
     }
 
     companion object {

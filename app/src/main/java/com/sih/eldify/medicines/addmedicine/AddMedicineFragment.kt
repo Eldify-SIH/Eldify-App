@@ -12,7 +12,6 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.widget.*
-import androidx.appcompat.widget.AppCompatCheckBox
 import androidx.appcompat.widget.AppCompatSpinner
 import androidx.fragment.app.Fragment
 import butterknife.*
@@ -21,11 +20,12 @@ import com.sih.eldify.medicines.alarm.ReminderFragment
 import com.sih.eldify.medicines.data.source.MedicineAlarm
 import com.sih.eldify.medicines.data.source.Pills
 import com.sih.eldify.medicines.views.DayViewCheckBox
-import com.sih.eldify.medicines.views.RobotoBoldTextView
 import com.google.android.material.floatingactionbutton.FloatingActionButton
 import java.text.SimpleDateFormat
 import java.util.*
 import com.sih.eldify.R
+import kotlinx.android.synthetic.main.fragment_add_medicine.*
+import kotlinx.android.synthetic.main.fragment_add_medicine.view.*
 
 
 /**
@@ -33,45 +33,6 @@ import com.sih.eldify.R
  */
 class AddMedicineFragment : Fragment(),
     AddMedicineContract.View {
-
-    @BindView(R.id.edit_med_name)
-    var editMedName: EditText? = null
-
-    @BindView(R.id.every_day)
-    var everyDay: AppCompatCheckBox? = null
-
-    @BindView(R.id.dv_sunday)
-    var dvSunday: DayViewCheckBox? = null
-
-    @BindView(R.id.dv_monday)
-    var dvMonday: DayViewCheckBox? = null
-
-    @BindView(R.id.dv_tuesday)
-    var dvTuesday: DayViewCheckBox? = null
-
-    @BindView(R.id.dv_wednesday)
-    var dvWednesday: DayViewCheckBox? = null
-
-    @BindView(R.id.dv_thursday)
-    var dvThursday: DayViewCheckBox? = null
-
-    @BindView(R.id.dv_friday)
-    var dvFriday: DayViewCheckBox? = null
-
-    @BindView(R.id.dv_saturday)
-    var dvSaturday: DayViewCheckBox? = null
-
-    @BindView(R.id.checkbox_layout)
-    var checkboxLayout: LinearLayout? = null
-
-    @BindView(R.id.tv_medicine_time)
-    var tvMedicineTime: RobotoBoldTextView? = null
-
-    @BindView(R.id.tv_dose_quantity)
-    var tvDoseQuantity: EditText? = null
-
-    @BindView(R.id.spinner_dose_units)
-    var spinnerDoseUnits: AppCompatSpinner? = null
 
 
     private var doseUnitList: List<String>? = null
@@ -86,7 +47,7 @@ class AddMedicineFragment : Fragment(),
         super.onActivityCreated(savedInstanceState)
         val fab = Objects.requireNonNull(
             requireActivity()
-        ).findViewById<FloatingActionButton>(R.id.fab_edit_task_done)
+        ).findViewById<FloatingActionButton>(R.id.med_aam_fab_edit_task_done)
         fab.setImageResource(R.drawable.ic_done)
         fab.setOnClickListener(setClickListener)
     }
@@ -98,8 +59,47 @@ class AddMedicineFragment : Fragment(),
     ): View? {
         rootView = inflater.inflate(R.layout.fragment_add_medicine, container, false)
         unbinder = ButterKnife.bind(this, rootView!!)
+
+        rootView!!.med_fam_every_day.setOnClickListener{
+            onCheckboxClicked(rootView!!)
+        }
+        rootView!!.med_fam_dv_monday.setOnClickListener{
+            onCheckboxClicked(rootView!!)
+        }
+        rootView!!.med_fam_dv_tuesday.setOnClickListener{
+            onCheckboxClicked(rootView!!)
+        }
+        rootView!!.med_fam_dv_wednesday.setOnClickListener{
+            onCheckboxClicked(rootView!!)
+        }
+        rootView!!.med_fam_dv_thursday.setOnClickListener{
+            onCheckboxClicked(rootView!!)
+        }
+        rootView!!.med_fam_dv_friday.setOnClickListener{
+            onCheckboxClicked(rootView!!)
+        }
+        rootView!!.med_fam_dv_saturday.setOnClickListener{
+            onCheckboxClicked(rootView!!)
+        }
+        rootView!!.med_fam_dv_sunday.setOnClickListener{
+            onCheckboxClicked(rootView!!)
+        }
+        rootView!!.med_fam_tv_medicine_time.setOnClickListener{
+            showTimePicker()
+        }
+
+        rootView!!.med_fam_spinner_dose_units.onItemSelectedListener = object : AdapterView.OnItemSelectedListener{
+            override fun onNothingSelected(parent: AdapterView<*>?) {
+
+            }
+
+            override fun onItemSelected(parent: AdapterView<*>?, view: View?, position: Int, id: Long) {
+                onSpinnerItemSelected(position)
+            }
+
+        }
         setCurrentTime()
-        setSpinnerDoseUnits()
+//        setmed_fam_spinner_dose_units()
         return rootView
     }
 
@@ -124,63 +124,53 @@ class AddMedicineFragment : Fragment(),
         unbinder!!.unbind()
     }
 
-    @OnClick(
-        R.id.every_day,
-        R.id.dv_monday,
-        R.id.dv_tuesday,
-        R.id.dv_wednesday,
-        R.id.dv_thursday,
-        R.id.dv_friday,
-        R.id.dv_saturday,
-        R.id.dv_sunday
-    )
     fun onCheckboxClicked(view: View) {
         val checked = (view as CheckBox).isChecked
         when (view.getId()) {
-            R.id.dv_monday -> if (checked) {
+            R.id.med_fam_dv_monday -> if (checked) {
                 dayOfWeekList[1] = true
             } else {
                 dayOfWeekList[1] = false
-                everyDay!!.isChecked = false
+                med_fam_every_day!!.isChecked = false
             }
-            R.id.dv_tuesday -> if (checked) {
+            R.id.med_fam_dv_tuesday -> if (checked) {
                 dayOfWeekList[2] = true
             } else {
                 dayOfWeekList[2] = false
-                everyDay!!.isChecked = false
+                med_fam_every_day!!.isChecked = false
             }
-            R.id.dv_wednesday -> if (checked) {
+            R.id.med_fam_dv_wednesday -> if (checked) {
                 dayOfWeekList[3] = true
             } else {
                 dayOfWeekList[3] = false
-                everyDay!!.isChecked = false
+                med_fam_every_day!!.isChecked = false
             }
-            R.id.dv_thursday -> if (checked) {
+            R.id.med_fam_dv_thursday -> if (checked) {
                 dayOfWeekList[4] = true
             } else {
                 dayOfWeekList[4] = false
-                everyDay!!.isChecked = false
+                med_fam_every_day!!.isChecked = false
             }
-            R.id.dv_friday -> if (checked) {
+            R.id.med_fam_dv_friday -> if (checked) {
                 dayOfWeekList[5] = true
             } else {
                 dayOfWeekList[5] = false
-                everyDay!!.isChecked = false
+                med_fam_every_day!!.isChecked = false
             }
-            R.id.dv_saturday -> if (checked) {
+            R.id.med_fam_dv_saturday -> if (checked) {
                 dayOfWeekList[6] = true
             } else {
                 dayOfWeekList[6] = false
-                everyDay!!.isChecked = false
+                med_fam_every_day!!.isChecked = false
             }
-            R.id.dv_sunday -> if (checked) {
+            R.id.med_fam_dv_sunday -> if (checked) {
                 dayOfWeekList[0] = true
             } else {
                 dayOfWeekList[0] = false
-                everyDay!!.isChecked = false
+                med_fam_every_day!!.isChecked = false
             }
-            R.id.every_day -> {
-                val ll = rootView!!.findViewById<View>(R.id.checkbox_layout) as LinearLayout
+            R.id.med_fam_every_day -> {
+                val ll = rootView!!.findViewById<View>(R.id.med_fam_checkbox_layout) as LinearLayout
                 var i = 0
                 while (i < ll.childCount) {
                     val v = ll.getChildAt(i)
@@ -192,11 +182,6 @@ class AddMedicineFragment : Fragment(),
         }
     }
 
-    @OnClick(R.id.tv_medicine_time)
-    fun onMedicineTimeClick() {
-        showTimePicker()
-    }
-
     private fun showTimePicker() {
         val mCurrentTime = Calendar.getInstance()
         hour = mCurrentTime[Calendar.HOUR_OF_DAY]
@@ -206,7 +191,7 @@ class AddMedicineFragment : Fragment(),
             { timePicker, selectedHour, selectedMinute ->
                 hour = selectedHour
                 minute = selectedMinute
-                tvMedicineTime?.setText(
+                med_fam_tv_medicine_time?.setText(
                     String.format(
                         Locale.getDefault(),
                         "%d:%d",
@@ -224,20 +209,19 @@ class AddMedicineFragment : Fragment(),
         val mCurrentTime = Calendar.getInstance()
         hour = mCurrentTime[Calendar.HOUR_OF_DAY]
         minute = mCurrentTime[Calendar.MINUTE]
-        tvMedicineTime?.setText(String.format(Locale.getDefault(), "%d:%d", hour, minute))
+        med_fam_tv_medicine_time?.setText(String.format(Locale.getDefault(), "%d:%d", hour, minute))
     }
 
-    private fun setSpinnerDoseUnits() {
+    private fun setmed_fam_spinner_dose_units(rootView: View) {
         doseUnitList = Arrays.asList(*resources.getStringArray(R.array.medications_shape_array))
         val adapter = ArrayAdapter(
             Objects.requireNonNull(
                 requireActivity()
             ), android.R.layout.simple_dropdown_item_1line, doseUnitList as MutableList<String>
         )
-        spinnerDoseUnits!!.adapter = adapter
+        med_fam_spinner_dose_units!!.adapter = adapter
     }
 
-    @OnItemSelected(R.id.spinner_dose_units)
     fun onSpinnerItemSelected(position: Int) {
         if (doseUnitList == null || doseUnitList!!.isEmpty()) {
             return
@@ -248,8 +232,8 @@ class AddMedicineFragment : Fragment(),
 
     private val setClickListener = View.OnClickListener {
         var checkBoxCounter = 0
-        val pill_name = editMedName!!.text.toString()
-        val doseQuantity = tvDoseQuantity!!.text.toString()
+        val pill_name = med_fam_edit_med_name!!.text.toString()
+        val doseQuantity = med_fam_tv_dose_quantity!!.text.toString()
         val takeTime = Calendar.getInstance()
         val date = takeTime.time
         val dateString = SimpleDateFormat("MMM d, yyyy", Locale.getDefault()).format(date)
@@ -358,3 +342,5 @@ class AddMedicineFragment : Fragment(),
         }
     }
 }
+
+

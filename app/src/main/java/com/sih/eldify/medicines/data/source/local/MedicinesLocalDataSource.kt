@@ -42,8 +42,8 @@ class MedicinesLocalDataSource private constructor(context: Context) :
     }
 
     override fun medicineExits(pillName: String?): Boolean {
-        for (pill in Pills.getPillName()) {
-            if (pill.getPillName().equals(pillName)) return true
+        for (p in pills) {
+            if (p.equals(pillName)) return true
         }
         return false
     }
@@ -56,7 +56,7 @@ class MedicinesLocalDataSource private constructor(context: Context) :
         deleteAlarmById(alarmId)
     }
 
-    override fun getMedicineByPillName(pillName: String?): List<MedicineAlarm>? {
+    override fun getMedicineByPillName(pillName: String?): List<MedicineAlarm?>? {
         return try {
             getMedicineByPill(pillName!!)
         } catch (e: URISyntaxException) {
@@ -74,7 +74,7 @@ class MedicinesLocalDataSource private constructor(context: Context) :
         }
     }
 
-    override fun getPillsByName(pillName: String?): Pills {
+    override fun getPillsByName(pillName: String?): Pills? {
         return getPillByName(pillName!!)
     }
 

@@ -33,7 +33,7 @@
                     android:textSize="@dimen/text_medium" />
 
                 <EditText
-                    android:id="@+id/edit_med_name"
+                    android:id="@+id/med_fam_edit_med_name"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:hint="@string/hint_enter_med_name" />
@@ -64,20 +64,20 @@
 
 
                 <androidx.appcompat.widget.AppCompatCheckBox
-                    android:id="@+id/every_day"
+                    android:id="@+id/med_fam_every_day"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:text="@string/every_day" />
 
                 <LinearLayout
-                    android:id="@+id/checkbox_layout"
+                    android:id="@+id/med_fam_checkbox_layout"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:orientation="horizontal"
                     android:weightSum="7">
 
                     <com.sih.eldify.medicines.views.DayViewCheckBox
-                        android:id="@+id/dv_sunday"
+                        android:id="@+id/med_fam_dv_sunday"
                         android:layout_width="40dp"
                         android:layout_height="40dp"
                         android:layout_margin="4dp"
@@ -88,7 +88,7 @@
                         android:text="S" />
 
                     <com.sih.eldify.medicines.views.DayViewCheckBox
-                        android:id="@+id/dv_monday"
+                        android:id="@+id/med_fam_dv_monday"
                         android:layout_width="40dp"
                         android:layout_height="40dp"
                         android:layout_margin="4dp"
@@ -100,7 +100,7 @@
 
 
                     <com.sih.eldify.medicines.views.DayViewCheckBox
-                        android:id="@+id/dv_tuesday"
+                        android:id="@+id/med_fam_dv_tuesday"
                         android:layout_width="40dp"
                         android:layout_height="40dp"
                         android:layout_margin="4dp"
@@ -111,7 +111,7 @@
                         android:text="T" />
 
                     <com.sih.eldify.medicines.views.DayViewCheckBox
-                        android:id="@+id/dv_wednesday"
+                        android:id="@+id/med_fam_dv_wednesday"
                         android:layout_width="40dp"
                         android:layout_height="40dp"
                         android:layout_margin="4dp"
@@ -122,7 +122,7 @@
                         android:text="W" />
 
                     <com.sih.eldify.medicines.views.DayViewCheckBox
-                        android:id="@+id/dv_thursday"
+                        android:id="@+id/med_fam_dv_thursday"
                         android:layout_width="40dp"
                         android:layout_height="40dp"
                         android:layout_margin="4dp"
@@ -133,7 +133,7 @@
                         android:text="T" />
 
                     <com.sih.eldify.medicines.views.DayViewCheckBox
-                        android:id="@+id/dv_friday"
+                        android:id="@+id/med_fam_dv_friday"
                         android:layout_width="40dp"
                         android:layout_height="40dp"
                         android:layout_margin="4dp"
@@ -145,7 +145,7 @@
 
 
                     <com.sih.eldify.medicines.views.DayViewCheckBox
-                        android:id="@+id/dv_saturday"
+                        android:id="@+id/med_fam_dv_saturday"
                         android:layout_width="40dp"
                         android:layout_height="40dp"
                         android:layout_margin="4dp"
@@ -186,7 +186,7 @@
                     android:orientation="horizontal">
 
                     <com.sih.eldify.medicines.views.RobotoBoldTextView
-                        android:id="@+id/tv_medicine_time"
+                        android:id="@+id/med_fam_tv_medicine_time"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:layout_weight="1"
@@ -199,7 +199,7 @@
                         tools:text="23:30" />
 
                     <EditText
-                        android:id="@+id/tv_dose_quantity"
+                        android:id="@+id/med_fam_tv_dose_quantity"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:layout_marginLeft="8dp"
@@ -212,13 +212,14 @@
 
 
                     <androidx.appcompat.widget.AppCompatSpinner
-                        android:id="@+id/spinner_dose_units"
+                        android:id="@+id/med_fam_spinner_dose_units"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:layout_marginLeft="8dp"
                         android:layout_marginStart="8dp"
                         android:layout_weight="1"
                         android:entries="@array/medications_shape_array" />
+
                 </LinearLayout>
             </LinearLayout>
         </androidx.cardview.widget.CardView>

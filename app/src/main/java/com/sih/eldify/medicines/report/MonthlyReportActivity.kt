@@ -9,16 +9,15 @@ import butterknife.ButterKnife
 import com.sih.eldify.R
 import com.sih.eldify.medicines.Injection
 import com.sih.eldify.medicines.utils.ActivityUtils
+import kotlinx.android.synthetic.main.activity_monthly_report.*
 
 class MonthlyReportActivity : AppCompatActivity() {
-    @BindView(R.id.toolbar)
-    var toolbar: Toolbar? = null
     private var presenter: MonthlyReportPresenter? = null
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_monthly_report)
         ButterKnife.bind(this)
-        setSupportActionBar(toolbar)
+        setSupportActionBar(med_amr_toolbar)
         val actionBar = supportActionBar
         if (actionBar != null) {
             actionBar.setHomeAsUpIndicator(R.drawable.ic_clear)
@@ -27,13 +26,13 @@ class MonthlyReportActivity : AppCompatActivity() {
 
         //Create Fragment
         var monthlyReportFragment =
-            supportFragmentManager.findFragmentById(R.id.contentFrame) as MonthlyReportFragment?
+            supportFragmentManager.findFragmentById(R.id.med_amr_contentFrame) as MonthlyReportFragment?
         if (monthlyReportFragment == null) {
             monthlyReportFragment = MonthlyReportFragment.newInstance()
             ActivityUtils.addFragmentToActivity(
                 supportFragmentManager,
                 monthlyReportFragment,
-                R.id.contentFrame
+                R.id.med_amr_contentFrame
             )
         }
 

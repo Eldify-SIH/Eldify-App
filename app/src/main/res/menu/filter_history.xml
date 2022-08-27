@@ -1,12 +1,12 @@
 <?xml version="1.0" encoding="utf-8"?>
 <menu xmlns:android="http://schemas.android.com/apk/res/android">
     <item
-        android:id="@+id/all"
+        android:id="@+id/med_all"
         android:title="@string/all" />
     <item
-        android:id="@+id/taken"
+        android:id="@+id/med_taken"
         android:title="@string/taken" />
     <item
-        android:id="@+id/ignored"
+        android:id="@+id/med_ignored"
         android:title="@string/ignored" />
 </menu>

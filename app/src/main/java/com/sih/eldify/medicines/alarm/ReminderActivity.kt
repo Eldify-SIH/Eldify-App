@@ -9,18 +9,17 @@ import butterknife.ButterKnife
 import com.sih.eldify.R
 import com.sih.eldify.medicines.Injection
 import com.sih.eldify.medicines.utils.ActivityUtils
-
+import kotlinx.android.synthetic.main.activity_reminder_actvity.*
 
 
 class ReminderActivity : AppCompatActivity() {
-    @BindView(R.id.toolbar)
-    var toolbar: Toolbar? = null
+
     var mReminderPresenter: ReminderPresenter? = null
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_reminder_actvity)
         ButterKnife.bind(this)
-        setSupportActionBar(toolbar)
+        setSupportActionBar(med_ra_toolbar)
         val actionBar = supportActionBar
         actionBar?.setDisplayHomeAsUpEnabled(true)
         val intent = intent
@@ -30,13 +29,13 @@ class ReminderActivity : AppCompatActivity() {
         }
         val id = intent.getLongExtra(ReminderFragment.EXTRA_ID, 0)
         var reminderFragment =
-            supportFragmentManager.findFragmentById(R.id.contentFrame) as ReminderFragment?
+            supportFragmentManager.findFragmentById(R.id.med_ra_contentFrame) as ReminderFragment?
         if (reminderFragment == null) {
             reminderFragment = ReminderFragment.newInstance(id)
             ActivityUtils.addFragmentToActivity(
                 supportFragmentManager,
                 reminderFragment,
-                R.id.contentFrame
+                R.id.med_ra_contentFrame
             )
         }
 

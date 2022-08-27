@@ -60,20 +60,13 @@ class MedicineAdapter(medicineAlarmList: List<MedicineAlarm>?) :
 
     class MedicineViewHolder(itemView: View?) :
         RecyclerView.ViewHolder(itemView!!) {
-        @BindView(R.id.tv_med_time)
-        var tvMedTime: RobotoBoldTextView? = null
+        var tvMedTime: RobotoBoldTextView? = itemView?.findViewById(R.id.med_fr_tv_med_time)
 
-        @BindView(R.id.tv_medicine_name)
-        var tvMedicineName: RobotoBoldTextView? = null
+        var tvMedicineName: RobotoBoldTextView? = itemView?.findViewById(R.id.med_fr_tv_medicine_name)
 
-        @BindView(R.id.tv_dose_details)
-        var tvDoseDetails: RobotoRegularTextView? = null
+        var tvDoseDetails: RobotoRegularTextView? = itemView?.findViewById(R.id.med_fr_tv_dose_details)
 
-        @BindView(R.id.iv_medicine_action)
-        var ivMedicineAction: ImageView? = null
-
-        @BindView(R.id.iv_alarm_delete)
-        var ivAlarmDelete: ImageView? = null
+        var ivAlarmDelete: ImageView? = itemView?.findViewById(R.id.med_rm_iv_alarm_delete)
 
         init {
             ButterKnife.bind(this, itemView!!)

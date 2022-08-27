@@ -8,21 +8,21 @@
     tools:context=".ui.video.VideoFragment">
 
         <ImageView
-            android:layout_marginBottom="30dp"
+            android:layout_marginBottom="20dp"
             android:layout_gravity="center"
-            android:layout_width="200dp"
-            android:layout_height="100dp"
-            android:src="@drawable/ic_video_24" />
+            android:layout_width="350dp"
+            android:layout_height="250dp"
+            android:src="@drawable/video_conf" />
 
-        <Button
+        <androidx.appcompat.widget.AppCompatButton
             android:id="@+id/join_btn"
-            android:layout_width="match_parent"
-            android:layout_height="52dp"
-            android:layout_gravity="center"
-            android:layout_margin="12dp"
-            android:background="#F44336"
-            android:gravity="center"
-            android:text="Join"
-            android:textColor="#FFFFFF" />
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="20dp"
+            android:background="@drawable/button"
+            android:backgroundTint="#5DB075"
+            android:text="Connect Now"
+            android:textColor="@color/white"
+            android:textSize="16sp" />
 
 </LinearLayout>

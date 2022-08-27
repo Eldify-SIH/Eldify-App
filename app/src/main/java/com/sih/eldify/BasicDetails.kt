@@ -181,7 +181,7 @@ class BasicDetails : AppCompatActivity() {
 
     private fun outputSOS(text: String) {
         runOnUiThread {
-            sos.setText(text)
+//            sos_.setText(text)
             if(text.contains("recieved")){
                 val gson = Gson()
                 val sos: SOS = gson.fromJson(text, SOS::class.java)

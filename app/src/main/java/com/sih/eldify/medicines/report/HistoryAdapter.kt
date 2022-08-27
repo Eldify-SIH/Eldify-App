@@ -72,17 +72,14 @@ class HistoryAdapter internal constructor(historyList: List<History>) :
 
     class HistoryViewHolder(itemView: View?) :
         RecyclerView.ViewHolder(itemView!!) {
-        @BindView(R.id.tv_med_date)
-        var tvMedDate: RobotoBoldTextView? = null
 
-        @BindView(R.id.tv_medicine_name)
-        var tvMedicineName: RobotoBoldTextView? = null
+        var tvMedDate: RobotoBoldTextView? = itemView?.findViewById(R.id.med_rh_tv_med_date)
 
-        @BindView(R.id.tv_dose_details)
-        var tvDoseDetails: RobotoRegularTextView? = null
+        var tvMedicineName: RobotoBoldTextView? = itemView?.findViewById(R.id.med_rh_tv_medicine_name)
 
-        @BindView(R.id.iv_medicine_action)
-        var ivMedicineAction: ImageView? = null
+        var tvDoseDetails: RobotoRegularTextView? = itemView?.findViewById(R.id.med_rh_tv_dose_details)
+
+        var ivMedicineAction: ImageView? = itemView?.findViewById(R.id.med_rh_iv_medicine_action)
 
         init {
             ButterKnife.bind(this, itemView!!)

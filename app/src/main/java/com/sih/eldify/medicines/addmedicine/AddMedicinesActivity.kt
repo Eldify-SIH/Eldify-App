@@ -7,18 +7,19 @@ import androidx.appcompat.app.ActionBar
 import androidx.appcompat.app.AppCompatActivity
 import androidx.appcompat.widget.Toolbar
 import com.sih.eldify.R
+import com.sih.eldify.medicines.Injection
 import com.sih.eldify.medicines.utils.ActivityUtils
 import com.sih.eldify.mediciness.addmedicine.AddMedicineFragment
 import com.sih.eldify.mediciness.addmedicine.AddMedicinePresenter
 
 class AddMedicinesActivity : AppCompatActivity() {
-
-    val REQUEST_ADD_TASK = 1
+    object addMedsActObj {
+        val REQUEST_ADD_TASK = 1
+        val EXTRA_TASK_ID = "task_extra_id"
+        val EXTRA_TASK_NAME = "task_extra_name"
+    }
 
     val SHOULD_LOAD_DATA_FROM_REPO_KEY = "SHOULD_LOAD_DATA_FROM_REPO_KEY"
-
-    val EXTRA_TASK_ID = "task_extra_id"
-    val EXTRA_TASK_NAME = "task_extra_name"
 
     private var mAddMedicinePresenter: AddMedicinePresenter? = null
 
@@ -29,13 +30,13 @@ class AddMedicinesActivity : AppCompatActivity() {
         setContentView(R.layout.activity_add_medicines)
 
         //Setup toolbar
-        val toolbar = findViewById<View>(R.id.toolbar) as Toolbar
+        val toolbar = findViewById<View>(R.id.med_aam_toolbar_aam) as Toolbar
         setSupportActionBar(toolbar)
         mActionBar = supportActionBar
         mActionBar!!.setDisplayHomeAsUpEnabled(true)
         mActionBar!!.setDisplayShowHomeEnabled(true)
         var addMedicineFragment: AddMedicineFragment? =
-            supportFragmentManager.findFragmentById(R.id.contentFrame) as AddMedicineFragment?
+            supportFragmentManager.findFragmentById(R.id.med_aam_contentFrame_aam) as AddMedicineFragment?
         val medId = intent.getIntExtra(AddMedicineFragment.ARGUMENT_EDIT_MEDICINE_ID, 0)
         val medName = intent.getStringExtra(AddMedicineFragment.ARGUMENT_EDIT_MEDICINE_NAME)
         setToolbarTitle(medName)
@@ -48,7 +49,7 @@ class AddMedicinesActivity : AppCompatActivity() {
             }
             ActivityUtils.addFragmentToActivity(
                 supportFragmentManager,
-                addMedicineFragment, R.id.contentFrame
+                addMedicineFragment, R.id.med_aam_contentFrame_aam
             )
         }
         var shouldLoadDataFromRepo = true

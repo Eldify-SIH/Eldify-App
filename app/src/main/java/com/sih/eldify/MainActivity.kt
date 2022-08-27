@@ -1,13 +1,20 @@
 package com.sih.eldify
 
 import android.Manifest
+import android.annotation.SuppressLint
 import android.content.Context
 import android.content.Intent
 import android.content.pm.PackageManager
+import android.media.MediaPlayer
 import android.os.Bundle
 import android.view.Menu
+import android.view.MenuItem
+import android.view.View
+import android.widget.CompoundButton
+import android.widget.Switch
 import android.widget.Toast
 import androidx.appcompat.app.AppCompatActivity
+import androidx.appcompat.widget.SwitchCompat
 import androidx.core.app.ActivityCompat
 import androidx.core.content.ContextCompat
 import androidx.drawerlayout.widget.DrawerLayout
@@ -17,6 +24,9 @@ import com.google.android.material.navigation.NavigationView
 import com.sih.eldify.assistant.AssistantActivity
 import com.sih.eldify.databinding.ActivityMainBinding
 import kotlinx.android.synthetic.main.nav_header_main.view.*
+import kotlinx.android.synthetic.main.switch_menu.*
+import kotlinx.android.synthetic.main.switch_menu.view.*
+
 
 class MainActivity : AppCompatActivity() {
 
@@ -28,7 +38,10 @@ class MainActivity : AppCompatActivity() {
     private var REQUESTCALL = 2
     private var SENDSMS = 3
 
+    private lateinit var music : MediaPlayer
 
+
+    @SuppressLint("UseSwitchCompatOrMaterialCode")
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
 
@@ -53,12 +66,22 @@ class MainActivity : AppCompatActivity() {
 
         val drawerLayout: DrawerLayout = binding.drawerLayout
         val navView: NavigationView = binding.navView
+        val menuItem: MenuItem = navView.menu.findItem(R.id.app_bar_switch) // first insialize MenuItem
+
+        val switchButton = menuItem.actionView.findViewById<View>(R.id.darkModeSwitch) as Switch
+        switchButton.setOnCheckedChangeListener { compoundButton: CompoundButton?, b: Boolean ->
+            if (b) {
+                startmusic()
+            } else {
+                stopmusic()
+            }
+        }
         val navController = findNavController(R.id.nav_host_fragment_content_main)
         // Passing each menu ID as a set of Ids because each
         // menu should be considered as top level destinations.
         appBarConfiguration = AppBarConfiguration(
             setOf(
-                R.id.nav_home, R.id.nav_gallery, R.id.nav_settings, R.id.botFragment, R.id.sosFragment, R.id.videoFragment
+                R.id.nav_home, R.id.nav_gallery, R.id.nav_settings, R.id.botFragment, R.id.sosFragment, R.id.videoFragment, R.id.nav_az
             ), drawerLayout
         )
         setupActionBarWithNavController(navController, appBarConfiguration)
@@ -75,6 +98,20 @@ class MainActivity : AppCompatActivity() {
             navHeaderView.nav_user_name.text = user_name
             navHeaderView.nav_user_email.text = user_email
         }
+
+    }
+
+    private fun startmusic(){
+        var music_list= arrayOf(
+            R.raw.music1, R.raw.music2,
+            R.raw.music3, R.raw.music4, R.raw.music5)
+        val r= (0..4).random()
+        music = MediaPlayer.create(this,music_list[r]);
+        music.start()
+    }
+
+    private fun stopmusic(){
+        music.stop()
     }
 
     override fun onCreateOptionsMenu(menu: Menu): Boolean {

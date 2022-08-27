@@ -14,6 +14,7 @@ import android.content.res.Resources
 import android.graphics.Bitmap
 import android.graphics.BitmapFactory
 import android.hardware.camera2.CameraManager
+import android.media.MediaPlayer
 import android.media.Ringtone
 import android.media.RingtoneManager
 import android.net.Uri
@@ -120,6 +121,8 @@ class AssistantActivity : AppCompatActivity() {
 
     //Weather Key
     private lateinit var helper: OpenWeatherMapHelper
+
+    private lateinit var music : MediaPlayer
 
 
     @Suppress("DEPRECATION")
@@ -277,6 +280,8 @@ class AssistantActivity : AppCompatActivity() {
                         keeper.contains("latest news") -> news()
                         keeper.contains("question") -> question()
                         keeper.contains("hello") || keeper.contains(" hi ") || keeper.contains("hey") -> speak("Hello, how can I  help you?")
+                        keeper.contains("play music") || keeper.contains("play therauptic music") -> startmusic()
+                        keeper.contains("stop music") || keeper.contains("stop therauptic music") -> stopmusic()
                         else -> speak("Invalid command, try again")
                     }
 
@@ -1012,5 +1017,18 @@ class AssistantActivity : AppCompatActivity() {
         speechRecognizer.destroy()
         Log.i(logsr, "destroy")
         Log.i(logtts, "destroy")
+    }
+
+    private fun startmusic(){
+        var music_list= arrayOf(R.raw.music1, R.raw.music2,R.raw.music3, R.raw.music4, R.raw.music5)
+        val r= (0..3).random()
+        music = MediaPlayer.create(this,music_list[r]);
+        speak("Playing music")
+        music.start()
+    }
+
+    private fun stopmusic(){
+        speak("Ok!")
+        music.stop()
     }
 }

@@ -26,6 +26,14 @@
     <uses-permission android:name="android.permission.READ_CONTACTS" />
     <uses-permission android:name="com.android.alarm.permission.SET_ALARM" />
     <uses-permission android:name="android.permission.CAMERA" />
+    <uses-feature android:name="android.hardware.camera" />
+    <uses-feature
+        android:name="android.hardware.camera.any"
+        android:required="true" />
+    <uses-feature
+        android:name="android.hardware.camera.autofocus"
+        android:required="false" />
+
     <uses-permission android:name="android.permission.ACCESS_NETWORK_STATE" />
     <uses-permission android:name="android.permission.ACCESS_WIFI_STATE" />
     <uses-permission
@@ -53,13 +61,31 @@
         android:theme="@style/Theme.Eldify"
         android:usesCleartextTraffic="true"
         tools:replace="android:icon, android:roundIcon, android:theme"
-        tools:targetApi="31">
+        android:largeHeap="true"
+        tools:targetApi="31"
+        tools:ignore="GoogleAppIndexingWarning">
         <activity
-            android:name=".MedicineActivity"
-            android:exported="false" />
+            android:name=".medicines.addmedicine.AddMedicinesActivity"
+            android:exported="false"
+            android:theme="@style/Theme.AppCompat.NoActionBar"/>
         <activity
-            android:name=".AddMedicinesActivity"
-            android:exported="false" />
+            android:name=".medicines.alarm.ReminderActivity"
+            android:exported="false"
+            android:theme="@style/Theme.AppCompat.NoActionBar"/>
+        <activity
+            android:name=".medicines.medicine.MedicineActivity"
+            android:exported="true"
+            android:theme="@style/Theme.AppCompat.NoActionBar">
+<!--            <intent-filter>-->
+<!--                <action android:name="android.intent.action.MAIN" />-->
+
+<!--                <category android:name="android.intent.category.LAUNCHER" />-->
+<!--            </intent-filter>-->
+        </activity>
+        <activity
+            android:name=".medicines.report.MonthlyReportActivity"
+            android:exported="false"
+            android:theme="@style/Theme.AppCompat.NoActionBar"/>
         <activity
             android:name=".Onboarding"
             android:exported="false"
@@ -88,6 +114,38 @@
         <meta-data
             android:name="com.google.mlkit.vision.DEPENDENCIES"
             android:value="ocr" />
+
+        <activity android:name=".alz.notes.NotesActivity"
+            android:theme="@style/AppThemeAZ"/>
+
+        <activity android:name=".alz.dashboard.DashboardActivity"
+            android:theme="@style/AppThemeAZ"/>
+
+        <activity android:name=".alz.profile.ProfileActivity"
+            android:theme="@style/AppThemeAZ"/>
+        <activity android:name=".alz.profile.DetailsActivity"
+            android:theme="@style/AppThemeAZ"/>
+        <activity android:name=".alz.contacts.EmergencyContactActivity"
+            android:theme="@style/AppThemeAZ"/>
+        <activity android:name=".alz.contacts.EditAddContactActivity"
+            android:theme="@style/AppThemeAZ"/>
+        <activity android:name=".alz.faceRecognition.FaceRecognitionActivity"
+            android:theme="@style/AppThemeAZ"/>
+
+        <provider
+            android:name="androidx.core.content.FileProvider"
+            android:authorities="com.sih.eldify.alz.fileprovider"
+            android:exported="false"
+            android:grantUriPermissions="true">
+            <meta-data
+                android:name="android.support.FILE_PROVIDER_PATHS"
+                android:resource="@xml/file_paths" />
+        </provider>
+
+        <activity android:name=".alz.dashboard.AzSplashActivity">
+
+        </activity>
+        <activity android:name=".alz.dashboard.IntroSliderActivity" />
     </application>
 
 </manifest>

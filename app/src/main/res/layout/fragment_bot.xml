@@ -3,105 +3,222 @@
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
-    android:layout_height="match_parent"
-    tools:context=".ui.bot.BotFragment">
+    android:layout_height="match_parent">
 
-    <WebView
-        android:id="@+id/webView"
+    <View
+        android:id="@+id/myRectangleView"
         android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:background="@drawable/customborder"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
+        android:layout_height="300dp"
+        android:layout_alignParentTop="true"
+        android:background="@drawable/rectangle"
+        android:backgroundTint="#5DB075"
+        app:layout_constraintLeft_toLeftOf="parent"
+        app:layout_constraintRight_toRightOf="parent"
         app:layout_constraintTop_toTopOf="parent" />
 
     <TextView
         android:id="@+id/status"
         android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_marginTop="30dp"
+        android:layout_height="36dp"
+        android:layout_gravity="center_vertical|center_horizontal"
+        android:layout_marginLeft="16dp"
+        android:layout_marginTop="20dp"
+        android:layout_marginRight="16dp"
+        android:layout_marginBottom="264dp"
+        android:layout_weight="2"
+        android:gravity="center_horizontal|center_vertical"
+        android:padding="1dp"
         android:text="Status"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.498"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/webView" />
+        android:textColor="#FFFFFF"
+        android:textSize="30sp"
+        android:textStyle="bold"
+        app:layout_constraintBottom_toBottomOf="@id/myRectangleView"
+        app:layout_constraintLeft_toLeftOf="@id/myRectangleView"
+        app:layout_constraintRight_toRightOf="@id/myRectangleView"
+        app:layout_constraintTop_toTopOf="@id/myRectangleView" />
 
-    <Button
+    <androidx.cardview.widget.CardView
+        android:layout_width="match_parent"
+        android:layout_height="200dp"
+        android:layout_marginHorizontal="10dp"
+        app:cardCornerRadius="20dp"
+        app:layout_constraintBottom_toBottomOf="@id/myRectangleView"
+        app:layout_constraintHorizontal_bias="0.473"
+        app:layout_constraintLeft_toLeftOf="@id/myRectangleView"
+        app:layout_constraintRight_toRightOf="@id/myRectangleView"
+        app:layout_constraintTop_toBottomOf="@id/status"
+        app:layout_constraintVertical_bias="0.24">
+
+        <WebView
+            android:id="@+id/webView"
+            android:layout_width="match_parent"
+            android:layout_height="200dp"
+            app:layout_constraintBottom_toBottomOf="@id/myRectangleView"
+            app:layout_constraintLeft_toLeftOf="@id/myRectangleView"
+            app:layout_constraintRight_toRightOf="@id/myRectangleView"
+            app:layout_constraintTop_toBottomOf="@id/status" />
+
+    </androidx.cardview.widget.CardView>
+
+    <androidx.appcompat.widget.AppCompatButton
         android:id="@+id/reconnect_bot"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginTop="60dp"
-        android:background="@drawable/roundedbutton"
+        android:layout_marginTop="20dp"
+        android:background="@drawable/button"
+        android:backgroundTint="#5DB075"
         android:text="Reconnect"
-        android:textSize="11sp"
+        android:textColor="@color/white"
+        android:textSize="16sp"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/status" />
+        app:layout_constraintTop_toBottomOf="@+id/myRectangleView" />
 
-    <LinearLayout
+    <ImageView
+        android:id="@+id/imageViewBot"
+        android:layout_width="360dp"
+        android:layout_height="270dp"
+        android:layout_marginTop="12dp"
+        android:src="@drawable/ic_controller"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.49"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/reconnect_bot" />
+
+    <View
+        android:id="@+id/controllerleftarrow"
+        android:layout_width="50dp"
+        android:layout_height="50dp"
+        android:layout_alignParentLeft="true"
+        android:layout_alignParentTop="true"
+        android:background="@drawable/rectangle_1"
+        app:layout_constraintBottom_toBottomOf="@+id/imageViewBot"
+        app:layout_constraintEnd_toEndOf="@+id/imageViewBot"
+        app:layout_constraintHorizontal_bias="0.268"
+        app:layout_constraintStart_toStartOf="@+id/imageViewBot"
+        app:layout_constraintTop_toTopOf="@+id/imageViewBot" />
+
+    <View
+        android:id="@+id/controllerrightarrow"
+        android:layout_width="50dp"
+        android:layout_height="50dp"
+        android:layout_alignParentLeft="true"
+        android:layout_alignParentTop="true"
+        android:background="@drawable/rectangle_1"
+        app:layout_constraintBottom_toBottomOf="@+id/imageViewBot"
+        app:layout_constraintEnd_toEndOf="@+id/imageViewBot"
+        app:layout_constraintHorizontal_bias="0.74"
+        app:layout_constraintStart_toStartOf="@+id/imageViewBot"
+        app:layout_constraintTop_toTopOf="@+id/imageViewBot" />
+
+    <View
+        android:id="@+id/controlleruparrow"
+        android:layout_width="50dp"
+        android:layout_height="50dp"
+        android:layout_alignParentLeft="true"
+        android:layout_alignParentTop="true"
+        android:background="@drawable/rectangle_1"
+        app:layout_constraintBottom_toBottomOf="@+id/imageViewBot"
+        app:layout_constraintEnd_toEndOf="@+id/imageViewBot"
+        app:layout_constraintStart_toStartOf="@+id/imageViewBot"
+        app:layout_constraintTop_toTopOf="@+id/imageViewBot"
+        app:layout_constraintVertical_bias="0.353" />
+
+    <View
+        android:id="@+id/controllerdownarrow"
+        android:layout_width="50dp"
+        android:layout_height="50dp"
+        android:layout_alignParentLeft="true"
+        android:layout_alignParentTop="true"
+        android:background="@drawable/rectangle_1"
+        app:layout_constraintBottom_toBottomOf="@+id/imageViewBot"
+        app:layout_constraintEnd_toEndOf="@+id/imageViewBot"
+        app:layout_constraintStart_toStartOf="@+id/imageViewBot"
+        app:layout_constraintTop_toTopOf="@+id/imageViewBot"
+        app:layout_constraintVertical_bias="0.64" />
+
+    <ImageButton
+        android:id="@+id/btn_controller_left"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginTop="112dp"
-        android:layout_weight="1"
-        android:gravity="center"
-        android:orientation="vertical"
-        android:padding="2dp"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/reconnect_bot">
+        android:backgroundTint="#5DB075"
+        android:src="@drawable/ic_baseline_arrow_back_ios_24"
+        app:layout_constraintBottom_toBottomOf="@id/controllerleftarrow"
+        app:layout_constraintHorizontal_bias="0.653"
+        app:layout_constraintLeft_toLeftOf="@id/controllerleftarrow"
+        app:layout_constraintRight_toRightOf="@id/controllerleftarrow"
+        app:layout_constraintTop_toTopOf="@+id/controllerleftarrow" />
 
-        <Button
-            android:id="@+id/btn_controller_forward"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_marginEnd="10dp"
-            android:background="@drawable/roundedbutton"
-            android:text="forward"
-            android:textSize="11sp" />
+    <ImageButton
+        android:id="@+id/btn_controller_right"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:backgroundTint="#5DB075"
+        android:src="@drawable/ic_baseline_arrow_forward_ios_24"
+        app:layout_constraintBottom_toBottomOf="@id/controllerrightarrow"
+        app:layout_constraintHorizontal_bias="0.538"
+        app:layout_constraintLeft_toLeftOf="@id/controllerrightarrow"
+        app:layout_constraintRight_toRightOf="@id/controllerrightarrow"
+        app:layout_constraintTop_toTopOf="@+id/controllerrightarrow" />
 
-        <LinearLayout
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_marginBottom="2dp"
-            android:orientation="horizontal">
+    <ImageButton
+        android:id="@+id/btn_controller_forward"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:backgroundTint="#5DB075"
+        android:src="@drawable/ic_baseline_keyboard_arrow_up_24"
+        app:layout_constraintBottom_toBottomOf="@id/controlleruparrow"
+        app:layout_constraintHorizontal_bias="0.538"
+        app:layout_constraintLeft_toLeftOf="@id/controlleruparrow"
+        app:layout_constraintRight_toRightOf="@id/controlleruparrow"
+        app:layout_constraintTop_toTopOf="@+id/controlleruparrow" />
 
+    <ImageButton
+        android:id="@+id/btn_controller_backward"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:backgroundTint="#5DB075"
+        android:src="@drawable/ic_baseline_keyboard_arrow_down_24"
+        app:layout_constraintBottom_toBottomOf="@id/controllerdownarrow"
+        app:layout_constraintHorizontal_bias="0.538"
+        app:layout_constraintLeft_toLeftOf="@id/controllerdownarrow"
+        app:layout_constraintRight_toRightOf="@id/controllerdownarrow"
+        app:layout_constraintTop_toTopOf="@+id/controllerdownarrow" />
 
-            <Button
-                android:id="@+id/btn_controller_left"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_marginEnd="5dp"
-                android:background="@drawable/roundedbutton"
-                android:text="left"
-                android:textSize="11sp" />
+    <androidx.cardview.widget.CardView
+        android:id="@+id/color_controller"
+        android:layout_width="24dp"
+        android:layout_height="24dp"
+        android:layout_centerHorizontal="true"
+        android:layout_marginBottom="224dp"
+        android:backgroundTint="#5DB075"
+        android:elevation="12dp"
+        app:cardCornerRadius="40dp"
+        app:layout_constraintBottom_toBottomOf="@+id/imageViewBot"
+        app:layout_constraintEnd_toEndOf="@+id/imageViewBot"
+        app:layout_constraintHorizontal_bias="0.493"
+        app:layout_constraintStart_toStartOf="@+id/imageViewBot"
+        app:layout_constraintTop_toTopOf="@+id/imageViewBot"
+        app:layout_constraintVertical_bias="2" />
 
-            <Button
-                android:id="@+id/btn_controller_right"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:background="@drawable/roundedbutton"
-                android:text="right"
-                android:textSize="11sp" />
-        </LinearLayout>
-
-        <Button
-            android:id="@+id/btn_controller_backward"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:background="@drawable/roundedbutton"
-            android:text="backward"
-            android:textSize="11sp" />
-
-        <TextView
-            android:id="@+id/tv_controller_command"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_margin="10dp"
-            android:text="Command"
-            android:textSize="20sp" />
-
-
-    </LinearLayout>
-
+    <TextView
+        android:id="@+id/tv_controller_command"
+        android:layout_width="wrap_content"
+        android:layout_height="36dp"
+        android:layout_gravity="center_vertical|center_horizontal"
+        android:layout_marginLeft="16dp"
+        android:layout_marginRight="16dp"
+        android:layout_marginBottom="32dp"
+        android:layout_weight="2"
+        android:gravity="center_horizontal|center_vertical"
+        android:padding="1dp"
+        android:text="Command"
+        android:textColor="#5DB075"
+        android:textSize="30sp"
+        android:textStyle="bold"
+        app:layout_constraintBottom_toBottomOf="@id/imageViewBot"
+        app:layout_constraintHorizontal_bias="0.503"
+        app:layout_constraintLeft_toLeftOf="@id/imageViewBot"
+        app:layout_constraintRight_toRightOf="@id/imageViewBot" />
 
 </androidx.constraintlayout.widget.ConstraintLayout>

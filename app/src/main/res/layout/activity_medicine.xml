@@ -2,12 +2,12 @@
 <androidx.coordinatorlayout.widget.CoordinatorLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
-    android:id="@+id/coordinatorLayout"
+    android:id="@+id/med_am_coordinatorLayout"
     android:layout_width="match_parent"
     android:layout_height="match_parent">
 
     <com.google.android.material.appbar.AppBarLayout
-        android:id="@+id/app_bar_layout"
+        android:id="@+id/med_am_app_bar_layout"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:fitsSystemWindows="true"
@@ -16,7 +16,7 @@
         app:layout_behavior="com.sih.eldify.medicines.utils.ScrollingCalendarBehavior">
 
         <com.google.android.material.appbar.CollapsingToolbarLayout
-            android:id="@+id/collapsingToolbarLayout"
+            android:id="@+id/med_am_collapsingToolbarLayout"
             android:layout_width="match_parent"
             android:layout_height="match_parent"
             android:fitsSystemWindows="true"
@@ -27,7 +27,7 @@
             app:statusBarScrim="?attr/colorPrimaryDark">
 
             <LinearLayout
-                android:id="@+id/compactcalendar_view_container"
+                android:id="@+id/med_am_compactcalendar_view_container"
                 android:layout_width="match_parent"
                 android:layout_height="250dp"
                 android:paddingTop="?attr/actionBarSize"
@@ -35,7 +35,7 @@
                 app:layout_collapseParallaxMultiplier="1.0">
 
                 <com.github.sundeepk.compactcalendarview.CompactCalendarView
-                    android:id="@+id/compactcalendar_view"
+                    android:id="@+id/med_am_compactcalendar_view"
                     android:layout_width="match_parent"
                     android:layout_height="match_parent"
                     android:paddingLeft="10dp"
@@ -48,7 +48,7 @@
             </LinearLayout>
 
             <androidx.appcompat.widget.Toolbar
-                android:id="@+id/toolbar"
+                android:id="@+id/med_am_toolbar"
                 style="@style/ToolbarStyle"
                 android:layout_width="match_parent"
                 android:layout_height="?attr/actionBarSize"
@@ -56,7 +56,7 @@
                 app:popupTheme="@style/AppTheme.PopupOverlay">
 
                 <RelativeLayout
-                    android:id="@+id/date_picker_button"
+                    android:id="@+id/med_am_date_picker_button"
                     android:layout_width="match_parent"
                     android:layout_height="?attr/actionBarSize"
                     android:background="?android:selectableItemBackground"
@@ -66,7 +66,7 @@
                     android:orientation="vertical">
 
                     <TextView
-                        android:id="@+id/date_picker_text_view"
+                        android:id="@+id/med_am_date_picker_text_view"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:ellipsize="end"
@@ -76,11 +76,11 @@
                         android:textColor="@android:color/white" />
 
                     <ImageView
-                        android:id="@+id/date_picker_arrow"
+                        android:id="@+id/med_am_date_picker_arrow"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
-                        android:layout_alignBottom="@id/date_picker_text_view"
-                        android:layout_toRightOf="@id/date_picker_text_view"
+                        android:layout_alignBottom="@id/med_am_date_picker_text_view"
+                        android:layout_toRightOf="@id/med_am_date_picker_text_view"
                         app:srcCompat="@drawable/ic_arrow_drop_down"
                         tools:ignore="ContentDescription,RtlHardcoded" />
 
@@ -92,18 +92,18 @@
     </com.google.android.material.appbar.AppBarLayout>
 
     <FrameLayout
-        android:id="@+id/contentFrame"
+        android:id="@+id/med_am_contentFrame"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
         app:layout_behavior="@string/appbar_scrolling_view_behavior" />
 
     <com.google.android.material.floatingactionbutton.FloatingActionButton
-        android:id="@+id/fab_add_task"
+        android:id="@+id/med_am_fab_add_task"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_margin="@dimen/sixteen_dp"
         app:fabSize="normal"
-        app:layout_anchor="@id/contentFrame"
+        app:layout_anchor="@id/med_am_contentFrame"
         app:layout_anchorGravity="bottom|right|end"
         app:srcCompat="@drawable/ic_add" />
 </androidx.coordinatorlayout.widget.CoordinatorLayout>

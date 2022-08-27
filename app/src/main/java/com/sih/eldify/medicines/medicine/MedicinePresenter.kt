@@ -65,7 +65,7 @@ class MedicinePresenter internal constructor(
     }
 
     override fun result(requestCode: Int, resultCode: Int) {
-        if (AddMedicinesActivity.REQUEST_ADD_TASK === requestCode && Activity.RESULT_OK == resultCode) {
+        if (AddMedicinesActivity.addMedsActObj.REQUEST_ADD_TASK === requestCode && Activity.RESULT_OK == resultCode) {
             mMedView.showSuccessfullySavedMessage()
         }
     }

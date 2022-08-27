@@ -6,6 +6,7 @@ import android.content.Context
 import android.content.DialogInterface
 import android.content.Intent
 import android.content.SharedPreferences
+import android.content.res.ColorStateList
 import android.graphics.Color
 import android.net.Uri
 import android.os.Bundle
@@ -14,8 +15,10 @@ import android.util.Log
 import android.view.*
 import android.webkit.WebSettings
 import android.webkit.WebViewClient
+import android.widget.Button
 import android.widget.EditText
 import android.widget.Toast
+import androidx.core.content.ContextCompat
 import androidx.fragment.app.Fragment
 import androidx.lifecycle.ViewModelProvider
 import com.google.gson.Gson
@@ -47,7 +50,6 @@ class BotFragment : Fragment() {
     }
 
     var wsCOM: WebSocket? = null
-    var wsSOS: WebSocket? = null
 
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
@@ -70,6 +72,7 @@ class BotFragment : Fragment() {
 
         reconnect_bot.setOnClickListener {
             setIPAddress(sharedPreferences)
+            start()
         }
 
         reconnect_bot.setOnLongClickListener {
@@ -162,6 +165,7 @@ class BotFragment : Fragment() {
         if(sharedPreferences?.getString("IP_1", null) != null && sharedPreferences.getString("IP_2", null) != null) {
             IP_ADDR_1 = sharedPreferences?.getString("IP_1", null)
             IP_ADDR_2 = sharedPreferences?.getString("IP_2", null)
+            start()
         }else{
             createIPSetBuilder(sharedPreferences)
         }
@@ -194,7 +198,7 @@ class BotFragment : Fragment() {
 
     override fun onResume() {
         super.onResume()
-//        start()
+        start()
     }
 
     override fun onPause() {
@@ -235,6 +239,7 @@ class BotFragment : Fragment() {
         }
     }
 
+
     private fun sendJSONOnCOM(command: String, text: String) {
         wsCOM?.apply {
             var jsonObj = JSONObject()
@@ -247,21 +252,27 @@ class BotFragment : Fragment() {
 
     private fun outputCOM(text: String) {
         activity?.runOnUiThread {
-            sos.setText(text)
-            if(text.contains("recieved")){
-                val gson = Gson()
-                val sos: SOS = gson.fromJson(text, SOS::class.java)
-                Log.d("tanvi","> From JSON String:\n" + sos)
+            Log.d("txtxtxt", text)
+            try {
+                val received = JSONObject(text).getString("received")
+                val time = JSONObject(text).getString("time")
+                val reason = JSONObject(text).getString("reason")
+
+                Log.d("result", received + " " + time + " " + reason)
 
                 val sharedPreferencesBS = activity?.getSharedPreferences("BASIC_DETAILS", Context.MODE_PRIVATE)
                 val number_1 = sharedPreferencesBS?.getString("EM_CONTACT_1", null)
                 val number_2 = sharedPreferencesBS?.getString("EM_CONTACT_2", null)
 
-                sendSMS(number_1, sos.reason)
-                sendSMS(number_2, sos.reason)
+                sendSMS(number_1, "Reason: $reason")
+                sendSMS(number_2, "Reason: $reason")
 
                 callNumber(number_1)
+
+            }catch (exp:Exception ){
+                Log.d("Exception is", exp.toString())
             }
+
         }
     }
 
@@ -269,11 +280,13 @@ class BotFragment : Fragment() {
         activity?.runOnUiThread {
             if (txt == "Disconnected!") {
                 status.setTextColor(Color.RED)
+                color_controller.setCardBackgroundColor(Color.RED)
             } else {
                 status.setTextColor(Color.GREEN)
+                color_controller.setCardBackgroundColor(Color.RED)
             }
             status.text = txt
-
+//            color_controller.setBackgroundTintList(ColorStateList.valueOf(resources.getColor(Color.RED)))
         }
     }
 
@@ -291,28 +304,28 @@ class BotFragment : Fragment() {
             )
         builder.setView(ipLayout)
 
-        // add a button
-        builder
-            .setPositiveButton(
-                "Reconnect",
-                DialogInterface.OnClickListener { dialog, which -> // send data from the
-                    // AlertDialog to the Activity
-
-                    val ip_1: EditText = ipLayout.findViewById(R.id.et_connection_ip_addr_1)
-                    val ip_2: EditText = ipLayout.findViewById(R.id.et_connection_ip_addr_2)
-                    IP_ADDR_1 = ip_1.text.toString()
-                    IP_ADDR_2 = ip_2.text.toString()
-
-                    val editor : SharedPreferences.Editor = sharedPreferences!!.edit()
-                    editor.apply {
-                        putString("IP_1", IP_ADDR_1)
-                        putString("IP_2", IP_ADDR_2)
-                    }.apply()
-
-                    Log.d("chk", IP_ADDR_1 + IP_ADDR_2)
-                })
+        val ip_1: EditText = ipLayout.findViewById(R.id.et_connection_ip_addr_1)
+        val ip_2: EditText = ipLayout.findViewById(R.id.et_connection_ip_addr_2)
+        val btn : Button = ipLayout.findViewById(R.id.btn_connect_ip)
 
         val dialog: AlertDialog = builder.create()
+
+        btn.setOnClickListener {
+            IP_ADDR_1 = ip_1.text.toString()
+            IP_ADDR_2 = ip_2.text.toString()
+
+            val editor : SharedPreferences.Editor = sharedPreferences!!.edit()
+            editor.apply {
+                putString("IP_1", IP_ADDR_1)
+                putString("IP_2", IP_ADDR_2)
+            }.apply()
+
+            Log.d("chk", IP_ADDR_1 + IP_ADDR_2)
+
+            dialog.dismiss()
+        }
+
+
         dialog.show()
     }
 

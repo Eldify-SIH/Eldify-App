@@ -1,7 +1,7 @@
 package com.sih.eldify.medicines.utils
 
 import android.graphics.Typeface
-import com.sih.eldify.mediciness.MedicineApp
+import com.sih.eldify.medicines.MedicineApp
 import java.util.*
 
 
