@@ -50,6 +50,7 @@ import bot.box.horology.annotation.SUNSIGN
 import bot.box.horology.api.Horoscope
 import bot.box.horology.hanshake.HorologyController
 import bot.box.horology.pojo.Zodiac
+import android.media.MediaPlayer;
 import com.android.volley.Request
 import com.android.volley.Response
 import com.android.volley.toolbox.JsonObjectRequest
@@ -74,6 +75,7 @@ import java.util.*
 import kotlin.collections.HashMap
 import kotlin.jvm.internal.Ref.ObjectRef
 import kotlin.random.Random
+import kotlin.random.Random.Default.nextInt
 
 class AssistantActivity : AppCompatActivity() {
 
@@ -111,6 +113,7 @@ class AssistantActivity : AppCompatActivity() {
     private lateinit var clipboardManager : ClipboardManager
     private lateinit var cameraID : String
     private lateinit var ringtone : Ringtone
+    private lateinit var music : MediaPlayer
 
     //Image Vars
     private var imageIndex: Int = 0
@@ -258,9 +261,9 @@ class AssistantActivity : AppCompatActivity() {
                         keeper.contains("share a file") -> shareAFile() // needs some work
                         keeper.contains("share a text message") -> shareATextMessage()
                         keeper.contains("call") -> callContact()
-                        keeper.contains("turn on Bluetooth") -> turnOnBluetooth()
-                        keeper.contains("turn off Bluetooth") -> turnOffBluetooth()
-                        keeper.contains("get bluetooth devices") -> getAllPairedDevices()
+                      //  keeper.contains("turn on Bluetooth") -> turnOnBluetooth()
+//                        keeper.contains("turn off Bluetooth") -> turnOffBluetooth()
+//                        keeper.contains("get bluetooth devices") -> getAllPairedDevices()
                         keeper.contains("turn on flash") -> turnOnFlash()
                         keeper.contains("turn off flash") -> turnOffFlash()
                         keeper.contains("copy to clipboard") -> clipBoardCopy()
@@ -275,6 +278,8 @@ class AssistantActivity : AppCompatActivity() {
                         keeper.contains("medical") -> medicalApplication()
                         keeper.contains("tell me a joke") -> joke()
                         keeper.contains("latest news") -> news()
+                        keeper.contains("play music") || keeper.contains("play therauptic music") -> startmusic()
+                        keeper.contains("stop music") || keeper.contains("stop therauptic music") -> stopmusic()
                         keeper.contains("question") -> question()
                         keeper.contains("hello") || keeper.contains(" hi ") || keeper.contains("hey") -> speak("Hello, how can I  help you?")
                         else -> speak("Invalid command, try again")
@@ -542,42 +547,43 @@ class AssistantActivity : AppCompatActivity() {
         }
     }
 
-    private fun turnOnBluetooth() {
-        if (!bluetoothAdapter.isEnabled()) {
-            speak("Turning On Bluetooth...")
-            //intent to on bluetooth
-            val intent = Intent(BluetoothAdapter.ACTION_REQUEST_ENABLE)
-            startActivityForResult(intent, REQUEST_ENABLE_BT)
-        } else {
-            speak("Bluetooth is already on")
-        }
-    }
+//    private fun turnOnBluetooth() {
+//        if (!bluetoothAdapter.isEnabled()) {
+//            speak("Turning On Bluetooth...")
+//            //intent to on bluetooth
+//            val intent = Intent(BluetoothAdapter.ACTION_REQUEST_ENABLE)
+//            startActivityForResult(intent, REQUEST_ENABLE_BT)
+//        } else {
+//            speak("Bluetooth is already on")
+//        }
+//    }
 
-    private fun turnOffBluetooth() {
-        if (bluetoothAdapter.isEnabled()) {
-            bluetoothAdapter.disable()
-            speak("Turning Bluetooth Off")
-        } else {
-            speak("Bluetooth is already off")
-        }
-    }
 
-    private fun getAllPairedDevices() {
-        if (bluetoothAdapter.isEnabled()) {
-            speak("Paired Devices are ")
-            var text = ""
-            var count = 1
-            val devices: Set<BluetoothDevice> = bluetoothAdapter.getBondedDevices()
-            for (device in devices) {
-                text += "\nDevice: $count ${device.name}, $device"
-                count += 1
-            }
-            speak(text)
-        } else {
-            //bluetooth is off so can't get paired devices
-            speak("Turn on bluetooth to get paired devices")
-        }
-    }
+//    private fun turnOffBluetooth() {
+//        if (bluetoothAdapter.isEnabled()) {
+//            bluetoothAdapter.disable()
+//            speak("Turning Bluetooth Off")
+//        } else {
+//            speak("Bluetooth is already off")
+//        }
+//    }
+
+//    private fun getAllPairedDevices() {
+//        if (bluetoothAdapter.isEnabled()) {
+//            speak("Paired Devices are ")
+//            var text = ""
+//            var count = 1
+//            val devices: Set<BluetoothDevice> = bluetoothAdapter.getBondedDevices()
+//            for (device in devices) {
+//                text += "\nDevice: $count ${device.name}, $device"
+//                count += 1
+//            }
+//            speak(text)
+//        } else {
+//            //bluetooth is off so can't get paired devices
+//            speak("Turn on bluetooth to get paired devices")
+//        }
+//    }
 
     private fun turnOnFlash() {
         try {
@@ -789,6 +795,20 @@ class AssistantActivity : AppCompatActivity() {
             Response.ErrorListener {Log.d("API", "that didn't work") })
         queue.add(stringReq)
     }
+
+    private fun startmusic(){
+        var music_list= arrayOf(R.raw.music1, R.raw.music2,R.raw.music3, R.raw.music4)
+        val r= (0..3).random()
+        music = MediaPlayer.create(this,music_list[r]);
+        speak("Playing music")
+        music.start()
+    }
+
+    private fun stopmusic(){
+        speak("Ok!")
+        music.stop()
+    }
+
 
     private fun news(){
         val keeperSplit = keeper.replace(" ".toRegex(), "").split("w").toTypedArray()

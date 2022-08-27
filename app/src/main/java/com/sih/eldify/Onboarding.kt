@@ -42,7 +42,7 @@ class Onboarding : AppCompatActivity() {
 //    }
 
         fun skipButton(view: View){
-        val intent = Intent(this, registration::class.java)
+        val intent = Intent(this, MainActivity::class.java)
         intent.flags=Intent.FLAG_ACTIVITY_CLEAR_TOP
         startActivity(intent)
     }
