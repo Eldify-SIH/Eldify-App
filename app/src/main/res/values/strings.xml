@@ -13,8 +13,11 @@
     <string name="first_message">Hello, how can I help you?</string>
     <string name="second_message">Can you tell me something?</string>
     <string name="OPEN_WEATHER_MAP_API_KEY">e2f18082ff618ac5a563a175973a3360</string>
-
+    <string name="log_in">Log In</string>
     <string name="menu_home">Home</string>
     <string name="menu_gallery">Gallery</string>
     <string name="menu_slideshow">Slideshow</string>
+    <string name="forgot_your">Forgot your password?</string>
+    <string name="sign_up">Sign Up</string>
+    <string name="i_would_lik">I agree to the terms and know that this companion app is experimental and will use it appropriately.</string>
 </resources>

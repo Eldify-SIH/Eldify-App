@@ -33,14 +33,30 @@
         <entry key="..\:/Academics/SIH/Eldify/app/src/main/res/layout/fragment_sos.xml" value="0.286231884057971" />
         <entry key="..\:/Academics/SIH/Eldify/app/src/main/res/menu/bottom_nav_menu.xml" value="0.35572916666666665" />
         <entry key="..\:/Users/Admin/AndroidStudioProjects/Eldify2/app/src/main/res/layout/fragment_bot.xml" value="0.17028985507246377" />
+        <entry key="..\:/Users/tekem/AndroidStudioProjects/Eldify-App/app/src/main/res/drawable/bg.xml" value="0.1045" />
+        <entry key="..\:/Users/tekem/AndroidStudioProjects/Eldify-App/app/src/main/res/drawable/button_prim.xml" value="0.1665" />
+        <entry key="..\:/Users/tekem/AndroidStudioProjects/Eldify-App/app/src/main/res/drawable/dot.xml" value="0.1365" />
+        <entry key="..\:/Users/tekem/AndroidStudioProjects/Eldify-App/app/src/main/res/drawable/gradient_background.xml" value="0.14" />
+        <entry key="..\:/Users/tekem/AndroidStudioProjects/Eldify-App/app/src/main/res/drawable/ic_baseline_close_24.xml" value="0.1365" />
+        <entry key="..\:/Users/tekem/AndroidStudioProjects/Eldify-App/app/src/main/res/drawable/ic_baseline_fiber_manual_record_24.xml" value="0.1" />
         <entry key="..\:/Users/tekem/AndroidStudioProjects/Eldify-App/app/src/main/res/drawable/ic_bot_24.xml" value="0.1325" />
+        <entry key="..\:/Users/tekem/AndroidStudioProjects/Eldify-App/app/src/main/res/drawable/ic_video_24.xml" value="0.1365" />
         <entry key="..\:/Users/tekem/AndroidStudioProjects/Eldify-App/app/src/main/res/layout/activity_assistant.xml" value="0.1" />
+        <entry key="..\:/Users/tekem/AndroidStudioProjects/Eldify-App/app/src/main/res/layout/activity_basic_details.xml" value="0.1296875" />
+        <entry key="..\:/Users/tekem/AndroidStudioProjects/Eldify-App/app/src/main/res/layout/activity_login.xml" value="0.3333333333333333" />
         <entry key="..\:/Users/tekem/AndroidStudioProjects/Eldify-App/app/src/main/res/layout/activity_main.xml" value="0.1203125" />
         <entry key="..\:/Users/tekem/AndroidStudioProjects/Eldify-App/app/src/main/res/layout/activity_onboarding.xml" value="0.22" />
-        <entry key="..\:/Users/tekem/AndroidStudioProjects/Eldify-App/app/src/main/res/layout/activity_splash_screen.xml" value="0.1" />
+        <entry key="..\:/Users/tekem/AndroidStudioProjects/Eldify-App/app/src/main/res/layout/activity_registration.xml" value="0.22" />
+        <entry key="..\:/Users/tekem/AndroidStudioProjects/Eldify-App/app/src/main/res/layout/activity_splash_screen.xml" value="0.14666666666666667" />
+        <entry key="..\:/Users/tekem/AndroidStudioProjects/Eldify-App/app/src/main/res/layout/app_bar_main.xml" value="0.1296875" />
+        <entry key="..\:/Users/tekem/AndroidStudioProjects/Eldify-App/app/src/main/res/layout/assistant_item_layout.xml" value="0.1296875" />
         <entry key="..\:/Users/tekem/AndroidStudioProjects/Eldify-App/app/src/main/res/layout/content_main.xml" value="0.1" />
+        <entry key="..\:/Users/tekem/AndroidStudioProjects/Eldify-App/app/src/main/res/layout/fragment_bot.xml" value="0.184375" />
         <entry key="..\:/Users/tekem/AndroidStudioProjects/Eldify-App/app/src/main/res/layout/fragment_gallery.xml" value="0.1" />
-        <entry key="..\:/Users/tekem/AndroidStudioProjects/Eldify-App/app/src/main/res/layout/fragment_settings.xml" value="0.1" />
+        <entry key="..\:/Users/tekem/AndroidStudioProjects/Eldify-App/app/src/main/res/layout/fragment_home.xml" value="0.184375" />
+        <entry key="..\:/Users/tekem/AndroidStudioProjects/Eldify-App/app/src/main/res/layout/fragment_settings.xml" value="0.14666666666666667" />
+        <entry key="..\:/Users/tekem/AndroidStudioProjects/Eldify-App/app/src/main/res/layout/fragment_sos.xml" value="0.22" />
+        <entry key="..\:/Users/tekem/AndroidStudioProjects/Eldify-App/app/src/main/res/layout/fragment_video.xml" value="0.1296875" />
       </map>
     </option>
   </component>

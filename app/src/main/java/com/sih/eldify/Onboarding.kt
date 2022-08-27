@@ -35,8 +35,14 @@ class Onboarding : AppCompatActivity() {
 
     }
 
-    fun skipButton(view: View){
-        val intent = Intent(this, MainActivity::class.java)
+//    fun skipButton(view: View){
+//        val intent = Intent(this, MainActivity::class.java)
+//        intent.flags=Intent.FLAG_ACTIVITY_CLEAR_TOP
+//        startActivity(intent)
+//    }
+
+        fun skipButton(view: View){
+        val intent = Intent(this, registration::class.java)
         intent.flags=Intent.FLAG_ACTIVITY_CLEAR_TOP
         startActivity(intent)
     }
@@ -49,25 +55,41 @@ class Onboarding : AppCompatActivity() {
         // then the image to show on the screen is passed
         // and at last icon to navigate from one screen to other
         val source = PaperOnboardingPage(
-            "Gfg",
-            "Welcome to GeeksForGeeks",
-            Color.parseColor("#ffb174"),
-            R.drawable.eldify,
-            R.drawable.ic_bot_24
+            "Hey there !!",
+            "I am Leo, your pet bot with futuristic features.",
+            Color.parseColor("#82de94"),
+            R.drawable.bot,
+            R.drawable.ic_baseline_fiber_manual_record_24
         )
         val source1 = PaperOnboardingPage(
-            "Practice",
-            "Practice questions from all topics",
-            Color.parseColor("#22eaaa"),
-            R.drawable.eldify,
-            R.drawable.ic_bot_24
+            "Bot Control",
+            "I am your companion bot, take me wherever you go.",
+            Color.parseColor("#a7e7d1"),
+            R.drawable.controller,
+            R.drawable.ic_baseline_fiber_manual_record_24
         )
         val source2 = PaperOnboardingPage(
-            "",
-            " ",
-            Color.parseColor("#ee5a5a"),
-            R.drawable.eldify,
-            R.drawable.ic_bot_24
+            "SOS",
+            "I will help in notifying your family in case of emergencies.",
+            Color.parseColor("#7fbf7e"),
+            R.drawable.fall,
+            R.drawable.ic_baseline_fiber_manual_record_24
+        )
+
+        val source3 = PaperOnboardingPage(
+            "Video Conferencing",
+            "I'll assist you in connecting to your loved ones anytime, anywhere.",
+            Color.parseColor("#82de94"),
+            R.drawable.videocalling,
+            R.drawable.ic_baseline_fiber_manual_record_24
+        )
+
+        val source4 = PaperOnboardingPage(
+            "Voice Assistant",
+            "Let me keep you updated with news, weather forecast and entertain you with jokes.",
+            Color.parseColor("#a7e7d1"),
+            R.drawable.microphone,
+            R.drawable.ic_baseline_fiber_manual_record_24
         )
 
         // array list is used to store
@@ -79,6 +101,8 @@ class Onboarding : AppCompatActivity() {
         elements.add(source)
         elements.add(source1)
         elements.add(source2)
+        elements.add(source3)
+        elements.add(source4)
         return elements
     }
 }
