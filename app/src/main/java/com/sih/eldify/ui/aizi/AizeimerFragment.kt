@@ -26,7 +26,6 @@ class AizeimerFragment : Fragment() {
 
         val intent = Intent(activity, DashboardActivity::class.java)
         startActivity(intent)
-        requireActivity().finish()
 
         return inflater.inflate(R.layout.fragment_aizeimer, container, false)
     }

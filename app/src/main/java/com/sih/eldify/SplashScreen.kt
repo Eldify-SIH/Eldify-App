@@ -64,7 +64,7 @@ class SplashScreen : AppCompatActivity() {
             builder = Notification.Builder(this)
                 .setSmallIcon(R.drawable.eldify)
                 .setContentTitle("Emergency Contacts")
-                .setContentText("Contact 1: " + sharedPreferences.getString("EM_CONTACT_1", null) + " Contact 2:" + sharedPreferences.getString("EM_CONTACT_2", null))
+                .setContentText("Contact one of the following numbers in case of emergency: " + sharedPreferences.getString("EM_CONTACT_1", null) + ", " + sharedPreferences.getString("EM_CONTACT_2", null))
                 .setContentIntent(pendingIntent)
                 .setAutoCancel(false)
                 .build()
@@ -80,7 +80,7 @@ class SplashScreen : AppCompatActivity() {
 
         var newIntent : Intent
         Handler().postDelayed({
-            if(sharedPreferences.getString("first_launch", null) != "true"){
+            if(sharedPreferences.getString("first_launch", null) == "true"){
                 newIntent = Intent(this, Onboarding::class.java)
             }else{
                 editor.putString("first_launch", "true")

@@ -197,35 +197,35 @@ class BotFragment : Fragment() {
         var loadingFinished = true
         var redirect = false
 
-        webView.visibility = View.VISIBLE
-//        webView.setWebViewClient(object : WebViewClient() {
-//            override fun shouldOverrideUrlLoading(view: WebView, urlNewString: String): Boolean {
-//                if (!loadingFinished) {
-//                    redirect = true
-//                }
-//                loadingFinished = false
-//                view.loadUrl(urlNewString)
-//                return true
-//            }
-//
+//        webView.visibility = View.VISIBLE
+        webView.setWebViewClient(object : WebViewClient() {
+            override fun shouldOverrideUrlLoading(view: WebView, urlNewString: String): Boolean {
+                if (!loadingFinished) {
+                    redirect = true
+                }
+                loadingFinished = false
+                view.loadUrl(urlNewString)
+                return true
+            }
+
 //            override fun onPageStarted(view: WebView, url: String, facIcon: Bitmap) {
 //                loadingFinished = false
 //                //SHOW LOADING IF IT ISNT ALREADY VISIBLE
 //                view.visibility = View.VISIBLE
 //            }
-//
-//            override fun onPageFinished(view: WebView, url: String) {
-//                if (!redirect) {
-//                    loadingFinished = true
-//                }
-//                if (loadingFinished && !redirect) {
-//                    //HIDE LOADING IT HAS FINISHED
-//                    view.visibility = View.VISIBLE
-//                } else {
-//                    redirect = false
-//                }
-//            }
-//        })
+
+            override fun onPageFinished(view: WebView, url: String) {
+                if (!redirect) {
+                    loadingFinished = true
+                }
+                if (loadingFinished && !redirect) {
+                    //HIDE LOADING IT HAS FINISHED
+                    view.visibility = View.VISIBLE
+                } else {
+                    redirect = false
+                }
+            }
+        })
 
         webView.canGoBack()
         webView.setOnKeyListener { v, keyCode, event ->
