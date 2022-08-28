@@ -75,9 +75,11 @@ class VideoFragment : Fragment() {
         val hashString = md5(uniqueString)
 
             join_btn.setOnClickListener {
+                val number_1 = sharedPreferences?.getString("EM_CONTACT_1", null)
+                sendSMS(number_1, "Join the meet link of your companion https://meet.jit.si/weareeldify")
             if (hashString.isNotEmpty()) {
                 val options = JitsiMeetConferenceOptions.Builder()
-                    .setRoom(hashString)
+                    .setRoom("weareeldify")
                     .build()
                 JitsiMeetActivity.launch(requireView().context, options)
             }

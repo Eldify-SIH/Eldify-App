@@ -26,6 +26,7 @@
     <uses-permission android:name="android.permission.READ_CONTACTS" />
     <uses-permission android:name="com.android.alarm.permission.SET_ALARM" />
     <uses-permission android:name="android.permission.CAMERA" />
+
     <uses-feature android:name="android.hardware.camera" />
     <uses-feature
         android:name="android.hardware.camera.any"
@@ -48,6 +49,7 @@
         <package android:name="com.whatsapp" />
         <package android:name="com.google.android.gm" />
         <package android:name="com.facebook.katana" />
+        <package android:name="com.gautam.medicinetime.mock" />
     </queries>
 
     <application
@@ -56,36 +58,44 @@
         android:fullBackupContent="@xml/backup_rules"
         android:icon="@drawable/eldify"
         android:label="@string/app_name"
+        android:largeHeap="true"
         android:roundIcon="@drawable/eldify"
         android:supportsRtl="true"
         android:theme="@style/Theme.Eldify"
         android:usesCleartextTraffic="true"
+        tools:ignore="GoogleAppIndexingWarning"
         tools:replace="android:icon, android:roundIcon, android:theme"
-        android:largeHeap="true"
-        tools:targetApi="31"
-        tools:ignore="GoogleAppIndexingWarning">
+        tools:targetApi="31">
+        <activity
+            android:name=".YogaSecondActivity"
+            android:exported="false" />
+        <activity
+            android:name=".YogaFirstActicity"
+            android:exported="false" />
         <activity
             android:name=".medicines.addmedicine.AddMedicinesActivity"
             android:exported="false"
-            android:theme="@style/AppTheme.NoActionBar"/>
+            android:theme="@style/AppTheme.NoActionBar" />
         <activity
             android:name=".medicines.alarm.ReminderActivity"
             android:exported="false"
-            android:theme="@style/AppTheme.NoActionBar"/>
+            android:theme="@style/AppTheme.NoActionBar" />
         <activity
             android:name=".medicines.medicine.MedicineActivity"
             android:exported="true"
             android:theme="@style/AppTheme.NoActionBar">
-            <intent-filter>
-                <action android:name="android.intent.action.MAIN" />
 
-                <category android:name="android.intent.category.LAUNCHER" />
-            </intent-filter>
+            <!-- <intent-filter> -->
+            <!-- <action android:name="android.intent.action.MAIN" /> -->
+
+
+            <!-- <category android:name="android.intent.category.LAUNCHER" /> -->
+            <!-- </intent-filter> -->
         </activity>
         <activity
             android:name=".medicines.report.MonthlyReportActivity"
             android:exported="false"
-            android:theme="@style/AppTheme.NoActionBar"/>
+            android:theme="@style/AppTheme.NoActionBar" />
         <activity
             android:name=".Onboarding"
             android:exported="false"
@@ -115,22 +125,30 @@
             android:name="com.google.mlkit.vision.DEPENDENCIES"
             android:value="ocr" />
 
-        <activity android:name=".alz.notes.NotesActivity"
-            android:theme="@style/AppThemeAZ"/>
+        <activity
+            android:name=".alz.notes.NotesActivity"
+            android:theme="@style/AppThemeAZ" />
+        <activity
+            android:name=".alz.dashboard.DashboardActivity"
+            android:theme="@style/AppThemeAZ" />
+        <activity
+            android:name=".alz.profile.ProfileActivity"
+            android:theme="@style/AppThemeAZ" />
+        <activity
+            android:name=".alz.profile.DetailsActivity"
+            android:theme="@style/AppThemeAZ" />
+        <activity
+            android:name=".alz.contacts.EmergencyContactActivity"
+            android:theme="@style/AppThemeAZ" />
+        <activity
+            android:name=".alz.contacts.EditAddContactActivity"
+            android:theme="@style/AppThemeAZ" />
+        <activity
+            android:name=".alz.faceRecognition.FaceRecognitionActivity"
+            android:theme="@style/AppThemeAZ" />
 
-        <activity android:name=".alz.dashboard.DashboardActivity"
-            android:theme="@style/AppThemeAZ"/>
-
-        <activity android:name=".alz.profile.ProfileActivity"
-            android:theme="@style/AppThemeAZ"/>
-        <activity android:name=".alz.profile.DetailsActivity"
-            android:theme="@style/AppThemeAZ"/>
-        <activity android:name=".alz.contacts.EmergencyContactActivity"
-            android:theme="@style/AppThemeAZ"/>
-        <activity android:name=".alz.contacts.EditAddContactActivity"
-            android:theme="@style/AppThemeAZ"/>
-        <activity android:name=".alz.faceRecognition.FaceRecognitionActivity"
-            android:theme="@style/AppThemeAZ"/>
+        <activity android:name=".yoga.YogaSecondActivity" />
+        <activity android:name=".yoga.YogaFirstActicity"  />
 
         <provider
             android:name="androidx.core.content.FileProvider"
@@ -142,9 +160,7 @@
                 android:resource="@xml/file_paths" />
         </provider>
 
-        <activity android:name=".alz.dashboard.AzSplashActivity">
-
-        </activity>
+        <activity android:name=".alz.dashboard.AzSplashActivity" />
         <activity android:name=".alz.dashboard.IntroSliderActivity" />
     </application>
 

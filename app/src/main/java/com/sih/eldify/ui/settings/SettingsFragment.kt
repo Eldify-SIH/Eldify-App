@@ -70,7 +70,7 @@ class SettingsFragment : Fragment() {
         setIPAddress(sharedPreferencesIP)
         setURLBot()
 
-        user_name.setText(sharedPreferences!!.getString("USER_EMAIL", null))
+        user_name.setText(sharedPreferences!!.getString("USER_NAME", null))
         user_age.setText(sharedPreferences!!.getString("USER_AGE", null))
         em_contact_1.setText(sharedPreferences!!.getString("EM_CONTACT_1", null))
         em_contact_2.setText(sharedPreferences!!.getString("EM_CONTACT_2", null))

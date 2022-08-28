@@ -2,10 +2,15 @@ package com.sih.eldify
 
 import android.Manifest
 import android.annotation.SuppressLint
+import android.app.Notification
+import android.app.NotificationChannel
+import android.app.NotificationManager
+import android.app.PendingIntent
 import android.content.Context
 import android.content.Intent
 import android.content.pm.PackageManager
 import android.media.MediaPlayer
+import android.os.Build
 import android.os.Bundle
 import android.view.Menu
 import android.view.MenuItem
@@ -14,7 +19,6 @@ import android.widget.CompoundButton
 import android.widget.Switch
 import android.widget.Toast
 import androidx.appcompat.app.AppCompatActivity
-import androidx.appcompat.widget.SwitchCompat
 import androidx.core.app.ActivityCompat
 import androidx.core.content.ContextCompat
 import androidx.drawerlayout.widget.DrawerLayout
@@ -24,15 +28,12 @@ import com.google.android.material.navigation.NavigationView
 import com.sih.eldify.assistant.AssistantActivity
 import com.sih.eldify.databinding.ActivityMainBinding
 import kotlinx.android.synthetic.main.nav_header_main.view.*
-import kotlinx.android.synthetic.main.switch_menu.*
-import kotlinx.android.synthetic.main.switch_menu.view.*
 
 
 class MainActivity : AppCompatActivity() {
 
     private lateinit var appBarConfiguration: AppBarConfiguration
     private lateinit var binding: ActivityMainBinding
-
     // permission code
     val RECORDAUDIO : Int = 1
     private var REQUESTCALL = 2
@@ -44,6 +45,9 @@ class MainActivity : AppCompatActivity() {
     @SuppressLint("UseSwitchCompatOrMaterialCode")
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
+
+
+
 
         binding = ActivityMainBinding.inflate(layoutInflater)
         setContentView(binding.root)
@@ -98,6 +102,10 @@ class MainActivity : AppCompatActivity() {
             navHeaderView.nav_user_name.text = user_name
             navHeaderView.nav_user_email.text = user_email
         }
+
+
+
+
 
     }
 

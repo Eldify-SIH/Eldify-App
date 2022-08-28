@@ -3,27 +3,22 @@ package com.sih.eldify.ui.bot
 import android.annotation.SuppressLint
 import android.app.AlertDialog
 import android.content.Context
-import android.content.DialogInterface
 import android.content.Intent
 import android.content.SharedPreferences
-import android.content.res.ColorStateList
+import android.graphics.Bitmap
 import android.graphics.Color
 import android.net.Uri
 import android.os.Bundle
 import android.telephony.SmsManager
 import android.util.Log
 import android.view.*
-import android.webkit.WebSettings
-import android.webkit.WebViewClient
+import android.webkit.*
 import android.widget.Button
 import android.widget.EditText
 import android.widget.Toast
-import androidx.core.content.ContextCompat
 import androidx.fragment.app.Fragment
 import androidx.lifecycle.ViewModelProvider
-import com.google.gson.Gson
 import com.sih.eldify.R
-import com.sih.eldify.utils.SOS
 import com.sih.eldify.websockets.EchoWebSocketListener
 import kotlinx.android.synthetic.main.fragment_bot.*
 import kotlinx.android.synthetic.main.fragment_sos.*
@@ -44,6 +39,8 @@ class BotFragment : Fragment() {
     private var URL_VIDEO: String? = null
     private var IP_ADDR_1: String? = null
     private var IP_ADDR_2: String? = null
+    private var VID_IP_ADDR_1: String? = null
+    private var VID_IP_ADDR_2: String? = null
 
     private val client by lazy {
         OkHttpClient()
@@ -72,6 +69,7 @@ class BotFragment : Fragment() {
 
         reconnect_bot.setOnClickListener {
             setIPAddress(sharedPreferences)
+            stop()
             start()
         }
 
@@ -82,7 +80,7 @@ class BotFragment : Fragment() {
             true
         }
 
-        if(IP_ADDR_1 != null && IP_ADDR_2 != null){
+        if(IP_ADDR_1 != null && IP_ADDR_2 != null && VID_IP_ADDR_1 != null && VID_IP_ADDR_2 != null){
 
             setURLBotNVid()
         }
@@ -130,6 +128,17 @@ class BotFragment : Fragment() {
             }
             false
         }
+
+        hfSwitch.setOnCheckedChangeListener { compoundButton, b ->
+            if(b){
+                sendJSONOnCOM("C", "C")
+                sendJSONOnCOM("S", "C")
+            }else{
+                sendJSONOnCOM("D", "D")
+                sendJSONOnCOM("S", "D")
+            }
+        }
+
     }
 
     private fun callNumber(phoneNumber: String?) {
@@ -162,10 +171,11 @@ class BotFragment : Fragment() {
     }
 
     private fun setIPAddress(sharedPreferences: SharedPreferences?) {
-        if(sharedPreferences?.getString("IP_1", null) != null && sharedPreferences.getString("IP_2", null) != null) {
+        if(sharedPreferences?.getString("IP_1", null) != null && sharedPreferences.getString("IP_2", null) != null && sharedPreferences.getString("VID_IP_1", null) != null && sharedPreferences.getString("VID_IP_2", null) != null) {
             IP_ADDR_1 = sharedPreferences?.getString("IP_1", null)
             IP_ADDR_2 = sharedPreferences?.getString("IP_2", null)
-            start()
+            VID_IP_ADDR_1 = sharedPreferences.getString("VID_IP_1", null)
+            VID_IP_ADDR_2 = sharedPreferences.getString("VID_IP_2", null)
         }else{
             createIPSetBuilder(sharedPreferences)
         }
@@ -174,7 +184,7 @@ class BotFragment : Fragment() {
     private fun setURLBotNVid() {
         // 192.168. + IP_ADDR_1 + . + IP_ADDR_2 + : + Port
         SOCKET_URL_BOT = "ws://192.168.$IP_ADDR_1.$IP_ADDR_2:80"
-        URL_VIDEO = "ws://192.168.$IP_ADDR_1.$IP_ADDR_2:5000"
+        URL_VIDEO = "http://192.168.$VID_IP_ADDR_1.$VID_IP_ADDR_2:5000"
         Log.d("chk", SOCKET_URL_BOT!!)
         start()
 
@@ -183,6 +193,39 @@ class BotFragment : Fragment() {
         val webSettings : WebSettings = webView.settings
         webSettings.javaScriptEnabled = true
         webView.webViewClient = WebViewClient()
+
+        var loadingFinished = true
+        var redirect = false
+
+        webView.visibility = View.VISIBLE
+//        webView.setWebViewClient(object : WebViewClient() {
+//            override fun shouldOverrideUrlLoading(view: WebView, urlNewString: String): Boolean {
+//                if (!loadingFinished) {
+//                    redirect = true
+//                }
+//                loadingFinished = false
+//                view.loadUrl(urlNewString)
+//                return true
+//            }
+//
+//            override fun onPageStarted(view: WebView, url: String, facIcon: Bitmap) {
+//                loadingFinished = false
+//                //SHOW LOADING IF IT ISNT ALREADY VISIBLE
+//                view.visibility = View.VISIBLE
+//            }
+//
+//            override fun onPageFinished(view: WebView, url: String) {
+//                if (!redirect) {
+//                    loadingFinished = true
+//                }
+//                if (loadingFinished && !redirect) {
+//                    //HIDE LOADING IT HAS FINISHED
+//                    view.visibility = View.VISIBLE
+//                } else {
+//                    redirect = false
+//                }
+//            }
+//        })
 
         webView.canGoBack()
         webView.setOnKeyListener { v, keyCode, event ->
@@ -209,6 +252,7 @@ class BotFragment : Fragment() {
     override fun onDestroy() {
         super.onDestroy()
         client.dispatcher.executorService.shutdown()
+        stop()
     }
 
     override fun onStop() {
@@ -235,10 +279,9 @@ class BotFragment : Fragment() {
 
     private fun ping(s: String) {
         activity?.runOnUiThread {
-            Toast.makeText(context, s, Toast.LENGTH_SHORT).show()
+
         }
     }
-
 
     private fun sendJSONOnCOM(command: String, text: String) {
         wsCOM?.apply {
@@ -304,9 +347,25 @@ class BotFragment : Fragment() {
             )
         builder.setView(ipLayout)
 
+
         val ip_1: EditText = ipLayout.findViewById(R.id.et_connection_ip_addr_1)
         val ip_2: EditText = ipLayout.findViewById(R.id.et_connection_ip_addr_2)
+        val vid_ip_1: EditText = ipLayout.findViewById(R.id.et_connection_ip_addr_1_vid)
+        val vid_ip_2: EditText = ipLayout.findViewById(R.id.et_connection_ip_addr_2_vid)
         val btn : Button = ipLayout.findViewById(R.id.btn_connect_ip)
+
+        if(sharedPreferences?.getString("IP_1", null) != null){
+            ip_1.setText(sharedPreferences.getString("IP_1", null).toString())
+        }
+        if(sharedPreferences?.getString("IP_2", null) != null){
+            ip_2.setText(sharedPreferences.getString("IP_1", null).toString())
+        }
+        if(sharedPreferences?.getString("VID_IP_1", null) != null){
+            vid_ip_1.setText(sharedPreferences.getString("VID_IP_1", null).toString())
+        }
+        if(sharedPreferences?.getString("VID_IP_2", null) != null) {
+            vid_ip_2.setText(sharedPreferences.getString("VID_IP_2", null).toString())
+        }
 
         val dialog: AlertDialog = builder.create()
 
@@ -314,13 +373,16 @@ class BotFragment : Fragment() {
             IP_ADDR_1 = ip_1.text.toString()
             IP_ADDR_2 = ip_2.text.toString()
 
+            VID_IP_ADDR_1 = vid_ip_1.text.toString()
+            VID_IP_ADDR_2 = vid_ip_2.text.toString()
+
             val editor : SharedPreferences.Editor = sharedPreferences!!.edit()
             editor.apply {
                 putString("IP_1", IP_ADDR_1)
                 putString("IP_2", IP_ADDR_2)
+                putString("VID_IP_1", VID_IP_ADDR_1)
+                putString("VID_IP_2", VID_IP_ADDR_2)
             }.apply()
-
-            Log.d("chk", IP_ADDR_1 + IP_ADDR_2)
 
             dialog.dismiss()
         }

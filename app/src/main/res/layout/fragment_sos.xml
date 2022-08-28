@@ -81,7 +81,7 @@
         android:layout_centerInParent="true"
         android:layout_alignTop="@+id/myRectangleView"
         android:layout_marginTop="127dp"
-        android:src="@drawable/sarvesh"
+        android:src="@drawable/old"
         app:civ_border_color="#FF000000"
         android:layout_width="158dp"
         android:layout_height="158dp"/>

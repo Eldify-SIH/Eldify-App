@@ -43,12 +43,14 @@ class BasicDetails : AppCompatActivity() {
         if(sharedPreferences.getString("USER_NAME", null) != null){
             val intent = Intent(this, MainActivity::class.java)
             startActivity(intent)
+            finish()
         }
 
         user_basic_details_submit.setOnClickListener {
             saveData()
             val intent = Intent(this, MainActivity::class.java)
             startActivity(intent)
+            finish()
         }
     }
 

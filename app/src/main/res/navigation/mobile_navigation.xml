@@ -13,7 +13,7 @@
 
     <fragment
         android:id="@+id/nav_gallery"
-        android:name="com.sih.eldify.ui.gallery.GalleryFragment"
+        android:name="com.sih.eldify.ui.yoga.YogaFragment"
         android:label="Yoga Se Hoga"
         tools:layout="@layout/fragment_gallery" />
     <fragment

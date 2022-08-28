@@ -73,18 +73,20 @@ class SosFragment : Fragment() {
         // TODO: Use the ViewModel
 
         val sharedPreferences = activity?.getSharedPreferences("IP_CONNECTION", Context.MODE_PRIVATE)
+        val sharedPreferencesBD = activity?.getSharedPreferences("BASIC_DETAILS", Context.MODE_PRIVATE)
+
+        sos_name.text = sharedPreferencesBD!!.getString("USER_NAME", null).toString()
 
         setIPAddress(sharedPreferences)
 
         sos_reconnect.setOnClickListener {
             setIPAddress(sharedPreferences)
+            stop()
             start()
         }
 
         sos_reconnect.setOnLongClickListener {
-
             createIPSetBuilder(sharedPreferences)
-
             true
         }
 
@@ -101,9 +103,8 @@ class SosFragment : Fragment() {
 
     private fun setIPAddress(sharedPreferences: SharedPreferences?) {
         if(sharedPreferences?.getString("IP_1", null) != null && sharedPreferences.getString("IP_2", null) != null) {
-            IP_ADDR_1 = sharedPreferences?.getString("IP_1", null)
-            IP_ADDR_2 = sharedPreferences?.getString("IP_2", null)
-            start()
+            IP_ADDR_1 = sharedPreferences.getString("IP_1", null)
+            IP_ADDR_2 = sharedPreferences.getString("IP_2", null)
         }else{
             createIPSetBuilder(sharedPreferences)
         }
@@ -132,6 +133,7 @@ class SosFragment : Fragment() {
     override fun onDestroy() {
         super.onDestroy()
         client.dispatcher.executorService.shutdown()
+        stop()
     }
 
     override fun onStop() {
@@ -304,7 +306,17 @@ class SosFragment : Fragment() {
     private fun onTimerFinished(){
         progress_countdown.progress = progress_countdown.getMax()
         textView_countdown.text = "SOS\nSent"
+        val sharedPreferencesBS = activity?.getSharedPreferences("BASIC_DETAILS", Context.MODE_PRIVATE)
+        val number_1 = sharedPreferencesBS?.getString("EM_CONTACT_1", null)
+        val number_2 = sharedPreferencesBS?.getString("EM_CONTACT_2", null)
+
+        sendSMS(number_1, "Emergency SOS sent by User")
+        sendSMS(number_2, "Emergency SOS sent by User")
+
         Log.d("SOS","Send The SOS Now")
+
+
+
     }
 
     private fun startTimer(){

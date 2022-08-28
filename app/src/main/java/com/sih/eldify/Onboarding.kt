@@ -35,16 +35,11 @@ class Onboarding : AppCompatActivity() {
 
     }
 
-//    fun skipButton(view: View){
-//        val intent = Intent(this, MainActivity::class.java)
-//        intent.flags=Intent.FLAG_ACTIVITY_CLEAR_TOP
-//        startActivity(intent)
-//    }
-
         fun skipButton(view: View){
         val intent = Intent(this, MainActivity::class.java)
         intent.flags=Intent.FLAG_ACTIVITY_CLEAR_TOP
         startActivity(intent)
+        finish()
     }
 
     private fun getDataforOnboarding(): ArrayList<PaperOnboardingPage>? {
