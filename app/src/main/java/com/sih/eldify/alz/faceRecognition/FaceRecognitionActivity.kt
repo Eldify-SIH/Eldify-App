@@ -3,8 +3,12 @@ package com.sih.eldify.alz.faceRecognition
 import android.Manifest
 import android.app.Activity
 import android.app.ProgressDialog
+import android.content.ContentValues
+import android.content.Context
 import android.content.Intent
 import android.content.pm.PackageManager
+import android.graphics.Bitmap
+import android.net.Uri
 import android.os.Build
 import android.os.Bundle
 import android.os.Environment
@@ -30,6 +34,7 @@ class FaceRecognitionActivity : AppCompatActivity() {
     var name: String? = null
     var mProgressDialog: ProgressDialog? = null
     var service: Service? = null
+    private val cameraRequestId  = 1222
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -64,25 +69,55 @@ class FaceRecognitionActivity : AppCompatActivity() {
     }
 
     private fun takePhoto() {
-        val takePictureIntent = Intent(MediaStore.ACTION_IMAGE_CAPTURE)
-        // Ensure that there's a camera activity to handle the intent
-        if (takePictureIntent.resolveActivity(packageManager) != null) {
-            // Create the File where the photo should go
-            var photoFile: File? = null
-            try {
-                photoFile = createImageFile()
-            } catch (ex: IOException) {
-                // Error occurred while creating the File
-                Log.d("FILE CREATION ERROR", ex.toString() + "")
+        val cameraInt = Intent(MediaStore.ACTION_IMAGE_CAPTURE)
+        startActivityForResult(cameraInt,cameraRequestId)
+    }
+
+    override fun onActivityResult(requestCode: Int, resultCode: Int, data: Intent?) {
+        super.onActivityResult(requestCode, resultCode, data)
+        if (requestCode == cameraRequestId){
+            /**save to Image In layout*/
+            val images:Bitmap = data?.extras?.get("data") as Bitmap
+            saveBitmap(this, images, Bitmap.CompressFormat.JPEG, "image/jpeg","myimage" )
+        }
+        if (requestCode == REQUEST_TAKE_PHOTO && resultCode == Activity.RESULT_OK) {
+            sendImageToServerDatabase()
+        }
+    }
+
+    @Throws(IOException::class)
+    fun saveBitmap(
+        context: Context, bitmap: Bitmap, format: Bitmap.CompressFormat,
+        mimeType: String, displayName: String
+    ): Uri {
+
+        val values = ContentValues().apply {
+            put(MediaStore.MediaColumns.DISPLAY_NAME, displayName)
+            put(MediaStore.MediaColumns.MIME_TYPE, mimeType)
+            put(MediaStore.MediaColumns.RELATIVE_PATH, Environment.DIRECTORY_DCIM)
+        }
+
+        var uri: Uri? = null
+
+        return runCatching {
+            with(context.contentResolver) {
+                insert(MediaStore.Images.Media.EXTERNAL_CONTENT_URI, values)?.also {
+                    uri = it // Keep uri reference so it can be removed on failure
+
+                    openOutputStream(it)?.use { stream ->
+                        if (!bitmap.compress(format, 95, stream))
+                            throw IOException("Failed to save bitmap.")
+                    } ?: throw IOException("Failed to open output stream.")
+
+                } ?: throw IOException("Failed to create new MediaStore record.")
             }
-            // Continue only if the File was successfully created
-            if (photoFile != null) {
-                val photoURI = FileProvider.getUriForFile(this,
-                        "com.sih.eldify.alz.fileprovider",
-                        photoFile)
-                takePictureIntent.putExtra(MediaStore.EXTRA_OUTPUT, photoURI)
-                startActivityForResult(takePictureIntent, 1)
+        }.getOrElse {
+            uri?.let { orphanUri ->
+                // Don't leave an orphan entry in the MediaStore
+                context.contentResolver.delete(orphanUri, null, null)
             }
+
+            throw it
         }
     }
 
@@ -102,14 +137,6 @@ class FaceRecognitionActivity : AppCompatActivity() {
         mCurrentPhotoPath = image.absolutePath
         Log.d("mCurrentPhoto", image.absolutePath)
         return image
-    }
-
-
-    override fun onActivityResult(requestCode: Int, resultCode: Int, data: Intent?) {
-        super.onActivityResult(requestCode, resultCode, data)
-        if (requestCode == REQUEST_TAKE_PHOTO && resultCode == Activity.RESULT_OK) {
-            sendImageToServerDatabase()
-        }
     }
 
     private fun sendImageToServerDatabase() {

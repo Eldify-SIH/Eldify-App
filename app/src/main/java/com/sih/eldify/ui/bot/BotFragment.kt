@@ -76,6 +76,8 @@ class BotFragment : Fragment() {
         reconnect_bot.setOnLongClickListener {
 
             createIPSetBuilder(sharedPreferences)
+            stop()
+            start()
 
             true
         }

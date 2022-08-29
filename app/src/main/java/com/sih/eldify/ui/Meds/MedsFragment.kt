@@ -6,9 +6,8 @@ import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
-import android.widget.TextView
 import androidx.fragment.app.Fragment
-import androidx.lifecycle.ViewModelProvider
+import com.sih.eldify.alz.dashboard.DashboardActivity
 import com.sih.eldify.databinding.FragmentMedsBinding
 
 
@@ -26,9 +25,23 @@ class MedsFragment : Fragment() {
         savedInstanceState: Bundle?
     ): View {
 
-        val intent = Intent()
-        intent.component = ComponentName("com.sih.eldify", "com.gautam.medicinetime.medicine.MedicineActivity")
-        startActivity(intent)
+//        val mIntent = activity?.packageManager?.getLaunchIntentForPackage("com.gautam.medicinetime.mock")
+//        if (mIntent != null) {
+//            try {
+//                startActivity(mIntent)
+//            } catch (e : ActivityNotFoundException) {
+//                Toast.makeText(activity,
+//                "App is not found", Toast.LENGTH_SHORT).show();
+//            }
+//
+//
+//        }
+
+//        val intent = Intent(Intent.ACTION_MAIN)
+//        intent.component = ComponentName("com.gautam.medicinetime.mock", "com.gautam.medicinetime.medicine.MedicineActivity")
+//        startActivity(intent)
+
+        startActivity(Intent(activity, DashboardActivity::class.java))
 
         val root: View = binding.root
 

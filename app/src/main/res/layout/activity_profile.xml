@@ -86,7 +86,7 @@
                     <de.hdodenhof.circleimageview.CircleImageView
                         android:layout_width="80dp"
                         android:layout_height="80dp"
-                        android:src="@drawable/dp"/>
+                        android:src="@drawable/old"/>
 
                     <LinearLayout
                         android:layout_marginLeft="20dp"
@@ -100,50 +100,14 @@
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
                             android:fontFamily="@font/crimsontext_regular"
-                            android:text="Sitaram Shelke"
+                            android:text="Ansh Gaikwad"
                             android:textColor="@color/colorBlack"
                             android:textSize="20dp" />
-
-                        <TextView
-                            android:layout_width="wrap_content"
-                            android:layout_height="wrap_content"
-                            android:fontFamily="@font/crimsontext_regular"
-                            android:text="Helping Others"
-                            android:textColor="@color/grey4"
-                            android:textSize="15dp" />
 
                     </LinearLayout>
 
                 </LinearLayout>
 
-                <LinearLayout
-                    android:layout_marginTop="10dp"
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:padding="10dp"
-                    android:gravity="center"
-                    android:background="@color/blue2"
-                    android:orientation="horizontal">
-
-                    <TextView
-                        android:textColor="@color/colorBlack"
-                        android:fontFamily="@font/crimsontext_regular"
-                        android:textSize="18dp"
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:text="Status:"/>
-
-                    <TextView
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:layout_marginLeft="10dp"
-                        android:fontFamily="@font/crimsontext_regular"
-                        android:maxLines="3"
-                        android:text="Hitting 70's in style"
-                        android:textColor="@color/grey4"
-                        android:textSize="17dp" />
-
-                </LinearLayout>
 
             </LinearLayout>
 
@@ -181,7 +145,35 @@
                         android:layout_marginLeft="25dp"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
-                        android:text="9442799642"
+                        android:text="Emergency Contact 1: 9442799642"
+                        android:fontFamily="@font/crimsontext_regular"
+                        android:textSize="17dp"
+                        android:textColor="@color/colorBlack"
+                        android:layout_gravity="center"/>
+
+
+                </LinearLayout>
+
+                <LinearLayout
+                    android:layout_weight="1"
+                    android:paddingTop="15dp"
+                    android:paddingBottom="15dp"
+                    android:paddingLeft="30dp"
+                    android:orientation="horizontal"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content">
+
+                    <ImageView
+                        android:layout_width="25dp"
+                        android:layout_gravity="center"
+                        android:layout_height="25dp"
+                        android:src="@drawable/ic_call_blue_24dp"/>
+
+                    <TextView
+                        android:layout_marginLeft="25dp"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:text="Emergency Contact 2: 9442799642"
                         android:fontFamily="@font/crimsontext_regular"
                         android:textSize="17dp"
                         android:textColor="@color/colorBlack"
@@ -204,7 +196,7 @@
                         android:layout_width="25dp"
                         android:layout_gravity="center"
                         android:layout_height="25dp"
-                        android:src="@drawable/ic_my_location_black_24dp"/>
+                        android:src="@drawable/ic_baseline_alternate_email_24"/>
 
                     <TextView
                         android:layout_width="wrap_content"
@@ -213,36 +205,7 @@
                         android:layout_marginLeft="25dp"
                         android:fontFamily="@font/crimsontext_regular"
                         android:maxLines="3"
-                        android:text="Room No. 212, K Block, Bandra,, Mumbai - 632014"
-                        android:textColor="@color/colorBlack"
-                        android:textSize="17dp" />
-
-                </LinearLayout>
-
-                <LinearLayout
-                    android:layout_weight="1"
-                    android:paddingTop="15dp"
-                    android:paddingBottom="15dp"
-                    android:paddingLeft="30dp"
-                    android:paddingRight="30dp"
-                    android:orientation="horizontal"
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content">
-
-                    <ImageView
-                        android:layout_width="25dp"
-                        android:layout_gravity="center"
-                        android:layout_height="25dp"
-                        android:src="@drawable/ic_cake_blue_24dp"/>
-
-                    <TextView
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:layout_gravity="center"
-                        android:layout_marginLeft="25dp"
-                        android:fontFamily="@font/crimsontext_regular"
-                        android:maxLines="3"
-                        android:text="01/01/1958"
+                        android:text="ansh@gmail.com"
                         android:textColor="@color/colorBlack"
                         android:textSize="17sp" />
 
