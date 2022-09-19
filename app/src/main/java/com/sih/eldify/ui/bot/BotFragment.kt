@@ -360,7 +360,7 @@ class BotFragment : Fragment() {
             ip_1.setText(sharedPreferences.getString("IP_1", null).toString())
         }
         if(sharedPreferences?.getString("IP_2", null) != null){
-            ip_2.setText(sharedPreferences.getString("IP_1", null).toString())
+            ip_2.setText(sharedPreferences.getString("IP_2", null).toString())
         }
         if(sharedPreferences?.getString("VID_IP_1", null) != null){
             vid_ip_1.setText(sharedPreferences.getString("VID_IP_1", null).toString())

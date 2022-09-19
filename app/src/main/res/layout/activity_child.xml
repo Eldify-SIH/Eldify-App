@@ -41,6 +41,19 @@
                 android:layout_height="350dp"
                 android:src="@drawable/childpose"/>
         </LinearLayout>
+
+        <Button
+            android:id="@+id/startbutton"
+            android:layout_width="wrap_content"
+            android:layout_height="30dp"
+            android:background="@android:color/holo_orange_dark"
+            android:textSize="20sp"
+            android:textColor="@android:color/holo_blue_bright"
+            android:textStyle="italic"
+            android:layout_marginBottom="100dp"
+            android:layout_marginTop="8dp"
+            android:layout_gravity="center"/>
+
     </LinearLayout>
     </ScrollView>
 
