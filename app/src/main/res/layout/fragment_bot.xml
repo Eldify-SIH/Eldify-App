@@ -1,0 +1,234 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent">
+
+    <View
+        android:id="@+id/myRectangleView"
+        android:layout_width="match_parent"
+        android:layout_height="300dp"
+        android:layout_alignParentTop="true"
+        android:background="@drawable/rectangle"
+        android:backgroundTint="#5DB075"
+        app:layout_constraintLeft_toLeftOf="parent"
+        app:layout_constraintRight_toRightOf="parent"
+        app:layout_constraintTop_toTopOf="parent" />
+
+    <androidx.cardview.widget.CardView
+        android:id="@+id/cardView"
+        android:layout_width="match_parent"
+        android:layout_height="280dp"
+        android:layout_marginHorizontal="10dp"
+        app:cardCornerRadius="20dp"
+        app:layout_constraintBottom_toBottomOf="@id/myRectangleView"
+        app:layout_constraintHorizontal_bias="0.473"
+        app:layout_constraintLeft_toLeftOf="@id/myRectangleView"
+        app:layout_constraintRight_toRightOf="@id/myRectangleView"
+        app:layout_constraintTop_toTopOf="parent">
+
+        <ImageView
+            android:id="@+id/camImg"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:layout_margin="10dp"
+            android:src="@drawable/ic_baseline_videocam_24" />
+
+        <WebView
+            android:id="@+id/webView"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:backgroundTint="#5DB075"
+            android:visibility="gone"
+            app:layout_constraintBottom_toBottomOf="@id/myRectangleView"
+            app:layout_constraintLeft_toLeftOf="@id/myRectangleView"
+            app:layout_constraintRight_toRightOf="@id/myRectangleView"
+            app:layout_constraintTop_toBottomOf="@id/status" />
+
+    </androidx.cardview.widget.CardView>
+
+    <androidx.appcompat.widget.AppCompatButton
+        android:id="@+id/reconnect_bot"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="16dp"
+        android:background="@drawable/button"
+        android:backgroundTint="#5DB075"
+        android:text="Reconnect"
+        android:textColor="@color/white"
+        android:textSize="16sp"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/myRectangleView" />
+
+    <ImageView
+        android:id="@+id/imageViewBot"
+        android:layout_width="360dp"
+        android:layout_height="270dp"
+        android:layout_marginTop="24dp"
+        android:src="@drawable/ic_controller"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.49"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/reconnect_bot" />
+
+    <View
+        android:id="@+id/controllerleftarrow"
+        android:layout_width="50dp"
+        android:layout_height="50dp"
+        android:layout_alignParentLeft="true"
+        android:layout_alignParentTop="true"
+        android:background="@drawable/rectangle_1"
+        app:layout_constraintBottom_toBottomOf="@+id/imageViewBot"
+        app:layout_constraintEnd_toEndOf="@+id/imageViewBot"
+        app:layout_constraintHorizontal_bias="0.268"
+        app:layout_constraintStart_toStartOf="@+id/imageViewBot"
+        app:layout_constraintTop_toTopOf="@+id/imageViewBot" />
+
+    <View
+        android:id="@+id/controllerrightarrow"
+        android:layout_width="50dp"
+        android:layout_height="50dp"
+        android:layout_alignParentLeft="true"
+        android:layout_alignParentTop="true"
+        android:background="@drawable/rectangle_1"
+        app:layout_constraintBottom_toBottomOf="@+id/imageViewBot"
+        app:layout_constraintEnd_toEndOf="@+id/imageViewBot"
+        app:layout_constraintHorizontal_bias="0.74"
+        app:layout_constraintStart_toStartOf="@+id/imageViewBot"
+        app:layout_constraintTop_toTopOf="@+id/imageViewBot" />
+
+    <View
+        android:id="@+id/controlleruparrow"
+        android:layout_width="50dp"
+        android:layout_height="50dp"
+        android:layout_alignParentLeft="true"
+        android:layout_alignParentTop="true"
+        android:background="@drawable/rectangle_1"
+        app:layout_constraintBottom_toBottomOf="@+id/imageViewBot"
+        app:layout_constraintEnd_toEndOf="@+id/imageViewBot"
+        app:layout_constraintStart_toStartOf="@+id/imageViewBot"
+        app:layout_constraintTop_toTopOf="@+id/imageViewBot"
+        app:layout_constraintVertical_bias="0.353" />
+
+    <View
+        android:id="@+id/controllerdownarrow"
+        android:layout_width="50dp"
+        android:layout_height="50dp"
+        android:layout_alignParentLeft="true"
+        android:layout_alignParentTop="true"
+        android:background="@drawable/rectangle_1"
+        app:layout_constraintBottom_toBottomOf="@+id/imageViewBot"
+        app:layout_constraintEnd_toEndOf="@+id/imageViewBot"
+        app:layout_constraintStart_toStartOf="@+id/imageViewBot"
+        app:layout_constraintTop_toTopOf="@+id/imageViewBot"
+        app:layout_constraintVertical_bias="0.64" />
+
+    <ImageButton
+        android:id="@+id/btn_controller_left"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:backgroundTint="#5DB075"
+        android:src="@drawable/ic_baseline_arrow_back_ios_24"
+        app:layout_constraintBottom_toBottomOf="@id/controllerleftarrow"
+        app:layout_constraintHorizontal_bias="0.653"
+        app:layout_constraintLeft_toLeftOf="@id/controllerleftarrow"
+        app:layout_constraintRight_toRightOf="@id/controllerleftarrow"
+        app:layout_constraintTop_toTopOf="@+id/controllerleftarrow" />
+
+    <ImageButton
+        android:id="@+id/btn_controller_right"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:backgroundTint="#5DB075"
+        android:src="@drawable/ic_baseline_arrow_forward_ios_24"
+        app:layout_constraintBottom_toBottomOf="@id/controllerrightarrow"
+        app:layout_constraintHorizontal_bias="0.538"
+        app:layout_constraintLeft_toLeftOf="@id/controllerrightarrow"
+        app:layout_constraintRight_toRightOf="@id/controllerrightarrow"
+        app:layout_constraintTop_toTopOf="@+id/controllerrightarrow" />
+
+    <ImageButton
+        android:id="@+id/btn_controller_forward"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:backgroundTint="#5DB075"
+        android:src="@drawable/ic_baseline_keyboard_arrow_up_24"
+        app:layout_constraintBottom_toBottomOf="@id/controlleruparrow"
+        app:layout_constraintHorizontal_bias="0.538"
+        app:layout_constraintLeft_toLeftOf="@id/controlleruparrow"
+        app:layout_constraintRight_toRightOf="@id/controlleruparrow"
+        app:layout_constraintTop_toTopOf="@+id/controlleruparrow" />
+
+    <ImageButton
+        android:id="@+id/btn_controller_backward"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:backgroundTint="#5DB075"
+        android:src="@drawable/ic_baseline_keyboard_arrow_down_24"
+        app:layout_constraintBottom_toBottomOf="@id/controllerdownarrow"
+        app:layout_constraintHorizontal_bias="0.538"
+        app:layout_constraintLeft_toLeftOf="@id/controllerdownarrow"
+        app:layout_constraintRight_toRightOf="@id/controllerdownarrow"
+        app:layout_constraintTop_toTopOf="@+id/controllerdownarrow" />
+
+    <androidx.cardview.widget.CardView
+        android:id="@+id/color_controller"
+        android:layout_width="24dp"
+        android:layout_height="24dp"
+        android:layout_centerHorizontal="true"
+        android:layout_marginBottom="224dp"
+        android:backgroundTint="#5DB075"
+        android:elevation="12dp"
+        app:cardCornerRadius="40dp"
+        app:layout_constraintBottom_toBottomOf="@+id/imageViewBot"
+        app:layout_constraintEnd_toEndOf="@+id/imageViewBot"
+        app:layout_constraintHorizontal_bias="0.493"
+        app:layout_constraintStart_toStartOf="@+id/imageViewBot"
+        app:layout_constraintTop_toTopOf="@+id/imageViewBot"
+        app:layout_constraintVertical_bias="2" />
+
+    <TextView
+        android:id="@+id/tv_controller_command"
+        android:layout_width="wrap_content"
+        android:layout_height="36dp"
+        android:layout_gravity="center_vertical|center_horizontal"
+        android:layout_marginLeft="16dp"
+        android:layout_marginRight="16dp"
+        android:layout_marginBottom="5dp"
+        android:layout_weight="2"
+        android:gravity="center_horizontal|center_vertical"
+        android:padding="1dp"
+        android:text="Command"
+        android:textColor="#5DB075"
+        android:textSize="30sp"
+        android:textStyle="bold"
+        app:layout_constraintBottom_toTopOf="@+id/hfSwitch"
+        app:layout_constraintHorizontal_bias="0.502"
+        app:layout_constraintLeft_toLeftOf="@id/imageViewBot"
+        app:layout_constraintRight_toRightOf="@id/imageViewBot" />
+
+    <androidx.appcompat.widget.SwitchCompat
+        android:id="@+id/hfSwitch"
+        android:layout_width="80dp"
+        android:layout_height="22dp"
+        android:layout_marginBottom="80dp"
+        android:text="Human Following"
+        android:textColor="#5DB075"
+        android:textSize="5dp"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.498"
+        app:layout_constraintStart_toStartOf="parent" />
+
+    <TextView
+        android:id="@+id/status"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="Status"
+        app:layout_constraintBottom_toTopOf="@+id/tv_controller_command"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent" />
+
+</androidx.constraintlayout.widget.ConstraintLayout>

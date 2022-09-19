@@ -1,3 +1,114 @@
 <resources>
     <string name="app_name">Eldify</string>
+    <string name="navigation_drawer_open">Open navigation drawer</string>
+    <string name="navigation_drawer_close">Close navigation drawer</string>
+    <string name="nav_header_title">Android Studio</string>
+    <string name="nav_header_subtitle">android.studio@android.com</string>
+    <string name="nav_header_desc">Navigation header</string>
+    <string name="action_settings">Settings</string>
+    <string name="video">Video Conferencing</string>
+    <string name="bot">Bot Control</string>
+    <string name="sos">SOS</string>
+    <string name="fab_content_desc">Mic Start</string>
+    <string name="first_message">Hello, how can I help you?</string>
+    <string name="second_message">Can you tell me something?</string>
+    <string name="OPEN_WEATHER_MAP_API_KEY">e2f18082ff618ac5a563a175973a3360</string>
+
+    <string name="menu_home">Home</string>
+    <string name="menu_gallery">Gallery</string>
+    <string name="menu_slideshow">Slideshow</string>
+
+    <string name="title_medicine_name">Medicine Name</string>
+    <string name="hint_enter_med_name">Enter Medicine</string>
+    <string name="medicine_days">Medicine Days</string>
+    <string name="title_treatment_deadline">Treatment deadline</string>
+    <string name="title_continuous_use">Continuous use</string>
+    <string name="title_reminder">Reminder</string>
+    <string name="new_medicine">NEW MEDICINE</string>
+    <string name="every_day">Every day</string>
+    <string name="no_medicine_added">No Medicine Added</string>
+    <string name="loading_tasks_error">Error while loading medicineAlarms</string>
+    <string name="successfully_saved_me_message">Medicine Added Successfully</string>
+    <string name="successfully_deleted_message">Medicine deleted Successfully</string>
+    <string name="reminder_message">It\'s Time to take your medicine</string>
+    <string name="ignored">IGNORED</string>
+    <string name="taken">TAKEN</string>
+    <string name="all">ALL</string>
+    <string name="menu_filter">Filter</string>
+    <string name="all_label">All Medicines</string>
+    <string name="ignore_label">Medicines Ignored</string>
+    <string name="taken_label">Medicine Taken</string>
+    <string name="no_history">No History Found</string>
+    <string name="no_taken_med_history">You have not taken any medicine</string>
+    <string name="no_ignored_history">Well Done</string>
+    <string name="menu_stats">Monthly Report</string>
+
+    <string name="open">Open</string>
+    <string name="close">Close</string>
+
+    <string name="boat_pose">
+           Step1:  Sit with your knees bent, feet on the floor. Place your hands behind your knees,\n
+                   lift the chest, engaging the back muscles as you inhale\n\n
+           Step2:  Engage your inner thighs and draw your lower belly in and up\n\n
+           Step3:  Tip back on the back of your sitting bones and lift your feet up to about knee height, toes spread out\n\n
+           Step4:  Bring your arms parallel to the floor\n\n
+           Step5:  To go further, straighten your legs\n\n
+           Step6:  Stay for 2-5 breaths, work up to 10 breaths\n\n
+           Step7:  To come out of the pose, on an exhalation bring your feet down, and sit with a straight spine,\n
+                   holding on to your legs for a couple of breaths\n\n</string>
+    <string name="bow_pose">
+           Step1:  Lie on your belly, with your hands by your side, palms facing up\n\n
+           Step2:  Bend your knees and take hold of your ankles with your hands\n\n
+           Step3:  Press your pubic bone down, draw your lower belly in and up\n\n
+           Step4:  On an inhalation, press your ankles in your hands, lifting your chest and thighs\n\n
+           Step5:  Slide your shoulder blades down and towards each other to open your chest\n\n
+           Step6:  Stay for a few breaths, breathing into your chest and ribs\n\n
+           Step7:  On an exhalation, release your ankles, and gently lie down on your belly for a few breaths.\n
+    </string>
+    <string name="bridge_pose">
+           Step1:  Lying on your back, place your feet flat on the floor, a comfortable distance away from the hips\n\n
+           Step2:  Place your arms next to the ribcage. You can either bend your elbows 90 degrees,\n
+                   so that your fingers are pointing to the ceiling or hold onto the outer edges of your mat\n\n
+           Step3:  On an inhalation, press the back of your shoulders and your feet into the floor and lift your hips up\n\n
+           Step4:  Press the inner feet down actively and keep the knees from spreading out wide, by engaging the inner thighs\n\n
+           Step5:  Lengthen your tailbone, slide your shoulder blades down your back and keep your neck neutral\n\n
+           Step6:  You can clasp your hands behind your back Stay for 5 to 15 breaths\n\n
+           Step7:  To come out of the pose, release the arms and roll your spine down on an out-breath\n
+    </string>
+    <string name="chair_pose">
+                   From Mountain pose / Tadasana\n
+           Step1:  Exhale as you bend your knees and move your hips back as if you were sitting down on a chair.\n
+                   Draw your lower abdomen in and up to support your lower back\n\n
+           Step2:  Send your hips back rather than your knees forward, so that you can still see your toes\n\n
+           Step3:  Inhale as you raise your arms up around your ears and soften your shoulders\n\n
+           Step4:  Keep reaching higher, while sitting lower for 5 to 10 breaths\n\n
+           Step5:  To come back into in Tadasana, exhale, as you press your feet down to straighten your legs and then\n
+                   bring your arms down to your sides.\n
+    </string>
+    <string name="child_pose">
+           Step1:  Sit on your heels and bring your head down to the floor, on stacked fists or a block.\n\n
+           Step2:  Arms can be either stretched out to the front, by your side or hands underneath your forehead.\n\n
+           Step3:  Hold the pose for 3 to 5 minutes.\n\n
+           Step4:  To come out, roll up vertebra by vertebra, head comes up last.\n\n
+           Step5:  Sit on your heels for a few moments.\n\n
+    </string>
+    <string name="cobblers_pose">
+           Step1:  It is important to have the pelvis in a neutral position, so sitting on stacked blankets etc\n
+                   might be necessary to make that happen. When the pelvis is able to tilt forward,\n
+                   you can come into the forward bend variation like in the picture. Otherwise,\n
+                   hold on to your feet and keep sitting straight up.\n\n
+           Step2: In the full pose, the knees are on the floor, but in reality that isn’t happening for a lot of people.\n
+                  Accept that your knees can be anywhere from as high as your shoulders to half way down or lower! It’s all ok,\n
+                  you will all still get the benefits.\n\n
+           Step3: Do not force the knees down in this pose, rather release the head of the thighbones\n
+                  (top of the thighbones) to the floor, and let the knees flow, following that action.\n
+                  You can stay anywhere from 1-5 minutes in this pose.\n
+    </string>
+    <string name="cow_pose">
+           Step1: Start from all fours - in a tabletop position.\n
+                  Your knees under your hips and wrists under your shoulders or slightly forwards of them.\n\n
+           Step2: Spread your fingers, root down through the base of the fingers and press your fingers on the mat.\n\n
+           Step3: On an inhalation, lower the belly, lift your chest, tailbone pointing up and look up.\n\n
+           Step4: Exhale, come back into your neutral tabletop position.\n\n
+    </string>
 </resources>

@@ -1,0 +1,203 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    app:layout_behavior="@string/appbar_scrolling_view_behavior"
+    tools:showIn="@layout/fragment_sos">
+
+    <View
+        android:id="@+id/myRectangleView"
+        android:layout_width="match_parent"
+        android:layout_height="250dp"
+        android:layout_alignParentTop="true"
+        android:background="@drawable/rectangle"
+        android:backgroundTint="#5DB075" />
+
+    <RelativeLayout
+        android:id="@+id/pageHeader"
+        android:layout_width="0dp"
+        android:layout_height="36dp"
+        android:layout_alignParentStart="true"
+        android:layout_marginLeft="15dp"
+        android:layout_alignParentEnd="true"
+        android:layout_marginRight="15dp"
+        android:layout_alignParentTop="true"
+        android:layout_marginTop="20dp">
+
+        <LinearLayout
+            android:id="@+id/buttonWrapper"
+            android:orientation="horizontal"
+            android:background="#5DB075"
+            android:layout_height="match_parent"
+            android:layout_width="match_parent">
+
+            <Button
+                android:id="@+id/sos_reconnect"
+                style="@style/Widget.AppCompat.Button.Borderless"
+                android:layout_width="65dp"
+                android:layout_height="36dp"
+                android:layout_weight="1"
+                android:text="Reconnect"
+                android:textSize="16sp"
+                android:textColor="#FFFFFF"
+                android:backgroundTint="#5DB075"
+                android:layout_gravity="center_vertical|center_horizontal"
+                android:padding="1dp"/>
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="36dp"
+                android:layout_weight="2"
+                android:gravity="center_horizontal|center_vertical"
+                android:text="Profile"
+                android:textColor="#FFFFFF"
+                android:textSize="30sp"
+                android:layout_gravity="center_vertical|center_horizontal"
+                android:padding="1dp"
+                android:textStyle="bold"/>
+
+            <Button
+                android:id="@+id/dummy"
+                style="@style/Widget.AppCompat.Button.Borderless"
+                android:layout_width="65dp"
+                android:layout_height="36dp"
+                android:text="Sent ASAP"
+                android:layout_weight="1"
+                android:textSize="16sp"
+                android:textColor="#FFFFFF"
+                android:backgroundTint="#5DB075"
+                android:layout_gravity="center_vertical|center_horizontal"
+                android:padding="1dp"/>
+
+
+        </LinearLayout>
+    </RelativeLayout>
+
+    <de.hdodenhof.circleimageview.CircleImageView
+        android:id="@+id/myprofilephoto"
+        app:civ_border_width="0dp"
+        android:layout_centerInParent="true"
+        android:layout_alignTop="@+id/myRectangleView"
+        android:layout_marginTop="127dp"
+        android:src="@drawable/old"
+        app:civ_border_color="#FF000000"
+        android:layout_width="158dp"
+        android:layout_height="158dp"/>
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:orientation="horizontal">
+        <LinearLayout
+            android:layout_width="wrap_content"
+            android:layout_height="match_parent"
+            android:orientation="vertical"
+            android:layout_weight="2">
+
+            <RelativeLayout
+                android:id="@+id/parentRelative"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:gravity="center">
+
+                <ProgressBar
+                    android:id="@+id/progress_countdown"
+                    style="?android:attr/progressBarStyleHorizontal"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginStart="100dp"
+                    android:layout_marginTop="300dp"
+                    android:layout_marginEnd="0dp"
+                    android:background="@drawable/circular_shape"
+                    android:backgroundTint="#B90B0B"
+                    android:indeterminate="false"
+                    android:minWidth="300dp"
+                    android:minHeight="300dp"
+                    android:progressDrawable="@drawable/circular_progress_bar"
+                    android:progressTint="#B90B0B"
+                    android:textAlignment="center"
+                    app:layout_constraintBottom_toBottomOf="parent"
+                    app:layout_constraintEnd_toEndOf="parent" />
+
+                <com.apachat.circularbutton.core.CircularButtonText
+                    android:id="@+id/textView_countdown"
+                    android:layout_width="64dp"
+                    android:layout_height="64dp"
+                    android:layout_alignStart="@+id/progress_countdown"
+                    android:layout_alignTop="@+id/progress_countdown"
+                    android:layout_alignEnd="@+id/progress_countdown"
+                    android:layout_alignBottom="@+id/progress_countdown"
+                    android:layout_marginStart="12dp"
+                    android:layout_marginTop="12dp"
+                    android:layout_marginEnd="12dp"
+                    android:layout_marginBottom="12dp"
+                    android:text="Sending SOS\nTap To Stop"
+                    android:textColor="#B90B0B"
+                    android:textSize="25sp"
+                    app:cb_color="#ffffff"
+                    app:cb_pressedRingWidth="8dp" />
+
+                <TextView
+                    android:id="@+id/sos_name"
+                    android:layout_width="190dp"
+                    android:layout_height="36dp"
+                    android:layout_alignParentTop="true"
+                    android:layout_marginStart="110dp"
+                    android:layout_marginTop="220dp"
+                    android:gravity="center_horizontal|center_vertical"
+                    android:text="Sarvesh Patil"
+                    android:textColor="#000000"
+                    android:textSize="30sp"
+                    android:textStyle="bold" />
+
+                <TextView
+                    android:id="@+id/sos_ip_connect"
+                    android:layout_width="155dp"
+                    android:layout_height="50dp"
+                    android:layout_alignTop="@id/sos_name"
+                    android:layout_marginStart="125dp"
+                    android:layout_marginTop="20dp"
+                    android:gravity="center_horizontal|center_vertical"
+                    android:text="Status"
+                    android:textColor="#000000"
+                    android:textSize="16sp"
+                    android:textStyle="bold" />
+            </RelativeLayout>
+        </LinearLayout>
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:orientation="vertical"
+            android:layout_weight="7">
+
+            <!--            <RelativeLayout-->
+            <!--                android:layout_width="match_parent"-->
+            <!--                android:layout_height="match_parent"-->
+            <!--                android:layout_marginBottom="70dp"-->
+            <!--                android:orientation="vertical"-->
+            <!--                android:padding="10dp"-->
+            <!--                android:gravity="center|bottom">-->
+
+            <!--                <com.google.android.material.floatingactionbutton.FloatingActionButton-->
+            <!--                    android:id="@+id/fab"-->
+            <!--                    android:layout_width="wrap_content"-->
+            <!--                    android:layout_height="wrap_content"-->
+            <!--                    android:layout_alignParentBottom="true"-->
+            <!--                    android:layout_marginStart="0dp"-->
+            <!--                    android:layout_marginTop="0dp"-->
+            <!--                    android:layout_marginEnd="0dp"-->
+            <!--                    android:layout_marginBottom="0dp"-->
+            <!--                    android:background="@color/purple_200"-->
+            <!--                    android:contentDescription="@string/app_name"-->
+            <!--                    android:padding="4dp"-->
+            <!--                    android:src="@drawable/ic_baseline_mic_24"-->
+            <!--                    app:backgroundTint="#5DB075"-->
+            <!--                    app:tint="@color/black" />-->
+            <!--            </RelativeLayout>-->
+        </LinearLayout>
+    </LinearLayout>
+
+</RelativeLayout>

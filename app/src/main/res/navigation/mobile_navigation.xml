@@ -1,0 +1,44 @@
+<?xml version="1.0" encoding="utf-8"?>
+<navigation xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/mobile_navigation"
+    app:startDestination="@+id/sosFragment">
+
+    <fragment
+        android:id="@+id/nav_home"
+        android:name="com.sih.eldify.ui.Meds.MedsFragment"
+        android:label="Medicine Reminders"
+        tools:layout="@layout/fragment_meds" />
+
+    <fragment
+        android:id="@+id/nav_gallery"
+        android:name="com.sih.eldify.ui.yoga.YogaFragment"
+        android:label="Yoga Fragment"
+        tools:layout="@layout/fragment_gallery" />
+    <fragment
+        android:id="@+id/nav_settings"
+        android:name="com.sih.eldify.ui.settings.SettingsFragment"
+        android:label="Settings"
+        tools:layout="@layout/fragment_settings" />
+    <fragment
+        android:id="@+id/botFragment"
+        android:name="com.sih.eldify.ui.bot.BotFragment"
+        android:label="Bot Control"
+        tools:layout="@layout/fragment_bot" />
+    <fragment
+        android:id="@+id/sosFragment"
+        android:name="com.sih.eldify.ui.sos.SosFragment"
+        android:label="SOS"
+        tools:layout="@layout/fragment_sos" />
+    <fragment
+        android:id="@+id/videoFragment"
+        android:name="com.sih.eldify.ui.video.VideoFragment"
+        android:label="Video Conferencing"
+        tools:layout="@layout/fragment_video" />
+    <fragment
+        android:id="@+id/nav_az"
+        android:name="com.sih.eldify.ui.aizi.AizeimerFragment"
+        android:label="Aizeimer Fragment"
+        tools:layout="@layout/fragment_aizeimer" />
+</navigation>
